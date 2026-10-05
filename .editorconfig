@@ -1,0 +1,109 @@
+root = true
+
+# ────────────────────────────────────────────────────────────────
+# Default — production baseline (matches .gitattributes eol=lf,
+# .pre-commit mixed-line-ending --fix=lf, AGENTS.md)
+# ────────────────────────────────────────────────────────────────
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+max_line_length = 88
+
+# ────────────────────────────────────────────────────────────────
+# Build & Make — MUST be tabs (AGENTS.md § Makefile)
+# ────────────────────────────────────────────────────────────────
+[Makefile]
+indent_style = tab
+indent_size = 4
+[*.mk]
+indent_style = tab
+
+# ────────────────────────────────────────────────────────────────
+# Python — PEP 8 / Ruff (88 cols), 4 spaces
+# ────────────────────────────────────────────────────────────────
+[*.py]
+indent_style = space
+indent_size = 4
+max_line_length = 88
+
+# ────────────────────────────────────────────────────────────────
+# Shell — Bash (scripts/shell, .githooks, setup-hooks)
+# AGENTS.md: set -euo pipefail, quoted vars, functions
+# ────────────────────────────────────────────────────────────────
+[*.sh]
+indent_style = space
+indent_size = 4
+[*.bash]
+indent_style = space
+indent_size = 4
+[.githooks/*]
+indent_style = space
+indent_size = 4
+end_of_line = lf
+
+# ────────────────────────────────────────────────────────────────
+# PowerShell — scripts/ps1 (AGENTS.md: Verb-Noun, Join-Path)
+# ────────────────────────────────────────────────────────────────
+[*.ps1]
+indent_style = space
+indent_size = 4
+[*.psm1]
+indent_style = space
+indent_size = 4
+[*.psd1]
+indent_style = space
+indent_size = 4
+
+# ────────────────────────────────────────────────────────────────
+# SQL — postgres dialect, 2 spaces (sql/ analytics library)
+# ────────────────────────────────────────────────────────────────
+[*.sql]
+indent_style = space
+indent_size = 4
+max_line_length = 120
+
+# ────────────────────────────────────────────────────────────────
+# Config / IaC — 2 spaces
+# ────────────────────────────────────────────────────────────────
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+[*.{json,jsonc}]
+indent_style = space
+indent_size = 2
+[*.toml]
+indent_style = space
+indent_size = 2
+[*.ini]
+indent_style = space
+indent_size = 2
+[Dockerfile]
+indent_style = space
+indent_size = 2
+[*.dockerfile]
+indent_style = space
+indent_size = 2
+[docker-compose.yml]
+indent_style = space
+indent_size = 2
+
+# ────────────────────────────────────────────────────────────────
+# Docs — Markdown (allow trailing whitespace for line breaks)
+# ────────────────────────────────────────────────────────────────
+[*.md]
+trim_trailing_whitespace = false
+indent_style = space
+indent_size = 2
+max_line_length = 120
+
+# ────────────────────────────────────────────────────────────────
+# Windows batch — keep CRLF if ever added (see .gitattributes)
+# ────────────────────────────────────────────────────────────────
+[*.{bat,cmd}]
+end_of_line = crlf
+indent_style = space
+indent_size = 4
