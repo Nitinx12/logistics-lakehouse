@@ -234,7 +234,7 @@ flowchart LR
 | Source | Location | Objects | Notes |
 |---|---|---|---|
 | MongoDB (local) | `fleet_operations` | `delivery_events`, `maintenance_records`, `safety_incidents` | From CSV; `loaded_at` available |
-| Databricks | `logistics_operations.default` | `customers`, `drivers`, `facilities`, `fuel_purchases`, `loads`, `routes`, `trailers`, `trips`, `trucks` | One table per CSV, all columns STRING; `loaded_at` available |
+| Databricks | `logistics_operations.default` | `customers`, `drivers`, `facilities`, `fuel_purchases`, `loads`, `routes`, `trailers`, `trips`, `trucks` | Typed columns (string, bigint, double, date, timestamp); `loaded_at` available |
 
 ### 6.2 Load Mode per Table
 
