@@ -1,0 +1,112 @@
+
+LOGISTICS DATABASE SCHEMA
+=========================
+
+1. DRIVERS
+   - Primary Key: driver_id
+   - Contains: Driver demographics, employment history, license info
+   - Stored in: Databricks logistics_operations.default.drivers
+   
+2. TRUCKS
+   - Primary Key: truck_id
+   - Contains: Fleet equipment details, acquisition info, status
+   - Stored in: Databricks logistics_operations.default.trucks
+   
+3. TRAILERS
+   - Primary Key: trailer_id
+   - Contains: Trailer inventory, types, status
+   - Stored in: Databricks logistics_operations.default.trailers
+   
+4. CUSTOMERS
+   - Primary Key: customer_id
+   - Contains: Customer accounts, contract types, revenue potential
+   - Stored in: Databricks logistics_operations.default.customers
+   
+5. FACILITIES
+   - Primary Key: facility_id
+   - Contains: Terminal and warehouse locations, capacity
+   - Stored in: Databricks logistics_operations.default.facilities
+   
+6. ROUTES
+   - Primary Key: route_id
+   - Contains: Origin-destination pairs, distances, rate structures
+   - Stored in: Databricks logistics_operations.default.routes
+   
+7. LOADS
+   - Primary Key: load_id
+   - Foreign Keys: customer_id, route_id
+   - Contains: Shipment details, revenue, booking type
+   - Stored in: Databricks logistics_operations.default.loads
+   
+8. TRIPS
+   - Primary Key: trip_id
+   - Foreign Keys: load_id, driver_id, truck_id, trailer_id
+   - Contains: Actual trip performance, fuel consumption, duration
+   - Stored in: Databricks logistics_operations.default.trips
+   
+9. FUEL_PURCHASES
+   - Primary Key: fuel_purchase_id
+   - Foreign Keys: trip_id, truck_id, driver_id
+   - Contains: Fuel transactions, prices, locations
+   - Stored in: Databricks logistics_operations.default.fuel_purchases
+   
+10. MAINTENANCE_RECORDS
+    - Primary Key: maintenance_id
+    - Foreign Keys: truck_id
+    - Contains: Service history, costs, downtime
+    - Stored in: MongoDB fleet_operations.maintenance_records
+    
+11. DELIVERY_EVENTS
+    - Primary Key: event_id
+    - Foreign Keys: load_id, trip_id, facility_id
+    - Contains: Pickup/delivery timestamps, detention, on-time status
+    - Stored in: MongoDB fleet_operations.delivery_events
+    
+12. SAFETY_INCIDENTS
+    - Primary Key: incident_id
+    - Foreign Keys: trip_id, truck_id, driver_id
+    - Contains: Accidents, violations, damage costs
+    - Stored in: MongoDB fleet_operations.safety_incidents
+
+13. DRIVER_MONTHLY_METRICS (Aggregated, local CSV only - not loaded yet)
+    - Composite Key: driver_id, month
+    - Contains: Monthly performance summaries per driver
+    - Stored in: data/marts/driver_monthly_metrics.csv (not in any database)
+
+14. TRUCK_UTILIZATION_METRICS (Aggregated, local CSV only - not loaded yet)
+    - Composite Key: truck_id, month
+    - Contains: Monthly equipment utilization summaries
+    - Stored in: data/marts/truck_utilization_metrics.csv (not in any database)
+
+
+KEY RELATIONSHIPS:
+- loads -> customers (many-to-one)
+- loads -> routes (many-to-one)
+- trips -> loads (one-to-one)
+- trips -> drivers (many-to-one)
+- trips -> trucks (many-to-one)
+- trips -> trailers (many-to-one)
+- fuel_purchases -> trips (many-to-one)
+- maintenance_records -> trucks (many-to-one)
+- delivery_events -> trips (many-to-one)
+- safety_incidents -> trips (many-to-one)
+
+ANALYTICAL USE CASES:
+1. Driver performance: On-time rates, MPG, revenue per mile
+2. Route profitability: Revenue vs costs by lane
+3. Fleet utilization: Miles per truck, revenue per asset
+4. Maintenance analysis: Cost per mile, downtime impact
+5. Fuel efficiency: MPG trends, fuel cost by route
+6. Customer analysis: Revenue by customer, service levels
+7. Safety metrics: Incident rates, preventable accidents
+8. Seasonal patterns: Load volume, rate fluctuations
+
+STORAGE SUMMARY:
+- Databricks logistics_operations.default (tables 1-9, all STRING columns)
+- MongoDB fleet_operations (tables 10-12, collections)
+- Local CSVs only, data/marts/ (tables 13-14, not loaded yet)
+- Full per-file map: see DATA_LOCATIONS.txt
+
+COMMON COLUMNS:
+- loaded_at: UTC load timestamp, present on all tables except the marts (13-14).
+  Added with: uv run scripts/add_loaded_at.py

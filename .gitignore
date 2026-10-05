@@ -1,0 +1,34 @@
+# =======================================
+# Raw Data
+# =======================================
+data/
+
+# Secrets - never commit (.env.example stays tracked as the template)
+.env
+.env.local
+.env.*.local
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Tools / test caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.gx/
+
+# Logs (LOG_DIR=logs)
+logs/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Keep uv.lock TRACKED (reproducible deps per ARCHITECTURE.md)
