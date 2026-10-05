@@ -1,0 +1,26 @@
+# .dockerignore — keep build contexts small; secrets never enter images.
+# (No Dockerfiles yet; this applies the moment the first one lands.)
+
+.env
+.env.local
+.env.*.local
+
+.venv/
+__pycache__/
+*.py[cod]
+
+.git/
+.gitignore
+
+data/
+notebooks/plots/
+notebooks/stats_*.json
+logs/
+
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+.vscode/
+.idea/
+.DS_Store

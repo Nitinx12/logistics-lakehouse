@@ -1,0 +1,185 @@
+# compose.yml — lakehouse local stack (ARCHITECTURE.md §15)
+#
+#   make up                  core profile: warehouse + airflow + spark runner
+#   PROFILE=stream make up    + kafka KRaft + redis cache
+#   docker compose --profile all up -d   everything defined here
+#
+# Settings come from .env (gitignored, see .env.example). Compose fails fast
+# on missing secrets via ${VAR:?msg}. Only dev-facing ports are published;
+# postgres/kafka/redis stay inside the docker network (ARCHITECTURE.md §14),
+# except where local uv runs need host access (marked below).
+
+x-common-env: &common-env
+  env_file:
+    - path: .env
+      required: true
+
+services:
+  # ------------------------------------------------------------------
+  # core profile
+  # ------------------------------------------------------------------
+  postgres:
+    image: postgres:16-alpine
+    profiles: [core]
+    <<: *common-env
+    environment:
+      POSTGRES_USER: ${POSTGRES_SUPERUSER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_SUPERUSER_PASSWORD:?POSTGRES_SUPERUSER_PASSWORD missing in .env}
+      POSTGRES_DB: ${POSTGRES_DB:-lakehouse}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_SUPERUSER:-postgres} -d ${POSTGRES_DB:-lakehouse}"]
+      interval: 10s
+      retries: 5
+    restart: unless-stopped
+
+  airflow-metadata:
+    image: postgres:16-alpine
+    profiles: [core]
+    environment:
+      POSTGRES_USER: ${AIRFLOW_DB_USER:-airflow}
+      POSTGRES_PASSWORD: ${AIRFLOW_DB_PASSWORD:?AIRFLOW_DB_PASSWORD missing in .env}
+      POSTGRES_DB: ${AIRFLOW_DB_NAME:-airflow}
+    volumes:
+      - airflow-metadata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${AIRFLOW_DB_USER:-airflow} -d ${AIRFLOW_DB_NAME:-airflow}"]
+      interval: 10s
+      retries: 5
+    restart: unless-stopped
+
+  pgbouncer:
+    # NOTE: edoburu publishes only the `latest` tag; everything else here is pinned.
+    image: edoburu/pgbouncer:latest
+    profiles: [core]
+    environment:
+      DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}"
+      POOL_MODE: ${PGBOUNCER_POOL_MODE}
+      MAX_CLIENT_CONN: ${PGBOUNCER_MAX_CLIENT_CONN}
+      DEFAULT_POOL_SIZE: ${PGBOUNCER_DEFAULT_POOL_SIZE}
+      LISTEN_PORT: ${PGBOUNCER_PORT}
+    ports:
+      # published so local `uv run` code reaches the warehouse via POSTGRES_HOST=localhost
+      - "${PGBOUNCER_PORT:-6432}:${PGBOUNCER_PORT:-6432}"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+
+  redis-broker:
+    image: redis:7-alpine
+    profiles: [core]
+    command: ["redis-server", "--requirepass", "${REDIS_BROKER_PASSWORD:?REDIS_BROKER_PASSWORD missing in .env}", "--appendonly", "yes"]
+    volumes:
+      - redis-broker:/data
+    healthcheck:
+      test: ["CMD-SHELL", "test \"$$(redis-cli -a \"$${REDIS_BROKER_PASSWORD}\" ping 2>/dev/null)\" = PONG"]
+      interval: 10s
+      retries: 5
+    restart: unless-stopped
+
+  airflow-init:
+    image: apache/airflow:2.11.2-python3.12
+    profiles: [core]
+    <<: *common-env
+    depends_on:
+      airflow-metadata:
+        condition: service_healthy
+    command:
+      - bash
+      - -c
+      - |
+        airflow db migrate
+        airflow users list | grep -q "$${_AIRFLOW_WWW_USER_USERNAME:-admin}" || airflow users create \
+          --role Admin \
+          --username "$${_AIRFLOW_WWW_USER_USERNAME:-admin}" \
+          --password "$${_AIRFLOW_WWW_USER_PASSWORD:?www user password missing in .env}" \
+          --email "$${AIRFLOW__SMTP__SMTP_MAIL_FROM}" \
+          --firstname lakehouse --lastname admin
+
+  airflow-webserver:
+    image: apache/airflow:2.11.2-python3.12
+    profiles: [core]
+    <<: *common-env
+    command: webserver
+    ports:
+      - "8080:8080"
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/health"]
+      interval: 30s
+      retries: 3
+    restart: unless-stopped
+
+  airflow-scheduler:
+    image: apache/airflow:2.11.2-python3.12
+    profiles: [core]
+    <<: *common-env
+    command: scheduler
+    depends_on:
+      airflow-init:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    # NOTE: .env runs LocalExecutor, so no celery worker yet.
+    # Add airflow-worker (command: celery worker) when switching to CeleryExecutor.
+
+  spark-runner:
+    image: apache/spark:4.2.0
+    profiles: [core]
+    entrypoint: ["sleep", "infinity"]
+    <<: *common-env
+    working_dir: /app
+    volumes:
+      - .:/app
+    # one-off extracts: docker compose run --rm spark-runner python extract/...
+
+  # ------------------------------------------------------------------
+  # stream profile (ARCHITECTURE.md §8; additive, batch never needs it)
+  # ------------------------------------------------------------------
+  kafka:
+    image: apache/kafka:4.0.0
+    profiles: [stream]
+    hostname: kafka
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENERS: PLAINTEXT://:29092,CONTROLLER://:29093,PLAINTEXT_HOST://:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:29093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+      CLUSTER_ID: ${KAFKA_CLUSTER_ID:?KAFKA_CLUSTER_ID missing in .env}
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+    ports:
+      # published so the local replay producer reaches kafka from the host
+      - "9092:9092"
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+    restart: unless-stopped
+
+  redis-cache:
+    image: redis:7-alpine
+    profiles: [stream]
+    command: ["redis-server", "--requirepass", "${REDIS_CACHE_PASSWORD:?REDIS_CACHE_PASSWORD missing in .env}"]
+    volumes:
+      - redis-cache:/data
+    restart: unless-stopped
+
+  # ------------------------------------------------------------------
+  # serve + obs profiles land in M6/M7 (need streamlit app, prometheus
+  # rules, alertmanager config, grafana provisioning first).
+  # ------------------------------------------------------------------
+
+volumes:
+  pgdata:
+  airflow-metadata:
+  redis-broker:
+  redis-cache:
+  kafka-data:
