@@ -1,4 +1,8 @@
--- Silver table, quarantine table, cleaning helpers and audited incremental load for delivery_events.
+-- ==============================================================================
+-- Source :- MongoDB
+-- Collection :- delivery_events
+-- Schema :- silver
+-- ==============================================================================
 BEGIN;
 
 CREATE OR REPLACE FUNCTION silver.clean_text(p_value TEXT)
