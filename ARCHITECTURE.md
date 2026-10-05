@@ -458,7 +458,7 @@ Never share one Redis between the cache and the Celery broker: an eviction polic
 
 | Setting | Choice |
 |---|---|
-| Executor | CeleryExecutor (Redis broker, Postgres metadata DB), horizontally scalable workers |
+| Executor | CeleryExecutor in prod (Redis broker, Postgres metadata DB), horizontally scalable workers; LocalExecutor allowed on small dev hosts (see §15.2 budget) |
 | Run identity | `run_id` is the pipeline `batch_id` |
 | Retries | 3 with exponential backoff on extract tasks; 1 on SQL transform tasks (fail fast, investigate) |
 | Concurrency | Pools: `spark_extract`, `pg_transform`, `dq` to prevent overload |
@@ -805,13 +805,21 @@ flowchart LR
 
 | Profile | Services |
 |---|---|
-| `core` | postgres, pgbouncer, airflow (webserver, scheduler, worker), redis-broker, spark runner |
+| `core` | postgres, pgbouncer, airflow (webserver, scheduler, + worker under CeleryExecutor), redis-broker, spark runner |
 | `stream` | kafka (KRaft), flink jobmanager/taskmanager, redis-cache, producer, sinks |
 | `serve` | streamlit |
 | `obs` | prometheus, grafana, alertmanager, exporters |
 | `all` | Everything |
 
 Every service has a healthcheck, resource limits, restart policy, and pinned image tag.
+
+Local 8GB dev budget: cap Docker Desktop in `%USERPROFILE%\.wslconfig`
+(`memory=5GB`, `processors=4`), run one profile at a time and stop it when done.
+Per service `mem_limit`: postgres 512M, airflow metadata 256M, pgbouncer 64M,
+redis 128M each, webserver and scheduler 512M each, kafka heap 512M
+(`KAFKA_HEAP_OPTS`), spark runner idle. Spark dev cuts: `local[2]`, driver 2g,
+executor 1g, shuffle partitions 8. Never run a spark extract and a kafka replay
+together on this host.
 
 ### 15.3 CI/CD Flow
 

@@ -182,6 +182,8 @@ Batch files (`*.bat`, `*.cmd`):
 
 * Pin image tags. Never use `latest`. Use multi stage builds and run as a non root user.
 * Every compose service has a healthcheck, resource limits, and a restart policy.
+* Every compose service sets `mem_limit` from the 8GB budget in ARCHITECTURE.md §15.2.
+* Local runs start one compose profile at a time and stop it when done.
 * Keep a `.dockerignore`. Never copy `.env` into an image.
 * YAML uses 2 space indentation and passes `yamllint`.
 

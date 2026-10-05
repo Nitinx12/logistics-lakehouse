@@ -25,7 +25,7 @@ from rich.progress import (
 
 load_dotenv()
 
-PROJECT_ROOT = Path(__file__).resolve().parents[2]
+PROJECT_ROOT = Path(__file__).resolve().parents[4]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
@@ -206,8 +206,11 @@ def ensure_etl_logs_table() -> None:
                 for statement in statements:
                     cur.execute(statement)
             else:
+                try:
+                    cur.execute("CREATE SCHEMA IF NOT EXISTS source")
+                except psycopg.errors.InsufficientPrivilege:
+                    logger.info("schema source exists, continuing without create right")
                 cur.execute(
-                    "CREATE SCHEMA IF NOT EXISTS source; "
                     "CREATE TABLE IF NOT EXISTS source.etl_logs (id BIGSERIAL PRIMARY KEY, "
                     "run_id TEXT, job_name VARCHAR NOT NULL, collection_name VARCHAR NOT NULL, "
                     "target_schema VARCHAR NOT NULL, target_table VARCHAR NOT NULL, "
@@ -593,7 +596,10 @@ def ensure_target_table(
     try:
         conn.autocommit = True
         with conn.cursor() as cur:
-            cur.execute(f'CREATE SCHEMA IF NOT EXISTS "{schema}"')
+            try:
+                cur.execute(f'CREATE SCHEMA IF NOT EXISTS "{schema}"')
+            except psycopg.errors.InsufficientPrivilege:
+                logger.info("schema %s exists, continuing without create right", schema)
             definitions = []
             for field in frame.schema.fields:
                 pg_type = spark_type_to_postgres(
