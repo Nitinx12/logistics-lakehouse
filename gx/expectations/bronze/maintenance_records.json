@@ -1,0 +1,81 @@
+{
+  "expectations": [
+    {
+      "id": "2868b096-c1cb-4d69-9ba1-d0186049625a",
+      "kwargs": {
+        "min_value": 2920
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "194ddafb-33d4-4a87-a2d7-793e227ef198",
+      "kwargs": {
+        "column_list": [
+          "downtime_hours",
+          "facility_location",
+          "labor_cost",
+          "labor_hours",
+          "loaded_at",
+          "maintenance_date",
+          "maintenance_id",
+          "maintenance_type",
+          "odometer_reading",
+          "parts_cost",
+          "service_description",
+          "total_cost",
+          "truck_id",
+          "id",
+          "_loaded_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "489d70c1-fb19-41f7-92b3-d104849e844b",
+      "kwargs": {
+        "column": "maintenance_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "6b1f12b6-6604-4fb2-8107-31855736156a",
+      "kwargs": {
+        "column": "maintenance_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "cfd7cc32-e919-47b2-befd-9f5f90230a13",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "9b11a275-18f0-4ff5-9089-b58239e95a4c",
+      "kwargs": {
+        "column": "loaded_at",
+        "regex": "^\\d{4}-\\d{2}-\\d{2}"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_match_regex"
+    }
+  ],
+  "id": "3dd63011-2c5a-4361-9d4d-fbc1ba96ebeb",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "bronze.maintenance_records",
+  "notes": null
+}

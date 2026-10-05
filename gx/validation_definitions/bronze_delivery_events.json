@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "ac06e7e9-290b-41f0-b42f-adf80d94eaa5",
+      "name": "delivery_events"
+    },
+    "batch_definition": {
+      "id": "6dd6307b-58f8-4261-b5c6-dad4f55f15a3",
+      "name": "delivery_events_full"
+    },
+    "datasource": {
+      "id": "7898b202-9185-4592-b381-bb7c6920a8e4",
+      "name": "lakehouse_postgres"
+    }
+  },
+  "id": "598ed91e-dba7-435f-91da-309c3307eeba",
+  "name": "bronze_delivery_events",
+  "suite": {
+    "id": "370c32d2-c521-43e5-ba24-a018e2858c13",
+    "name": "bronze.delivery_events"
+  }
+}

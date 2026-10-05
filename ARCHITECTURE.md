@@ -1006,7 +1006,7 @@ lakehouse/
 │   ├── gold/                   # dims, facts, views
 │   ├── ops/                    # watermark, logs, freshness, slo
 │   └── dq/                     # catalog, DO-block runner, quarantine
-├── dq/great_expectations/
+├── gx/                          # great expectations project (suites, checkpoints)
 ├── streaming/
 │   ├── producer/
 │   ├── flink/

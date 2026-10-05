@@ -26,6 +26,10 @@ build/
 .mypy_cache/
 .gx/
 
+# Great Expectations: commit suites, ignore runs (industry standard)
+gx/uncommitted/
+**/.ge_store_backend_id
+
 # Logs (LOG_DIR=logs)
 logs/
 

@@ -1,0 +1,20 @@
+{
+  "actions": [],
+  "id": "4a1fd7ab-459f-48c6-8433-ea0c72e0d9c2",
+  "name": "bronze",
+  "result_format": "SUMMARY",
+  "validation_definitions": [
+    {
+      "id": "598ed91e-dba7-435f-91da-309c3307eeba",
+      "name": "bronze_delivery_events"
+    },
+    {
+      "id": "af0b0692-06dd-4e21-a4b6-29c0cd6a1062",
+      "name": "bronze_maintenance_records"
+    },
+    {
+      "id": "6b5b5655-82f9-4980-a934-2591b0beec2f",
+      "name": "bronze_safety_incidents"
+    }
+  ]
+}

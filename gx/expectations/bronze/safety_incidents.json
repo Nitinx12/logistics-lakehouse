@@ -1,0 +1,84 @@
+{
+  "expectations": [
+    {
+      "id": "9be91e52-7d62-43d5-9b40-28a0cb3db8ab",
+      "kwargs": {
+        "min_value": 170
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "7091cbf9-27e7-469f-b345-9bbb7e39a5fc",
+      "kwargs": {
+        "column_list": [
+          "at_fault_flag",
+          "cargo_damage_cost",
+          "claim_amount",
+          "description",
+          "driver_id",
+          "incident_date",
+          "incident_id",
+          "incident_type",
+          "injury_flag",
+          "loaded_at",
+          "location_city",
+          "location_state",
+          "preventable_flag",
+          "trip_id",
+          "truck_id",
+          "vehicle_damage_cost",
+          "id",
+          "_loaded_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "d5d2ca9c-107e-4528-bd55-9d5028fca9fd",
+      "kwargs": {
+        "column": "incident_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "b94b003f-f384-4e9e-af34-07e39486a736",
+      "kwargs": {
+        "column": "incident_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "5cb76a4b-aab9-476e-b7d3-64510a1659d4",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "7aec7750-df10-47f9-a7ad-da92cfc0e706",
+      "kwargs": {
+        "column": "loaded_at",
+        "regex": "^\\d{4}-\\d{2}-\\d{2}"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_match_regex"
+    }
+  ],
+  "id": "19d2fa21-b09d-4dc5-9988-6f8193ef7e8e",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "bronze.safety_incidents",
+  "notes": null
+}

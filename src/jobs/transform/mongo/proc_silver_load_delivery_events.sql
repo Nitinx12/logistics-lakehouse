@@ -1,8 +1,60 @@
--- ==============================================================================
--- Source :- MongoDB
--- Collection :- delivery_events
--- Schema :- silver
--- ==============================================================================
+/*
+================================================================================
+Procedure : silver.load_delivery_events
+Purpose   : Clean, validate, deduplicate, quarantine invalid records, and
+            incrementally upsert delivery event data from bronze into silver.
+
+Source    : bronze.delivery_events
+Target    : silver.delivery_events
+Quarantine: dq.quarantine_delivery_events
+
+Process
+-------
+1. Acquire an advisory lock to prevent concurrent executions.
+2. Mark orphaned STARTED ETL log records as FAILED.
+3. Create an ETL audit log entry for the current batch and commit it.
+4. Read new and updated bronze records using the loaded_at watermark.
+5. Standardize text fields and safely cast timestamps, integers, and Booleans.
+6. Validate mandatory fields and business rules.
+7. Write invalid records to the quarantine table with their rejection reason.
+8. Deduplicate records by event_id, keeping the latest loaded_at record.
+9. Calculate delay_minutes from scheduled_datetime and actual_datetime.
+10. Incrementally upsert valid records into silver.delivery_events.
+11. Update an existing record only when the incoming loaded_at is newer.
+12. Record rows_in, rows_out, rows_rejected, execution status, and errors.
+13. Commit the transaction and release the advisory lock.
+
+Error Handling
+--------------
+- Captures PostgreSQL error message and SQLSTATE.
+- Marks the ETL run as FAILED.
+- Commits the failure audit record.
+- Releases the advisory lock.
+- Re-raises the original error to the caller.
+
+Parameters
+----------
+p_batch_id : TEXT
+    Unique identifier for the current ETL batch.
+
+Returns
+-------
+None
+
+Concurrency
+-----------
+Uses a PostgreSQL advisory lock to ensure only one instance of this
+procedure runs at a time.
+
+Load Strategy
+-------------
+Incremental upsert (SCD Type 1) driven by the loaded_at watermark.
+Existing records are updated only when the incoming loaded_at is newer.
+Invalid records are stored in dq.quarantine_delivery_events.
+
+================================================================================
+*/
+
 BEGIN;
 
 CREATE OR REPLACE FUNCTION silver.clean_text(p_value TEXT)
