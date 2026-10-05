@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "dcb6f517-4133-49b0-90cb-6b2a5bf5d3c3",
+      "id": "b077d14d-85f9-404c-ab35-0cf4c042e6a8",
       "kwargs": {
         "min_value": 170820
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "fb475a60-925a-4cf3-ac2f-5ef5bf56c3f5",
+      "id": "93201133-7c50-428e-be89-05d8f51fe7d8",
       "kwargs": {
         "column_list": [
           "actual_datetime",
@@ -34,7 +34,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "1e762d32-ebd0-42d8-9a49-e22da9b2d0cb",
+      "id": "79e8e473-7340-4cd9-975e-fa9d4dc290ab",
       "kwargs": {
         "column": "event_id"
       },
@@ -43,7 +43,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "d02350f6-897c-478f-a806-592fb50d30fa",
+      "id": "2649e28d-58b5-4d86-a875-c7ea2196a477",
       "kwargs": {
         "column": "event_id"
       },
@@ -52,7 +52,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "d7977f51-bef8-427a-98ed-56ad9129e491",
+      "id": "6013c29a-5397-4afd-96b1-8fd5cd5eebf0",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -61,7 +61,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "f858923b-6172-4dbb-b4fa-7f382c9c514e",
+      "id": "6b8ffa4f-db79-4eb7-93a5-818c7a10b513",
       "kwargs": {
         "column": "loaded_at",
         "regex": "^\\d{4}-\\d{2}-\\d{2}"

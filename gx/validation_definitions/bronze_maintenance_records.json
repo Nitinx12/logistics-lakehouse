@@ -1,11 +1,11 @@
 {
   "data": {
     "asset": {
-      "id": "0d9e180d-b73e-4415-a5a4-9398f6b2bc30",
+      "id": "ec3ed4eb-60d3-45ac-9173-d8df5695560d",
       "name": "maintenance_records"
     },
     "batch_definition": {
-      "id": "755d5de9-c5e6-4903-83c1-2fc70f216d24",
+      "id": "2ae7d25c-b18f-4d65-a2c5-80911215061f",
       "name": "maintenance_records_full"
     },
     "datasource": {

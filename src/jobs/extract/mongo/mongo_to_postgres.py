@@ -337,6 +337,77 @@ def update_log_finish(
         conn.close()
 
 
+# inserts a bronze STARTED audit row and returns its id
+def insert_bronze_log_start(
+    job_name: str,
+    collection: str,
+    watermark_from: datetime | None,
+    watermark_to: datetime,
+) -> int:
+    conn = get_postgres_connection()
+    try:
+        conn.autocommit = True
+        with conn.cursor() as cur:
+            for _ in range(2):
+                try:
+                    cur.execute(
+                        "INSERT INTO bronze.etl_logs (job_name, target_table, "
+                        "watermark_from, watermark_to, status) "
+                        "VALUES (%s, %s, %s, %s, 'STARTED') RETURNING id",
+                        (job_name, collection, watermark_from, watermark_to),
+                    )
+                    row = cur.fetchone()
+                    return int(row[0]) if row else 0
+                except psycopg.errors.UniqueViolation:
+                    logger.info(
+                        "clearing stale bronze STARTED row job=%s collection=%s",
+                        job_name,
+                        collection,
+                    )
+                    cur.execute(
+                        "DELETE FROM bronze.etl_logs WHERE job_name = %s "
+                        "AND target_table = %s AND status = 'STARTED'",
+                        (job_name, collection),
+                    )
+            raise RuntimeError(f"could not start bronze audit row for {collection!r}")
+    finally:
+        conn.close()
+
+
+# marks a bronze audit row finished with counters and outcome
+def update_bronze_log_finish(
+    log_id: int,
+    status: str,
+    rows_extracted: int,
+    rows_loaded: int,
+    error_message: str | None = None,
+) -> None:
+    conn = get_postgres_connection()
+    try:
+        conn.autocommit = True
+        with conn.cursor() as cur:
+            cur.execute(
+                "UPDATE bronze.etl_logs SET status = %s, rows_extracted = %s, "
+                "rows_loaded = %s, error_message = %s, finished_at = NOW() "
+                "WHERE id = %s",
+                (status, rows_extracted, rows_loaded, error_message, log_id),
+            )
+    finally:
+        conn.close()
+
+
+# removes a bronze STARTED row when a dry run loads nothing
+def cancel_bronze_log(log_id: int) -> None:
+    conn = get_postgres_connection()
+    try:
+        conn.autocommit = True
+        with conn.cursor() as cur:
+            cur.execute("DELETE FROM bronze.etl_logs WHERE id = %s", (log_id,))
+    finally:
+        conn.close()
+
+
+
 # formats a datetime as mongo extended-json $date
 def format_mongo_date(value: datetime) -> str:
     aware = value if value.tzinfo else value.replace(tzinfo=UTC)
@@ -821,6 +892,9 @@ def run_collection(
         watermark_to,
         run_id,
     )
+    bronze_id = insert_bronze_log_start(
+        job_name, collection, watermark_from, watermark_to
+    )
     result = {
         "name": collection,
         "mode": mode,
@@ -868,6 +942,7 @@ def run_collection(
                     "PASS",
                     result["validation_detail"],
                 )
+                update_bronze_log_finish(bronze_id, "SUCCESS", 0, 0)
             else:
                 result["status"] = "VALIDATION FAILED"
                 result["error"] = result["validation_detail"]
@@ -882,6 +957,9 @@ def run_collection(
                     0,
                     "FAIL",
                     result["validation_detail"],
+                )
+                update_bronze_log_finish(
+                    bronze_id, "FAILED", 0, 0, result["validation_detail"]
                 )
             return result
         default_parallelism = max(1, spark.sparkContext.defaultParallelism)
@@ -968,6 +1046,7 @@ def run_collection(
             update_log_finish(
                 log_id, "DRY-RUN", result["extracted"], 0, result["chunks"]
             )
+            cancel_bronze_log(bronze_id)
             return result
         result["after"] = count_rows(target_schema, collection)
         expected = before + result["inserted"]
@@ -987,6 +1066,12 @@ def run_collection(
                 "PASS",
                 result["validation_detail"],
             )
+            update_bronze_log_finish(
+                bronze_id,
+                "SUCCESS",
+                result["extracted"],
+                result["inserted"] + result["updated"],
+            )
         else:
             result["status"] = "VALIDATION FAILED"
             result["error"] = result["validation_detail"]
@@ -1000,6 +1085,13 @@ def run_collection(
                 result["inserted"],
                 result["updated"],
                 "FAIL",
+                result["validation_detail"],
+            )
+            update_bronze_log_finish(
+                bronze_id,
+                "FAILED",
+                result["extracted"],
+                result["inserted"] + result["updated"],
                 result["validation_detail"],
             )
         return result
@@ -1016,6 +1108,13 @@ def run_collection(
             result["inserted"],
             result["updated"],
             "FAIL",
+            result["error"],
+        )
+        update_bronze_log_finish(
+            bronze_id,
+            "FAILED",
+            result["extracted"],
+            result["inserted"] + result["updated"],
             result["error"],
         )
         raise

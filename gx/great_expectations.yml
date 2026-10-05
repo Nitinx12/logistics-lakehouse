@@ -87,31 +87,31 @@ fluent_datasources:
     assets:
       delivery_events:
         type: table
-        id: ac06e7e9-290b-41f0-b42f-adf80d94eaa5
+        id: baea3d2a-0a59-46cf-a761-c910b3db5e11
         batch_metadata: {}
         batch_definitions:
           delivery_events_full:
-            id: 6dd6307b-58f8-4261-b5c6-dad4f55f15a3
+            id: be81e79c-052b-419d-9be9-9fbba6ff1edb
             partitioner:
         table_name: delivery_events
         schema_name: bronze
       maintenance_records:
         type: table
-        id: 0d9e180d-b73e-4415-a5a4-9398f6b2bc30
+        id: ec3ed4eb-60d3-45ac-9173-d8df5695560d
         batch_metadata: {}
         batch_definitions:
           maintenance_records_full:
-            id: 755d5de9-c5e6-4903-83c1-2fc70f216d24
+            id: 2ae7d25c-b18f-4d65-a2c5-80911215061f
             partitioner:
         table_name: maintenance_records
         schema_name: bronze
       safety_incidents:
         type: table
-        id: 9adbe985-a6a9-49f7-b43e-a14420ea871e
+        id: cc12ab3b-ce8a-48fa-9845-1c1e49406600
         batch_metadata: {}
         batch_definitions:
           safety_incidents_full:
-            id: 4f883d7e-d4d0-4fa3-8d8c-b709c858d753
+            id: 2dba49b1-0bf1-4d8e-8379-18dc5870b251
             partitioner:
         table_name: safety_incidents
         schema_name: bronze

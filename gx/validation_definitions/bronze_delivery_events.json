@@ -1,11 +1,11 @@
 {
   "data": {
     "asset": {
-      "id": "ac06e7e9-290b-41f0-b42f-adf80d94eaa5",
+      "id": "baea3d2a-0a59-46cf-a761-c910b3db5e11",
       "name": "delivery_events"
     },
     "batch_definition": {
-      "id": "6dd6307b-58f8-4261-b5c6-dad4f55f15a3",
+      "id": "be81e79c-052b-419d-9be9-9fbba6ff1edb",
       "name": "delivery_events_full"
     },
     "datasource": {
