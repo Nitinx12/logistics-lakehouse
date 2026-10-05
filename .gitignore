@@ -3,6 +3,10 @@
 # =======================================
 data/
 
+# Generated EDA outputs (rebuilt with uv run scripts/run_notebooks.py)
+notebooks/plots/
+notebooks/stats_*.json
+
 # Secrets - never commit (.env.example stays tracked as the template)
 .env
 .env.local
