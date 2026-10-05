@@ -1,0 +1,23 @@
+# Contract: databricks.logistics_operations.default.drivers
+# termination_date null = driver still active (82.67% observed).
+source: databricks
+catalog: logistics_operations
+schema: default
+table: drivers
+key: [driver_id]
+mode: incremental
+rows_observed: 150
+columns:
+  - {name: driver_id, type: string, nullable: false}
+  - {name: first_name, type: string, nullable: false}
+  - {name: last_name, type: string, nullable: false}
+  - {name: hire_date, type: date, nullable: false}
+  - {name: termination_date, type: date, nullable: true}
+  - {name: license_number, type: string, nullable: false}
+  - {name: license_state, type: string, nullable: false}
+  - {name: date_of_birth, type: date, nullable: false}
+  - {name: home_terminal, type: string, nullable: false}
+  - {name: employment_status, type: string, nullable: false}
+  - {name: cdl_class, type: string, nullable: false}
+  - {name: years_experience, type: bigint, nullable: false}
+  - {name: loaded_at, type: timestamp, nullable: false}

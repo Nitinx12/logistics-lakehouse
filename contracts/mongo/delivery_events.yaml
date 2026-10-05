@@ -1,0 +1,21 @@
+# Contract: mongo.fleet_operations.delivery_events
+# All values land as strings, silver casts before use.
+source: mongo
+database: fleet_operations
+collection: delivery_events
+key: [event_id]
+mode: incremental
+rows_observed: 170820
+columns:
+  - {name: event_id, type: string, nullable: false}
+  - {name: load_id, type: string, nullable: false}
+  - {name: trip_id, type: string, nullable: false}
+  - {name: event_type, type: string, nullable: false}
+  - {name: facility_id, type: string, nullable: false}
+  - {name: scheduled_datetime, type: string, nullable: false}
+  - {name: actual_datetime, type: string, nullable: false}
+  - {name: detention_minutes, type: string, nullable: false}
+  - {name: on_time_flag, type: string, nullable: false}
+  - {name: location_city, type: string, nullable: false}
+  - {name: location_state, type: string, nullable: false}
+  - {name: loaded_at, type: string, nullable: false}

@@ -1,0 +1,26 @@
+# Contract: mongo.fleet_operations.safety_incidents
+# All values land as strings, silver casts before use.
+# One row observed with null truck_id + driver_id.
+source: mongo
+database: fleet_operations
+collection: safety_incidents
+key: [incident_id]
+mode: incremental
+rows_observed: 170
+columns:
+  - {name: incident_id, type: string, nullable: false}
+  - {name: trip_id, type: string, nullable: false}
+  - {name: truck_id, type: string, nullable: true}
+  - {name: driver_id, type: string, nullable: true}
+  - {name: incident_date, type: string, nullable: false}
+  - {name: incident_type, type: string, nullable: false}
+  - {name: location_city, type: string, nullable: false}
+  - {name: location_state, type: string, nullable: false}
+  - {name: at_fault_flag, type: string, nullable: false}
+  - {name: injury_flag, type: string, nullable: false}
+  - {name: vehicle_damage_cost, type: string, nullable: false}
+  - {name: cargo_damage_cost, type: string, nullable: false}
+  - {name: claim_amount, type: string, nullable: false}
+  - {name: preventable_flag, type: string, nullable: false}
+  - {name: description, type: string, nullable: false}
+  - {name: loaded_at, type: string, nullable: false}

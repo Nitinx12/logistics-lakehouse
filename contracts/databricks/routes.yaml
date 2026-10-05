@@ -1,0 +1,19 @@
+# Contract: databricks.logistics_operations.default.routes
+source: databricks
+catalog: logistics_operations
+schema: default
+table: routes
+key: [route_id]
+mode: full
+rows_observed: 58
+columns:
+  - {name: route_id, type: string, nullable: false}
+  - {name: origin_city, type: string, nullable: false}
+  - {name: origin_state, type: string, nullable: false}
+  - {name: destination_city, type: string, nullable: false}
+  - {name: destination_state, type: string, nullable: false}
+  - {name: typical_distance_miles, type: bigint, nullable: false}
+  - {name: base_rate_per_mile, type: double, nullable: false}
+  - {name: fuel_surcharge_rate, type: double, nullable: false}
+  - {name: typical_transit_days, type: bigint, nullable: false}
+  - {name: loaded_at, type: timestamp, nullable: false}

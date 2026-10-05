@@ -1,0 +1,22 @@
+# Contract: mongo.fleet_operations.maintenance_records
+# All values land as strings, silver casts before use.
+source: mongo
+database: fleet_operations
+collection: maintenance_records
+key: [maintenance_id]
+mode: incremental
+rows_observed: 2920
+columns:
+  - {name: maintenance_id, type: string, nullable: false}
+  - {name: truck_id, type: string, nullable: false}
+  - {name: maintenance_date, type: string, nullable: false}
+  - {name: maintenance_type, type: string, nullable: false}
+  - {name: service_description, type: string, nullable: false}
+  - {name: facility_location, type: string, nullable: false}
+  - {name: odometer_reading, type: string, nullable: false}
+  - {name: labor_hours, type: string, nullable: false}
+  - {name: labor_cost, type: string, nullable: false}
+  - {name: parts_cost, type: string, nullable: false}
+  - {name: total_cost, type: string, nullable: false}
+  - {name: downtime_hours, type: string, nullable: false}
+  - {name: loaded_at, type: string, nullable: false}

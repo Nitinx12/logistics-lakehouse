@@ -1,0 +1,22 @@
+# Contract: databricks.logistics_operations.default.loads
+source: databricks
+catalog: logistics_operations
+schema: default
+table: loads
+key: [load_id]
+mode: incremental
+rows_observed: 85410
+columns:
+  - {name: load_id, type: string, nullable: false}
+  - {name: customer_id, type: string, nullable: false}
+  - {name: route_id, type: string, nullable: false}
+  - {name: load_date, type: date, nullable: false}
+  - {name: load_type, type: string, nullable: false}
+  - {name: weight_lbs, type: bigint, nullable: false}
+  - {name: pieces, type: bigint, nullable: false}
+  - {name: revenue, type: double, nullable: false}
+  - {name: fuel_surcharge, type: double, nullable: false}
+  - {name: accessorial_charges, type: bigint, nullable: false}
+  - {name: load_status, type: string, nullable: false}
+  - {name: booking_type, type: string, nullable: false}
+  - {name: loaded_at, type: timestamp, nullable: false}

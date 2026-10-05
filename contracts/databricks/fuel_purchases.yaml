@@ -1,0 +1,22 @@
+# Contract: databricks.logistics_operations.default.fuel_purchases
+# ~2% rows lack truck_id / driver_id (fuel card not assigned to a trip asset).
+source: databricks
+catalog: logistics_operations
+schema: default
+table: fuel_purchases
+key: [fuel_purchase_id]
+mode: incremental
+rows_observed: 196442
+columns:
+  - {name: fuel_purchase_id, type: string, nullable: false}
+  - {name: trip_id, type: string, nullable: false}
+  - {name: truck_id, type: string, nullable: true}
+  - {name: driver_id, type: string, nullable: true}
+  - {name: purchase_date, type: timestamp, nullable: false}
+  - {name: location_city, type: string, nullable: false}
+  - {name: location_state, type: string, nullable: false}
+  - {name: gallons, type: double, nullable: false}
+  - {name: price_per_gallon, type: double, nullable: false}
+  - {name: total_cost, type: double, nullable: false}
+  - {name: fuel_card_number, type: string, nullable: false}
+  - {name: loaded_at, type: timestamp, nullable: false}

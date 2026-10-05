@@ -1,0 +1,19 @@
+# Contract: databricks.logistics_operations.default.facilities
+source: databricks
+catalog: logistics_operations
+schema: default
+table: facilities
+key: [facility_id]
+mode: full
+rows_observed: 50
+columns:
+  - {name: facility_id, type: string, nullable: false}
+  - {name: facility_name, type: string, nullable: false}
+  - {name: facility_type, type: string, nullable: false}
+  - {name: city, type: string, nullable: false}
+  - {name: state, type: string, nullable: false}
+  - {name: latitude, type: double, nullable: false}
+  - {name: longitude, type: double, nullable: false}
+  - {name: dock_doors, type: bigint, nullable: false}
+  - {name: operating_hours, type: string, nullable: false}
+  - {name: loaded_at, type: timestamp, nullable: false}

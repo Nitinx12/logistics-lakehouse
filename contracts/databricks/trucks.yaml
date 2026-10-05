@@ -1,0 +1,21 @@
+# Contract: databricks.logistics_operations.default.trucks
+source: databricks
+catalog: logistics_operations
+schema: default
+table: trucks
+key: [truck_id]
+mode: incremental
+rows_observed: 120
+columns:
+  - {name: truck_id, type: string, nullable: false}
+  - {name: unit_number, type: bigint, nullable: false}
+  - {name: make, type: string, nullable: false}
+  - {name: model_year, type: bigint, nullable: false}
+  - {name: vin, type: string, nullable: false}
+  - {name: acquisition_date, type: date, nullable: false}
+  - {name: acquisition_mileage, type: bigint, nullable: false}
+  - {name: fuel_type, type: string, nullable: false}
+  - {name: tank_capacity_gallons, type: bigint, nullable: false}
+  - {name: status, type: string, nullable: false}
+  - {name: home_terminal, type: string, nullable: false}
+  - {name: loaded_at, type: timestamp, nullable: false}

@@ -1,0 +1,18 @@
+# Contract: databricks.logistics_operations.default.customers
+source: databricks
+catalog: logistics_operations
+schema: default
+table: customers
+key: [customer_id]
+mode: incremental
+rows_observed: 200
+columns:
+  - {name: customer_id, type: string, nullable: false}
+  - {name: customer_name, type: string, nullable: false}
+  - {name: customer_type, type: string, nullable: false}
+  - {name: credit_terms_days, type: bigint, nullable: false}
+  - {name: primary_freight_type, type: string, nullable: false}
+  - {name: account_status, type: string, nullable: false}
+  - {name: contract_start_date, type: date, nullable: false}
+  - {name: annual_revenue_potential, type: bigint, nullable: false}
+  - {name: loaded_at, type: timestamp, nullable: false}

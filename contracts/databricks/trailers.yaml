@@ -1,0 +1,19 @@
+# Contract: databricks.logistics_operations.default.trailers
+source: databricks
+catalog: logistics_operations
+schema: default
+table: trailers
+key: [trailer_id]
+mode: incremental
+rows_observed: 180
+columns:
+  - {name: trailer_id, type: string, nullable: false}
+  - {name: trailer_number, type: bigint, nullable: false}
+  - {name: trailer_type, type: string, nullable: false}
+  - {name: length_feet, type: bigint, nullable: false}
+  - {name: model_year, type: bigint, nullable: false}
+  - {name: vin, type: string, nullable: false}
+  - {name: acquisition_date, type: date, nullable: false}
+  - {name: status, type: string, nullable: false}
+  - {name: current_location, type: string, nullable: false}
+  - {name: loaded_at, type: timestamp, nullable: false}

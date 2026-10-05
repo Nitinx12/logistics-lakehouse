@@ -1,0 +1,23 @@
+# Contract: databricks.logistics_operations.default.trips
+# ~2% rows lack an assigned driver / truck / trailer.
+source: databricks
+catalog: logistics_operations
+schema: default
+table: trips
+key: [trip_id]
+mode: incremental
+rows_observed: 85410
+columns:
+  - {name: trip_id, type: string, nullable: false}
+  - {name: load_id, type: string, nullable: false}
+  - {name: driver_id, type: string, nullable: true}
+  - {name: truck_id, type: string, nullable: true}
+  - {name: trailer_id, type: string, nullable: true}
+  - {name: dispatch_date, type: date, nullable: false}
+  - {name: actual_distance_miles, type: bigint, nullable: false}
+  - {name: actual_duration_hours, type: double, nullable: false}
+  - {name: fuel_gallons_used, type: double, nullable: false}
+  - {name: average_mpg, type: double, nullable: false}
+  - {name: idle_time_hours, type: double, nullable: false}
+  - {name: trip_status, type: string, nullable: false}
+  - {name: loaded_at, type: timestamp, nullable: false}
