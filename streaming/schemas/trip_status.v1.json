@@ -1,0 +1,25 @@
+{
+  "$comment": "Latest status per trip for lh.trip_status.v1 compacted topic.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lakehouse.local/schemas/trip_status.v1.json",
+  "title": "trip_status",
+  "type": "object",
+  "required": [
+    "trip_id",
+    "status",
+    "event_ts",
+    "schema_version",
+    "source",
+    "produced_at"
+  ],
+  "properties": {
+    "trip_id": {"type": "string", "minLength": 1},
+    "status": {"type": "string", "minLength": 1},
+    "event_ts": {"type": "string", "format": "date-time"},
+    "delay_minutes": {"type": ["number", "null"]},
+    "schema_version": {"type": "integer", "const": 1},
+    "source": {"type": "string", "minLength": 1},
+    "produced_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": false
+}

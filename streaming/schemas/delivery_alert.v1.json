@@ -1,0 +1,25 @@
+{
+  "$comment": "Delay and anomaly alerts for lh.delivery_alerts.v1.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lakehouse.local/schemas/delivery_alert.v1.json",
+  "title": "delivery_alert",
+  "type": "object",
+  "required": [
+    "trip_id",
+    "alert_type",
+    "event_ts",
+    "schema_version",
+    "source",
+    "produced_at"
+  ],
+  "properties": {
+    "trip_id": {"type": "string", "minLength": 1},
+    "alert_type": {"type": "string", "minLength": 1},
+    "detail": {"type": "object"},
+    "event_ts": {"type": "string", "format": "date-time"},
+    "schema_version": {"type": "integer", "const": 1},
+    "source": {"type": "string", "minLength": 1},
+    "produced_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": false
+}
