@@ -1,0 +1,60 @@
+{
+  "actions": [],
+  "id": "df35f9b0-8387-45f7-90e0-9d5b6291b552",
+  "name": "gold",
+  "result_format": "SUMMARY",
+  "validation_definitions": [
+    {
+      "id": "93b26abd-a331-4e2c-88a0-287509e6bb0f",
+      "name": "gold_dim_date"
+    },
+    {
+      "id": "1f35e417-5fa5-40be-acfe-21684b2d06ed",
+      "name": "gold_dim_customer"
+    },
+    {
+      "id": "f20cfd56-eeaa-489d-9f8c-836577845211",
+      "name": "gold_dim_driver"
+    },
+    {
+      "id": "23e02a8b-ea21-40f3-84d9-acbd89dc66b2",
+      "name": "gold_dim_facility"
+    },
+    {
+      "id": "3988a033-2708-4186-86ea-3d38cbc753e2",
+      "name": "gold_dim_route"
+    },
+    {
+      "id": "ba8b19d8-a043-4e51-b55c-78dc957ca805",
+      "name": "gold_dim_trailer"
+    },
+    {
+      "id": "2745e2c5-328a-43ee-9525-f34ddc82c038",
+      "name": "gold_dim_truck"
+    },
+    {
+      "id": "6fc3334c-9410-4f03-bec3-e44decd1dd67",
+      "name": "gold_fact_loads"
+    },
+    {
+      "id": "3aa815aa-0dab-44c0-8598-ce744468c25b",
+      "name": "gold_fact_trips"
+    },
+    {
+      "id": "9203c6f5-3d4f-4fa5-90bf-4f71e01f486e",
+      "name": "gold_fact_fuel_purchases"
+    },
+    {
+      "id": "af2c3983-68b2-46bd-a561-86a67782e4d8",
+      "name": "gold_fact_delivery_events"
+    },
+    {
+      "id": "ac39d9bd-f046-4b6b-b73c-6e65cc9adc5e",
+      "name": "gold_fact_maintenance"
+    },
+    {
+      "id": "9e63b2ea-73e5-4ac4-afe0-b86904e356f1",
+      "name": "gold_fact_safety_incidents"
+    }
+  ]
+}

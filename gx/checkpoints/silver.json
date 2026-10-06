@@ -1,0 +1,56 @@
+{
+  "actions": [],
+  "id": "bdf2edc7-3194-4eca-bc2e-c7ce3e39707b",
+  "name": "silver",
+  "result_format": "SUMMARY",
+  "validation_definitions": [
+    {
+      "id": "758820e9-ba92-4de4-9adc-2b180512487d",
+      "name": "silver_customers"
+    },
+    {
+      "id": "b2e387eb-0961-4ad5-8ea8-ac9883502c38",
+      "name": "silver_drivers"
+    },
+    {
+      "id": "247e71d4-9078-4566-9c5f-a79e1e1a988e",
+      "name": "silver_facilities"
+    },
+    {
+      "id": "19775b5f-80a2-4e6f-bffa-d8d786f420da",
+      "name": "silver_fuel_purchases"
+    },
+    {
+      "id": "5f6584f0-6f00-41e0-819d-4d98211d0959",
+      "name": "silver_loads"
+    },
+    {
+      "id": "c5c447b4-7f4a-418b-94f7-0c399a966e46",
+      "name": "silver_routes"
+    },
+    {
+      "id": "33407002-2996-49a1-93eb-6453653e7814",
+      "name": "silver_trailers"
+    },
+    {
+      "id": "dae70e4f-49af-4ced-92e5-251381c9013c",
+      "name": "silver_trips"
+    },
+    {
+      "id": "1f85899f-331b-4ad1-a925-bac03fb6c096",
+      "name": "silver_trucks"
+    },
+    {
+      "id": "82a5aaad-8750-4b10-9f2a-6f7b87807a45",
+      "name": "silver_delivery_events"
+    },
+    {
+      "id": "56c75aad-f565-4e07-b409-58de8b05cb1b",
+      "name": "silver_maintenance_records"
+    },
+    {
+      "id": "f83c6d80-56f9-4499-823f-4be87212defe",
+      "name": "silver_safety_incidents"
+    }
+  ]
+}
