@@ -4,6 +4,7 @@ import subprocess
 import sys
 import threading
 from pathlib import Path
+
 # repo root on sys.path so `src` imports work from any working directory
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -35,10 +36,13 @@ def build_command(job_file: Path, jars: list[str], args: list[str]) -> list[str]
         raise FileNotFoundError(f"job file missing: {job_file}")
     return [
         find_spark_submit(),
-        "--master", os.getenv("SPARK_MASTER", "local[*]"),
+        "--master",
+        os.getenv("SPARK_MASTER", "local[*]"),
         # Hyper-V reserves 3951-4495 here, swallowing the default 4040+ UI range
-        "--conf", "spark.ui.port=18080",
-        "--jars", ",".join(str(JARS_DIR / jar) for jar in jars),
+        "--conf",
+        "spark.ui.port=18080",
+        "--jars",
+        ",".join(str(JARS_DIR / jar) for jar in jars),
         str(job_file),
         *args,
     ]
@@ -90,7 +94,11 @@ def submit(job_file: Path, jars: list[str], args: list[str]) -> int:
     env["PYSPARK_DRIVER_PYTHON"] = sys.executable
     logger.info("submit job=%s jars=%d", job_file.name, len(jars))
     process = subprocess.Popen(
-        command, env=env, stdout=None, stderr=subprocess.PIPE, text=True,
+        command,
+        env=env,
+        stdout=None,
+        stderr=subprocess.PIPE,
+        text=True,
     )
     watcher = threading.Thread(target=_stream_filtered, args=(process.stderr,))
     watcher.start()

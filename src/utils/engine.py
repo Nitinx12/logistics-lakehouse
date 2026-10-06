@@ -40,7 +40,9 @@ def read_postgres(
     try:
         with connection.cursor() as cursor:
             cursor.execute(query, params)
-            columns = [desc[0] for desc in cursor.description] if cursor.description else []
+            columns = (
+                [desc[0] for desc in cursor.description] if cursor.description else []
+            )
             frame = pd.DataFrame(cursor.fetchall(), columns=columns)
         logger.info("postgres read rows=%d", len(frame))
         return frame
@@ -59,7 +61,11 @@ def read_databricks(query: str) -> pd.DataFrame:
                 # arrow is fastest but needs the pyarrow package
                 frame = cursor.fetchall_arrow().to_pandas()
             except Exception:
-                columns = [desc[0] for desc in cursor.description] if cursor.description else []
+                columns = (
+                    [desc[0] for desc in cursor.description]
+                    if cursor.description
+                    else []
+                )
                 frame = pd.DataFrame(cursor.fetchall(), columns=columns)
             logger.info("databricks read rows=%d", len(frame))
             return frame

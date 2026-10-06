@@ -72,9 +72,7 @@ def get_mongo_client() -> MongoClient:
 
 # resolves the mongo database name from environment
 def get_mongo_db_name() -> str:
-    return (
-        os.getenv("MONGO_DB_NAME") or os.getenv("MONGO_DB") or "fleet_operations"
-    )
+    return os.getenv("MONGO_DB_NAME") or os.getenv("MONGO_DB") or "fleet_operations"
 
 
 # returns the configured mongo database
@@ -89,7 +87,9 @@ def get_databricks_connection() -> DatabricksConnection:
     # the connector wants a bare hostname, tolerate a full https:// url
     host = host.replace("https://", "").replace("http://", "").rstrip("/")
     token = (os.getenv("DATABRICKS_TOKEN") or "").strip()
-    http_path = (os.getenv("DATABRICKS_PATH") or os.getenv("DATABRICKS_HTTP_PATH") or "").strip()
+    http_path = (
+        os.getenv("DATABRICKS_PATH") or os.getenv("DATABRICKS_HTTP_PATH") or ""
+    ).strip()
     catalog = (os.getenv("DATABRICKS_CATALOG") or "").strip()
     schema = (os.getenv("DATABRICKS_SCHEMA") or "").strip()
     if not host or not token or not http_path:

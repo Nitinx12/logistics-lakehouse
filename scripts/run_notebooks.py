@@ -17,8 +17,17 @@ def ensure_kernel() -> None:
     if KERNEL in KernelSpecManager().find_kernel_specs():
         return
     subprocess.run(
-        [sys.executable, "-m", "ipykernel", "install", "--user",
-         "--name", KERNEL, "--display-name", "lakehouse"],
+        [
+            sys.executable,
+            "-m",
+            "ipykernel",
+            "install",
+            "--user",
+            "--name",
+            KERNEL,
+            "--display-name",
+            "lakehouse",
+        ],
         check=True,
     )
 
@@ -29,8 +38,12 @@ def run_notebook(path: Path, timeout: int) -> None:
     notebook = nbformat.read(path, as_version=4)
     for cell in notebook.cells:
         cell.setdefault("id", uuid.uuid4().hex[:8])
-    client = NotebookClient(notebook, timeout=timeout, kernel_name=KERNEL,
-                            resources={"metadata": {"path": str(path.parent)}})
+    client = NotebookClient(
+        notebook,
+        timeout=timeout,
+        kernel_name=KERNEL,
+        resources={"metadata": {"path": str(path.parent)}},
+    )
     client.execute()
     nbformat.write(notebook, path)
     print(f"done {path.name}", flush=True)

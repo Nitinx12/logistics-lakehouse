@@ -407,7 +407,6 @@ def cancel_bronze_log(log_id: int) -> None:
         conn.close()
 
 
-
 # formats a datetime as mongo extended-json $date
 def format_mongo_date(value: datetime) -> str:
     aware = value if value.tzinfo else value.replace(tzinfo=UTC)
