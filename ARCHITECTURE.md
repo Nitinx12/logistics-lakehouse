@@ -601,7 +601,7 @@ erDiagram
 
 ### 10.5 Migrations
 
-Versioned DDL with Flyway (or Sqitch). Files are immutable once merged; changes are new migrations. CI applies all migrations to a clean database on every PR.
+Migrations are the ordered files in `sql/scripts/`, applied once each by `scripts/run_migrate.py` (`make migrate`, same runner in CI) and tracked in `ops.schema_migrations`. Files are immutable once merged; changes are new scripts. Every script reruns safely and the registry skips applied files, so a rerun records nothing twice. CI applies all scripts to a clean database on every PR.
 
 ---
 
@@ -960,7 +960,7 @@ Because bronze can be re-extracted from sources and everything downstream is det
 | Static | SQL and Python style, secrets | sqlfluff, ruff, gitleaks | PR |
 | Unit (Python) | Config parsing, watermark math, message validation, producer/sink logic | pytest | PR |
 | SQL unit | Each procedure against tiny fixtures | pgTAP or pytest + Postgres container | PR |
-| Migration | All migrations apply to a clean DB | Flyway in CI | PR |
+| Migration | All migrations apply to a clean DB | `run_migrate.py` in CI | PR |
 | Smoke | Stack boots, health checks pass, tiny end-to-end run | Make target | PR, post-deploy |
 | Idempotency | Double run equals single run | pytest | PR |
 | Data quality | GX suites, DO-block catalog | GX + `dq` | Pipeline and nightly |
@@ -976,64 +976,98 @@ Rule: a failed critical test blocks promotion to the next layer in the pipeline,
 
 ## 19. Source Organization
 
+Actual layout as built. Module names follow the logical architecture in §5 through §11. Core flow and conventions are unchanged.
+
 ```
 lakehouse/
 ├── ARCHITECTURE.md
 ├── README.md
 ├── AGENTS.md
-├── Makefile
-├── docker-compose.yml          # profiles: core, stream, serve, obs
+├── Makefile                    # verbs only: up, down, migrate, test, dq, report
+├── compose.yml                 # profiles: core, stream (serve and obs planned)
 ├── .env.example
-├── pyproject.toml              # uv-managed
+├── pyproject.toml              # uv managed
 ├── uv.lock
-├── .pre-commit-config.yaml
-├── .github/workflows/
-│   ├── ci.yml
-│   └── release.yml
+├── main.py
+├── DATABASE_SCHEMA.txt
+├── contracts/                  # source contracts by system
+│   ├── mongo/
+│   └── databricks/
+├── data/                       # local samples only, never committed extracts
+│   ├── fleet_operations/
+│   ├── logistics_operations/
+│   └── marts/
+├── notebooks/                 # implements eda/ from the design
+│   ├── mongo_eda.ipynb
+│   ├── databricks_eda.ipynb
+│   └── plots/
+├── docs/
+│   └── FINDINGS.md             # M0 gate record; data_dictionary, runbook,
+│                               # capacity, adr/ are planned
 ├── airflow/
-│   ├── dags/
+│   ├── dags/                   # lh_daily_batch, lh_dq_nightly, lh_report_publish,
+│   │                           # lh_stream_replay, lh_stream_reconcile,
+│   │                           # lh_maintenance, lh_backfill
 │   ├── include/                # shared helpers, callbacks
-│   └── Dockerfile
-├── extract/
-│   ├── config/                 # per-table YAML (mode, key, watermark, partitions)
-│   ├── mongo_extractor.py
-│   ├── databricks_extractor.py
-│   └── common/
+│   └── configs/
+├── src/
+│   ├── jobs/
+│   │   ├── extract/            # implements extract/ from the design
+│   │   │   ├── mongo/
+│   │   │   └── databricks/
+│   │   ├── transform/          # silver loaders by source
+│   │   │   ├── mongo/
+│   │   │   └── databricks/
+│   │   └── load/               # gold dims, facts, gold_all orchestrator
+│   └── utils/                  # connection, engine, logger, session, tracking
+├── scripts/                    # run_*.py entry points wrapping src jobs
 ├── sql/
-│   ├── migrations/             # Flyway versioned DDL
-│   ├── bronze/
-│   ├── silver/                 # tables + load procedures
-│   ├── gold/                   # dims, facts, views
-│   ├── ops/                    # watermark, logs, freshness, slo
-│   └── dq/                     # catalog, DO-block runner, quarantine
-├── gx/                          # great expectations project (suites, checkpoints)
+│   ├── scripts/                # ordered migrations, applied once each by
+│   │                           # scripts/run_migrate.py, tracked in
+│   │                           # ops.schema_migrations
+│   └── metadata/               # sequence, watermark helpers
+├── gx/                         # great expectations project
+│   ├── expectations/
+│   ├── checkpoints/
+│   └── validation_definitions/
 ├── streaming/
 │   ├── producer/
 │   ├── flink/
 │   ├── sinks/                  # postgres sink, redis sink, alert consumer
-│   └── schemas/                # JSON Schemas
-├── dashboard/                  # Streamlit app
-├── report/                     # LaTeX sources and build script
+│   └── schemas/                # JSON Schemas plus topics.py, message.py
 ├── monitoring/
-│   ├── prometheus/             # prometheus.yml, rules
+│   ├── prometheus/
 │   ├── alertmanager/
-│   └── grafana/                # provisioned dashboards and datasources
-├── scripts/
-│   ├── bash/
-│   └── powershell/
-├── eda/                        # profiling scripts and findings.md
-├── docs/
-│   ├── data_dictionary.md
-│   ├── runbook.md
-│   ├── capacity.md
-│   └── adr/
+│   └── grafana/
 └── tests/
     ├── unit/
-    ├── sql/
+    ├── dq/
     ├── smoke/
-    ├── streaming/
-    └── load/
+    └── streaming/              # tests/sql/ and tests/load/ are planned
 ```
+
+### 19.1 Design path to actual path
+
+| Design name | Actual path | Notes |
+|---|---|---|
+| `docker-compose.yml` | `compose.yml` | Same role, renamed file |
+| `extract/config/` + extractors | `src/jobs/extract/` + `contracts/` + per table YAML where present | Code moved under `src`, contracts split out |
+| `sql/bronze/`, `sql/silver/`, `sql/gold/`, `sql/ops/`, `sql/dq/` | `src/jobs/transform/`, `src/jobs/load/`, `sql/scripts/`, `sql/metadata/` | Layered procedures kept, folders consolidated as built |
+| `eda/` | `notebooks/` + `docs/FINDINGS.md` | Same gate, different names |
+| `airflow/include/` | `airflow/include/` + `src/utils/` + `scripts/` | Shared code split by runtime |
+| `streaming/*` | `streaming/*` | As designed |
+| `monitoring/*` | `monitoring/*` | As designed |
+| `gx/` | `gx/` | As designed |
+
+### 19.2 Planned but not yet built
+
+| Path | Design reference |
+|---|---|
+| `dashboard/` Streamlit app | §5 serving, M6 |
+| `report/` LaTeX sources | §5 serving, M6 |
+| `docs/data_dictionary.md`, `docs/runbook.md`, `docs/capacity.md`, `docs/adr/` | §14.2, §13, §16, §21 |
+| `compose.yml` profiles `serve`, `obs` | §15.2, M6, M7 |
+| `tests/sql/`, `tests/load/` | §18 |
 
 ---
 
@@ -1053,7 +1087,7 @@ Pin all versions in `uv.lock` and image tags.
 | Apache Kafka (KRaft) | Event streaming |
 | Apache Flink | Stream processing (Spark Structured Streaming as fallback) |
 | Great Expectations | Declarative data quality |
-| Flyway or Sqitch | Schema migrations |
+| `scripts/run_migrate.py` + `ops.schema_migrations` | Schema migrations |
 | Streamlit | Dashboard |
 | LaTeX | PDF report |
 | Prometheus, Alertmanager, Grafana | Metrics, alerting, dashboards |
