@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "7eb9794c-d4db-4260-a073-5357adc0348f",
+      "name": "dim_driver"
+    },
+    "batch_definition": {
+      "id": "2c3e530c-892d-4293-a7e5-d79ca2436d9c",
+      "name": "dim_driver_full"
+    },
+    "datasource": {
+      "id": "7898b202-9185-4592-b381-bb7c6920a8e4",
+      "name": "lakehouse_postgres"
+    }
+  },
+  "id": "f20cfd56-eeaa-489d-9f8c-836577845211",
+  "name": "gold_dim_driver",
+  "suite": {
+    "id": "a0d57f80-58e9-48ad-888c-5d63dcdcb620",
+    "name": "gold.dim_driver"
+  }
+}

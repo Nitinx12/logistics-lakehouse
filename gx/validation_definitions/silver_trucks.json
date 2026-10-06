@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "cfd66276-9bde-4b80-b60f-ca2f3430ef9f",
+      "name": "trucks"
+    },
+    "batch_definition": {
+      "id": "b819bb94-aad9-491d-a246-325ddadbc120",
+      "name": "trucks_full"
+    },
+    "datasource": {
+      "id": "7898b202-9185-4592-b381-bb7c6920a8e4",
+      "name": "lakehouse_postgres"
+    }
+  },
+  "id": "1f85899f-331b-4ad1-a925-bac03fb6c096",
+  "name": "silver_trucks",
+  "suite": {
+    "id": "0dcf8833-6de3-432c-bbf7-1681343fcf39",
+    "name": "silver.trucks"
+  }
+}

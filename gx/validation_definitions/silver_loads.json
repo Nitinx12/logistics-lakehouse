@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "2f7052cf-35b9-4a6e-bed0-2fd4839bb148",
+      "name": "loads"
+    },
+    "batch_definition": {
+      "id": "dea4863c-7afc-4297-9040-8488213475cd",
+      "name": "loads_full"
+    },
+    "datasource": {
+      "id": "7898b202-9185-4592-b381-bb7c6920a8e4",
+      "name": "lakehouse_postgres"
+    }
+  },
+  "id": "5f6584f0-6f00-41e0-819d-4d98211d0959",
+  "name": "silver_loads",
+  "suite": {
+    "id": "2a6a2bda-8c8b-44e9-8edd-e81af9629530",
+    "name": "silver.loads"
+  }
+}

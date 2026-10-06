@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "4307c5f2-2e80-431f-bf65-416a153c5f4e",
+      "id": "1afb71c0-787a-4bdd-8144-59b89922c9b1",
       "kwargs": {
         "min_value": 59
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "8cb07e33-123a-470c-abf2-03beafdd3fab",
+      "id": "a0f95786-f1f5-4534-af78-f501653b9a8e",
       "kwargs": {
         "column_list": [
           "route_sk",
@@ -34,7 +34,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "0e75ec1a-b9e8-46e0-b3ed-1c5efe68f81b",
+      "id": "3b4439f3-05db-40ca-b543-a37fcf72fab2",
       "kwargs": {
         "column": "route_id"
       },
@@ -43,7 +43,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "d714a154-b920-4c1f-be13-cbaa2dda495c",
+      "id": "5a1686a3-29b2-487b-9c14-66f827cc4508",
       "kwargs": {
         "column": "route_id"
       },
@@ -52,7 +52,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "582fb53d-f0eb-4740-bede-5238b71ec9b6",
+      "id": "59574b71-2665-48a4-a3d2-eaf22bc0180b",
       "kwargs": {
         "column": "route_sk"
       },
@@ -61,7 +61,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "4c15c594-54ae-4e23-bf82-607c5f984880",
+      "id": "9881b27b-83f5-4247-9dfd-02a70433b772",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -70,7 +70,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "e769d8d7-b4c2-4f8b-9ba8-c2be0614ea85",
+      "id": "d604fbfd-b454-4dec-b0ec-8b9194916624",
       "kwargs": {
         "column": "gold_batch_id"
       },
@@ -79,7 +79,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "6a1bb750-a981-4e0d-85ec-7924e6f4b867",
+      "id": "44e9b79b-151f-408f-a794-d02e52c4f5fb",
       "kwargs": {
         "column": "gold_loaded_at"
       },
@@ -88,7 +88,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "7f2e031a-ba39-4a12-94ad-1341cf9bd9a1",
+      "id": "1f57faac-a802-4510-a9a8-9c616197147b",
       "kwargs": {
         "column": "gold_updated_at"
       },
@@ -97,7 +97,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "f4d47838-51c9-4fa2-9bdd-b87816569ea2",
+      "id": "33013c36-1787-45f0-8e86-fe947e1f7e34",
       "kwargs": {
         "column": "origin_state",
         "regex": "^[A-Z]{2}$"
@@ -107,7 +107,7 @@
       "type": "expect_column_values_to_match_regex"
     },
     {
-      "id": "9b15daa4-7257-494c-9ae6-478518fdbfc6",
+      "id": "846a143e-28d9-42c1-b1b6-769d39704fc6",
       "kwargs": {
         "column": "destination_state",
         "regex": "^[A-Z]{2}$"

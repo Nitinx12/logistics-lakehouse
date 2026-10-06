@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "8da7f41f-d68a-47e4-8ac7-bc242dece050",
+      "id": "d3ea8d1b-42e6-401e-a85f-831fa4880c55",
       "kwargs": {
         "min_value": 196442
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "2025bb53-2473-4f72-a6f8-e20955fdba8c",
+      "id": "7b2ab156-e438-4bf2-a61c-f95bc2f2c6f6",
       "kwargs": {
         "column_list": [
           "fuel_purchase_id",
@@ -33,7 +33,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "07d8b375-c866-4dc1-8ceb-859cb3a77c5f",
+      "id": "931be809-d280-42fc-b92a-cc3fd3013baa",
       "kwargs": {
         "column": "fuel_purchase_id"
       },
@@ -42,7 +42,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "ca166013-cde1-4e39-9899-bee6205a161a",
+      "id": "d5270ba2-36e7-43bd-afa7-bf06f71d4156",
       "kwargs": {
         "column": "fuel_purchase_id"
       },
@@ -51,7 +51,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "f70a1ac4-d910-458e-9618-01fabd732cd4",
+      "id": "8f896bce-1e85-4dce-af79-1652667fdf09",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -60,7 +60,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "39f6d319-86f0-4835-8d53-f43829ec34c5",
+      "id": "f801f3f0-f598-43e2-bc7f-c35fbd2115a2",
       "kwargs": {
         "column": "loaded_at",
         "regex": "^\\d{4}-\\d{2}-\\d{2}"

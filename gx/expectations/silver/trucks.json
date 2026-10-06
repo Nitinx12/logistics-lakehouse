@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "272d4f1d-e486-4e39-bc43-c4b74d3832e1",
+      "id": "a777d76f-2443-4610-981f-d566bb245647",
       "kwargs": {
         "min_value": 120
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "bceb2960-745c-446a-a7b5-f7237d926d3e",
+      "id": "71dda2f0-9fc8-4c3a-a540-9b0892dd64fa",
       "kwargs": {
         "column_list": [
           "truck_id",
@@ -35,7 +35,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "a477ab52-93bb-4791-8a5d-2bf5a1c8812d",
+      "id": "8412d4ee-8d2e-409a-a2b7-15b1150cf218",
       "kwargs": {
         "column": "truck_id"
       },
@@ -44,7 +44,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "a43e54e6-572d-4d49-822e-0152929b8611",
+      "id": "44b4dd10-ac9c-4560-bea7-8502c9bd2bf8",
       "kwargs": {
         "column": "truck_id"
       },
@@ -53,7 +53,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "16b7d7b6-e54b-417e-afcb-11d318bc3d92",
+      "id": "dc85e958-d2ae-4d10-857c-f31e07c17a48",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -62,7 +62,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "10eec20d-3f4b-48b9-bd31-db2951183820",
+      "id": "7e4fb154-c078-4f2d-8853-19ac0bdcb324",
       "kwargs": {
         "column": "silver_batch_id"
       },
@@ -71,7 +71,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "a1019134-9ff6-455c-a809-1fb150a552ea",
+      "id": "9833b4c6-f7b7-405e-8129-7efdc0d61183",
       "kwargs": {
         "column": "unit_number",
         "min_value": 0.0
@@ -81,7 +81,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "be34395e-89b5-4236-adcf-2173ffe1b776",
+      "id": "3d3aa001-dcc7-44e6-9d8b-d905290235ea",
       "kwargs": {
         "column": "model_year",
         "min_value": 0.0
@@ -91,7 +91,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "f88f1c5e-b7d7-420a-a49e-5e00ecd45c07",
+      "id": "266f9658-da9e-4358-b02a-7ca505d29242",
       "kwargs": {
         "column": "acquisition_mileage",
         "min_value": 0.0
@@ -101,7 +101,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "219e1e47-1801-4355-909e-2fdc31abc812",
+      "id": "bf7c3919-265a-42d8-adb6-6a037317bf03",
       "kwargs": {
         "column": "tank_capacity_gallons",
         "min_value": 0.0
@@ -111,7 +111,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "044840a5-8e5c-4dfd-9213-1cbc2a13a2aa",
+      "id": "a1568690-0de9-4513-af3c-3a56bff9d07d",
       "kwargs": {
         "column": "status",
         "value_set": [

@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "b724493b-f4b4-4e89-84cb-57e5edd19ac2",
+      "name": "trips"
+    },
+    "batch_definition": {
+      "id": "77d7e3d3-cce7-491f-9af1-e0c0f1258dbd",
+      "name": "trips_full"
+    },
+    "datasource": {
+      "id": "7898b202-9185-4592-b381-bb7c6920a8e4",
+      "name": "lakehouse_postgres"
+    }
+  },
+  "id": "db10c177-dce6-44dd-84a2-e1c2d14b1980",
+  "name": "bronze_trips",
+  "suite": {
+    "id": "c8a40892-3538-4fde-92f7-53c2ad9ad77b",
+    "name": "bronze.trips"
+  }
+}

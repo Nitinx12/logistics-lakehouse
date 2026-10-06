@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "abc7935a-cff4-4bab-8e24-fb0387cb074a",
+      "id": "9eaf4198-ac12-4b2e-a517-88c26df06e81",
       "kwargs": {
         "min_value": 7671
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "3e3a7d7f-ddf9-4910-88fc-de320b3cc6be",
+      "id": "6582c284-f506-4787-a130-d65d0f6f6ba0",
       "kwargs": {
         "column_list": [
           "date_key",
@@ -32,7 +32,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "71722847-1e26-4c72-a020-5a81494acbb3",
+      "id": "8097fe42-0a05-4f4b-ac8d-793815764ff2",
       "kwargs": {
         "column": "date_key"
       },
@@ -41,7 +41,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "75a40564-9d95-4be8-8b2b-23ff21333a03",
+      "id": "9dcc557a-da7d-4f66-9578-c33319aceb62",
       "kwargs": {
         "column": "date_key"
       },
@@ -50,7 +50,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "7ef96a53-0b1f-47a1-a2ef-7a92f6abaca9",
+      "id": "822913f2-eacf-42e4-9c1b-0254ba8bf2f7",
       "kwargs": {
         "column": "gold_batch_id"
       },

@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "b0d71231-5454-4c36-aafa-1ed2b96f2891",
+      "id": "bcbc65ab-e385-45a9-aad9-cc1e003ca30a",
       "kwargs": {
         "min_value": 85410
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "aa7876fa-dcb4-43f7-935b-9d7485ce2c0c",
+      "id": "fd037dde-71e7-4fac-ac9e-0833ddefaab1",
       "kwargs": {
         "column_list": [
           "trip_id",
@@ -34,7 +34,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "de525415-2d35-4a61-9ca6-81e9cd8762d0",
+      "id": "acf9cf90-bab1-4032-ab6c-0393a7ac08d8",
       "kwargs": {
         "column": "trip_id"
       },
@@ -43,7 +43,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "684c0af3-1cc2-4c96-bd06-d1d4d79241e8",
+      "id": "4f551068-a7ae-4acd-9203-78be8d016ade",
       "kwargs": {
         "column": "trip_id"
       },
@@ -52,7 +52,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "79f24d73-87a9-429e-ae9f-fe4295f3ebb4",
+      "id": "63ddec36-2176-4b90-8456-e0689ab7f85c",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -61,7 +61,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "31a04915-72a5-478c-b09f-57a2219f03aa",
+      "id": "750ba8cb-d9cb-4e71-b64e-fdd001cdabd8",
       "kwargs": {
         "column": "loaded_at",
         "regex": "^\\d{4}-\\d{2}-\\d{2}"

@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "71399b65-4de2-4497-9dc2-f3119ab2573c",
+      "name": "customers"
+    },
+    "batch_definition": {
+      "id": "2e69a23f-0b87-4fb0-8ec5-cfd7035bb880",
+      "name": "customers_full"
+    },
+    "datasource": {
+      "id": "7898b202-9185-4592-b381-bb7c6920a8e4",
+      "name": "lakehouse_postgres"
+    }
+  },
+  "id": "758820e9-ba92-4de4-9adc-2b180512487d",
+  "name": "silver_customers",
+  "suite": {
+    "id": "5b24113b-c787-478a-aa27-832695654013",
+    "name": "silver.customers"
+  }
+}

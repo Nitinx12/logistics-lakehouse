@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "75da87c2-d350-4da1-8a01-786752eec9e5",
+      "id": "67636ba1-8f17-4664-a27b-929e8b0edd16",
       "kwargs": {
         "min_value": 121
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "5dd6791d-92f4-4ba0-8d7a-fd23116d23e6",
+      "id": "49e4b21c-8bca-46b0-940c-7ddf5f7abdc0",
       "kwargs": {
         "column_list": [
           "truck_sk",
@@ -36,7 +36,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "a13cf0b5-ee49-4343-966c-38891fbdc146",
+      "id": "147140db-5ebc-4174-b899-f5500ad11738",
       "kwargs": {
         "column": "truck_id"
       },
@@ -45,7 +45,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "b8b079b2-59b0-4eb1-86a0-4921e399ff11",
+      "id": "3c80419c-02c3-4450-b084-879f40e1fef6",
       "kwargs": {
         "column": "truck_id"
       },
@@ -54,7 +54,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "71996623-cf2a-4916-b8e2-4857b30ae1e6",
+      "id": "e43210dd-8e46-47e7-b53f-373a9055bb02",
       "kwargs": {
         "column": "truck_sk"
       },
@@ -63,7 +63,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "1936b32f-5cd1-4465-8879-6d99184e6c66",
+      "id": "d7c2337b-a01f-4c9d-9cc2-02ea34a061c0",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -72,7 +72,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "3fa12f1c-9c54-4ff0-9349-8131899345ad",
+      "id": "55fcdb1f-54cb-4318-98cc-7ab6737b5ac0",
       "kwargs": {
         "column": "gold_batch_id"
       },
@@ -81,7 +81,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "2dcbb5d8-c421-4d10-b625-e8ccd4ddac13",
+      "id": "b1074587-d382-41ab-9df8-4f8f6a573144",
       "kwargs": {
         "column": "gold_loaded_at"
       },
@@ -90,7 +90,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "3c10680c-c3ef-48ff-9436-df9e64b62cb8",
+      "id": "c7e8eac0-b42e-4f08-82b3-fe1ab997a3e9",
       "kwargs": {
         "column": "gold_updated_at"
       },

@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "5525bf7e-1595-4978-a9ad-dd57b6918b86",
+      "id": "9a96b7d2-656b-4504-bb09-b99d350d6e22",
       "kwargs": {
         "min_value": 120
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "1b584868-d9ce-436e-840b-935263d11f2d",
+      "id": "85b7caa7-ca9f-4510-9be1-7c7429a9aec0",
       "kwargs": {
         "column_list": [
           "truck_id",
@@ -33,7 +33,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "f8dd3023-8904-4dcc-a3aa-932e5105b9af",
+      "id": "d7ea0375-422e-4229-a7e7-10e4540bf9b2",
       "kwargs": {
         "column": "truck_id"
       },
@@ -42,7 +42,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "9d6ec3c0-dfd8-44b2-b23b-84f2cd4476c3",
+      "id": "ac7c367f-b764-4c31-8365-de19673b55f6",
       "kwargs": {
         "column": "truck_id"
       },
@@ -51,7 +51,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "d370c2e1-62b0-4bdd-a6f6-bdd1c9619bd2",
+      "id": "06cc7dd8-346e-48cb-893b-b7ce9d411403",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -60,7 +60,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "0783d23d-fbb7-46f5-ab87-9efcdd0ef366",
+      "id": "142ebb1a-022a-4771-a657-65b6825ad7c2",
       "kwargs": {
         "column": "loaded_at",
         "regex": "^\\d{4}-\\d{2}-\\d{2}"

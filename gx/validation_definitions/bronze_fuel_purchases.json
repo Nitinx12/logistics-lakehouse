@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "adbbceca-6768-400c-b53c-99960bc29b59",
+      "name": "fuel_purchases"
+    },
+    "batch_definition": {
+      "id": "bf51c0b2-b37f-41fa-80a7-52249be0accb",
+      "name": "fuel_purchases_full"
+    },
+    "datasource": {
+      "id": "7898b202-9185-4592-b381-bb7c6920a8e4",
+      "name": "lakehouse_postgres"
+    }
+  },
+  "id": "3f38a8db-5f58-4ae7-946e-9db99689df43",
+  "name": "bronze_fuel_purchases",
+  "suite": {
+    "id": "e864bcb8-60ed-41e7-83cf-7e22d5a64da3",
+    "name": "bronze.fuel_purchases"
+  }
+}

@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "c09b0c67-3e22-420a-a2ed-ac3e18190060",
+      "id": "07f1d57a-0821-4396-970e-195594a215b8",
       "kwargs": {
         "min_value": 2920
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "8b1b522e-08c5-4c54-9a63-ff5cca5a4055",
+      "id": "bb754d14-e522-459a-a909-c1a1e3bb32e0",
       "kwargs": {
         "column_list": [
           "maintenance_id",
@@ -36,7 +36,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "eda2c237-1d36-4a73-8519-b4360e404fa1",
+      "id": "c3bf87c8-9c7c-4653-94da-68ff3c07f3c4",
       "kwargs": {
         "column": "maintenance_id"
       },
@@ -45,7 +45,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "7bba65d0-34d7-4917-a5c3-bea536bc6d4d",
+      "id": "18d8f426-7255-4cab-86ff-3d4788791d62",
       "kwargs": {
         "column": "maintenance_id"
       },
@@ -54,7 +54,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "1627190b-bc78-4c51-80ad-ad14bf26d6ee",
+      "id": "a6d4d78a-06ab-49da-b869-aa7019fa6f2f",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -63,7 +63,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "e414adf4-60a3-4966-91c0-3fb839cd996a",
+      "id": "97bac4ca-63f7-43f4-b7df-82dd78c0d2ea",
       "kwargs": {
         "column": "gold_batch_id"
       },
@@ -72,7 +72,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "24a6a38e-a416-4851-b85d-644b9fe328b0",
+      "id": "ad2dea83-ddd2-4c8d-8524-ab25f368f5e2",
       "kwargs": {
         "column": "gold_loaded_at"
       },
@@ -81,7 +81,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "6e3c0245-3dfd-4190-a857-ae3dcaeec774",
+      "id": "0d6765cc-fb50-4815-bbe0-b46bcf22a8ad",
       "kwargs": {
         "column": "gold_updated_at"
       },
@@ -90,7 +90,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "29796aa3-9281-408e-aa55-26ed8f79c5e4",
+      "id": "5d530733-7bf6-4dc4-bf7b-ea591ecb1fbf",
       "kwargs": {
         "column": "odometer_reading",
         "min_value": 0.0
@@ -100,7 +100,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "5cda50a6-38fc-459b-abea-dd60ba138f5d",
+      "id": "207e631b-1279-4790-92b8-ffd9f9b23709",
       "kwargs": {
         "column": "labor_hours",
         "min_value": 0.0
@@ -110,7 +110,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "7fedb173-ab7f-4f50-8246-c962326e429a",
+      "id": "d16f730f-67e6-4d10-8bd6-764f8aec18c8",
       "kwargs": {
         "column": "labor_cost",
         "min_value": 0.0
@@ -120,7 +120,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "ac941052-0564-415b-b03b-71b0ca38ac1d",
+      "id": "d851fe9a-670f-4006-b783-42e25b3f0e78",
       "kwargs": {
         "column": "parts_cost",
         "min_value": 0.0
@@ -130,7 +130,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "aa935e64-ccee-4dd6-9ee7-df88aec5092a",
+      "id": "7a7f719a-356d-41f7-addc-619a334835e1",
       "kwargs": {
         "column": "total_cost",
         "min_value": 0.0
@@ -140,7 +140,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "a7e393ca-cb82-4398-97e4-3dd1897735a5",
+      "id": "c4484481-0475-4800-af0e-2e7ba67afaa2",
       "kwargs": {
         "column": "downtime_hours",
         "min_value": 0.0

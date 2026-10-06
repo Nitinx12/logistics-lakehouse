@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "b9e11c39-b9d4-422d-a7a7-9378cb0dec12",
+      "id": "afe35d86-2033-41f0-be04-0a8f967663dd",
       "kwargs": {
         "min_value": 200
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "9a3364ab-f58c-40ac-ac1c-59d79968bb59",
+      "id": "20e6ed48-6641-4bfd-b42c-9b0988ad748b",
       "kwargs": {
         "column_list": [
           "customer_id",
@@ -32,7 +32,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "61527082-0df0-4865-8d51-d1f41f1f96c4",
+      "id": "539324d2-70a2-4129-9d03-d969b75825d7",
       "kwargs": {
         "column": "customer_id"
       },
@@ -41,7 +41,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "6068c74f-a88b-4ea4-8fc8-d2a3642c0a4f",
+      "id": "8077f68c-5bed-4655-b649-6a4389d0c3eb",
       "kwargs": {
         "column": "customer_id"
       },
@@ -50,7 +50,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "0fa4ba16-eaa0-4a8f-b090-ffe3c0bde8ce",
+      "id": "c527e7ad-8d97-4d03-88ff-2baf800c52b5",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -59,7 +59,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "1b5b4626-7697-4609-8942-ce7521b90194",
+      "id": "0671d1ec-b8e9-4a3b-8da5-ff92606789e4",
       "kwargs": {
         "column": "silver_batch_id"
       },
@@ -68,7 +68,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "fdd5a10b-23da-4f74-b845-cc439e02574b",
+      "id": "01f801cc-caea-40a2-bdd7-1158981446b8",
       "kwargs": {
         "column": "credit_terms_days",
         "min_value": 0.0
@@ -78,7 +78,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "7d3930da-954d-4a6f-814a-03d7b0249009",
+      "id": "3a75f7a2-e64e-4d5c-8900-e7fdfe65860d",
       "kwargs": {
         "column": "annual_revenue_potential",
         "min_value": 0.0

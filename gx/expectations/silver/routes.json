@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "366379c0-9743-4db3-a4a3-e436f9e1d32c",
+      "id": "d66ea071-acf4-405a-ab70-5df3db0d5339",
       "kwargs": {
         "min_value": 58
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "95f238a0-e7d2-4181-a27f-bfb3d3a28b9f",
+      "id": "b8102b96-f329-458e-b98c-9d53c62e3bbb",
       "kwargs": {
         "column_list": [
           "route_id",
@@ -33,7 +33,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "7e5d089c-d8b3-4e64-a51c-eec94a6e7b35",
+      "id": "d6f2fe50-b1ac-48b3-92dd-610ce2c117f1",
       "kwargs": {
         "column": "route_id"
       },
@@ -42,7 +42,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "35851c9d-7fef-4703-a245-b30b034de671",
+      "id": "034b5075-49d6-430b-a2da-0db1e7bda806",
       "kwargs": {
         "column": "route_id"
       },
@@ -51,7 +51,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "9b301c42-46b3-4e83-a231-d2cf456a6c67",
+      "id": "02d4861b-2a05-4f53-a578-563cb3a54630",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -60,7 +60,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "55291ed3-15ac-46db-b97a-092e6bcb3d29",
+      "id": "b47a5f3a-bb4c-4ac9-b1fa-68882706d0c2",
       "kwargs": {
         "column": "silver_batch_id"
       },
@@ -69,7 +69,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "f97603aa-9225-4cb7-a356-e728527d394e",
+      "id": "4e7dae53-4631-4629-b966-755b0b0fd567",
       "kwargs": {
         "column": "typical_distance_miles",
         "min_value": 0.0
@@ -79,7 +79,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "102d2a0e-5def-40ed-a7f6-09935087a49e",
+      "id": "7e4e602f-afa2-4370-b36b-a689ee2edef7",
       "kwargs": {
         "column": "base_rate_per_mile",
         "min_value": 0.0
@@ -89,7 +89,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "0fee3057-ba2d-47c9-9197-3fa1e4a08526",
+      "id": "4b300ac3-ff40-4b45-982e-b9c4bae5fdc4",
       "kwargs": {
         "column": "fuel_surcharge_rate",
         "min_value": 0.0
@@ -99,7 +99,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "259f88c4-c80c-4e30-baee-8c3cba484cf8",
+      "id": "4de21340-76c6-46e3-a4c4-ad878658e930",
       "kwargs": {
         "column": "typical_transit_days",
         "min_value": 0.0
@@ -109,7 +109,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "cc8a17c2-1881-48c8-ba84-f8f2de5118f6",
+      "id": "e4f60444-9748-448f-96ed-89b01a7de085",
       "kwargs": {
         "column": "origin_state",
         "regex": "^[A-Z]{2}$"
@@ -119,7 +119,7 @@
       "type": "expect_column_values_to_match_regex"
     },
     {
-      "id": "3bbae906-7d88-4fa0-a313-bcd0d5e0cc35",
+      "id": "9db59cea-1378-47dc-8f2c-852f098ff951",
       "kwargs": {
         "column": "destination_state",
         "regex": "^[A-Z]{2}$"

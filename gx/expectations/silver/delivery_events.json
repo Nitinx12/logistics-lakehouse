@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "e882aefc-ea2e-42a6-b1e0-0454cdd6db88",
+      "id": "0c00b309-0fac-44c1-bcb4-78ea8ce374e0",
       "kwargs": {
         "min_value": 170820
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "3382553b-7d91-4755-b6fe-a390f8274196",
+      "id": "3ccaedb9-99ae-4072-bce8-fd3042079e6d",
       "kwargs": {
         "column_list": [
           "event_id",
@@ -36,7 +36,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "3ec31cfc-917e-4834-98f1-30261fb44234",
+      "id": "c5bb05b6-34ae-4c19-8e71-f4cf3bd33fb0",
       "kwargs": {
         "column": "event_id"
       },
@@ -45,7 +45,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "84a492d7-a2a0-4f0b-8f3a-7590abad5be6",
+      "id": "8b6affe2-a00b-4c39-affd-199e9bd53505",
       "kwargs": {
         "column": "event_id"
       },
@@ -54,7 +54,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "0ba1bf59-f34e-4723-a780-5aab0b337e17",
+      "id": "1dc8c746-a0dc-4201-98cd-b7adc056dff9",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -63,7 +63,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "a5b1abef-f5d5-4f33-8d3c-5cbcc25311d7",
+      "id": "08036fa4-4954-47a9-8e7c-0b153af36647",
       "kwargs": {
         "column": "silver_batch_id"
       },
@@ -72,7 +72,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "7cd35796-d4da-4bed-b9cc-2144f9bb2cee",
+      "id": "2ec25b0d-5f8b-4758-aa50-4e41a3257fab",
       "kwargs": {
         "column": "detention_minutes",
         "min_value": 0.0
@@ -82,7 +82,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "b2b0fbf5-cced-4971-a90e-7078e8f9a5d2",
+      "id": "10206d34-535a-4951-9495-beaa49efa120",
       "kwargs": {
         "column": "location_state",
         "regex": "^[A-Z]{2}$"

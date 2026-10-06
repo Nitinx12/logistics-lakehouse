@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "8eaf2dbe-c7d8-41a2-b31a-a110d333e25b",
+      "id": "7b45e887-d1ea-4cf4-a042-8b52585e11cb",
       "kwargs": {
         "min_value": 85410
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "c7097257-984d-4535-b5b2-1ffab7f95114",
+      "id": "f4c697a4-c7bd-46ea-9967-b3ff7f802949",
       "kwargs": {
         "column_list": [
           "load_id",
@@ -36,7 +36,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "c1c3e70c-871f-460a-b938-5afd4be66970",
+      "id": "51047278-b5b0-403a-a50c-520d0e5edda2",
       "kwargs": {
         "column": "load_id"
       },
@@ -45,7 +45,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "5793c1e7-9f0b-4cd6-91f2-e9b4b76d970e",
+      "id": "99d5004a-d53d-4e16-8520-48db4c5f89e0",
       "kwargs": {
         "column": "load_id"
       },
@@ -54,7 +54,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "93b95815-586a-4f69-9d02-e486ce43a4d7",
+      "id": "37414d5a-6f52-418c-9b2d-86ca11e8f202",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -63,7 +63,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "4bf1526e-81b7-4ef0-a36c-21a3599891be",
+      "id": "ef758cdb-5a0d-44f3-91bd-d6fd88b4130b",
       "kwargs": {
         "column": "silver_batch_id"
       },
@@ -72,7 +72,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "af544da0-dd7d-4c4b-b58a-19556e08b82f",
+      "id": "2e21ce95-8d63-416b-aac9-9227865f1590",
       "kwargs": {
         "column": "weight_lbs",
         "min_value": 0.0
@@ -82,7 +82,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "fec03970-699e-4008-8b12-9b29bcff2f5a",
+      "id": "6bb8b9e3-34ec-401e-8d82-25718fe2197d",
       "kwargs": {
         "column": "pieces",
         "min_value": 0.0
@@ -92,7 +92,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "ffd66cfe-4765-4537-9595-1763ca643ad0",
+      "id": "5951b15b-227e-4099-a1a0-e2d484cfd243",
       "kwargs": {
         "column": "revenue",
         "min_value": 0.0
@@ -102,7 +102,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "7cea1f3c-9806-418f-ac0a-429187e440a7",
+      "id": "5d931aba-b312-4520-9645-8e03e5f5c284",
       "kwargs": {
         "column": "fuel_surcharge",
         "min_value": 0.0
@@ -112,7 +112,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "a68429d6-cb98-4002-9733-d5048ba824a4",
+      "id": "fa517399-5592-4191-a61e-d5a36936936a",
       "kwargs": {
         "column": "accessorial_charges",
         "min_value": 0.0
@@ -122,7 +122,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "c24f96c2-5334-440d-8861-774158352bc3",
+      "id": "5090974e-886a-4bf8-b245-376768ae54f6",
       "kwargs": {
         "column": "load_type",
         "value_set": [
@@ -135,7 +135,7 @@
       "type": "expect_column_values_to_be_in_set"
     },
     {
-      "id": "be3b8e51-fa27-4b62-bc1f-4a5be1eb8b65",
+      "id": "1b45da6d-0b9f-4642-8aee-402b20a2a170",
       "kwargs": {
         "column": "load_status",
         "value_set": [
@@ -147,7 +147,7 @@
       "type": "expect_column_values_to_be_in_set"
     },
     {
-      "id": "18587f91-b1dc-4c1c-8fea-a3334ceffe7a",
+      "id": "4c0c0a9e-395b-4b11-a85d-7de94079c6f4",
       "kwargs": {
         "column": "booking_type",
         "value_set": [

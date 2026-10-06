@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "55579e5a-5bdd-42d6-890d-b8a9490da116",
+      "id": "040956fe-1f32-4720-a6c0-ccf1477da6f6",
       "kwargs": {
         "min_value": 50
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "1dd254c1-babb-4f19-a08b-73ff1491e367",
+      "id": "0982e711-3544-471f-a9b5-4d01ba492daa",
       "kwargs": {
         "column_list": [
           "facility_id",
@@ -33,7 +33,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "fc965f7d-bcf7-47a4-b3d7-9e40cee3ab7e",
+      "id": "9ff58d56-41a5-4dcc-90ab-012a84a0a8cb",
       "kwargs": {
         "column": "facility_id"
       },
@@ -42,7 +42,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "07ca04bc-a758-42d6-a85d-bbc6e0ff6626",
+      "id": "fc5648bb-3cfd-49a7-9ab7-37647ec5326c",
       "kwargs": {
         "column": "facility_id"
       },
@@ -51,7 +51,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "a669f7a1-eff9-4b3a-bb6f-2b2312d83c2c",
+      "id": "7293c2f2-393e-498f-be19-c2cbb55714aa",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -60,7 +60,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "66e612b9-c425-4b79-8181-81fd67a4f513",
+      "id": "4701c566-5cad-4e7b-93b6-d94d82f6a49c",
       "kwargs": {
         "column": "silver_batch_id"
       },
@@ -69,7 +69,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "91f94cee-7a2e-417e-a14f-58722734d2c4",
+      "id": "ab295554-3de1-42f9-997b-e8ee9fcdde70",
       "kwargs": {
         "column": "dock_doors",
         "min_value": 0.0
@@ -79,7 +79,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "ca36b7bc-94b5-4ffd-b8ad-a60d6eb71340",
+      "id": "a27392f2-3c39-4c4a-8ce2-b7b1d9ed96cb",
       "kwargs": {
         "column": "state",
         "regex": "^[A-Z]{2}$"

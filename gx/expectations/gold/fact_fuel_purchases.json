@@ -1,7 +1,7 @@
 {
   "expectations": [
     {
-      "id": "d347ea2e-4661-4038-8b6b-908e20889952",
+      "id": "fb4a9623-b2ea-4097-8ae9-2fbe24634ec7",
       "kwargs": {
         "min_value": 196442
       },
@@ -10,7 +10,7 @@
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "b18ebeb2-ca57-4c7a-aa0d-b852396a11ab",
+      "id": "6cbafea6-c9a0-43df-bdbe-8487dc6d04de",
       "kwargs": {
         "column_list": [
           "fuel_purchase_id",
@@ -33,7 +33,7 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "2a1bf53b-e247-4bf7-bcdc-391cae4adb02",
+      "id": "b9fadf3d-7ac9-4864-b3ca-b6fe83f7b935",
       "kwargs": {
         "column": "fuel_purchase_id"
       },
@@ -42,7 +42,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "e602a7a3-9522-4e9e-a860-323c85a096bb",
+      "id": "048cd381-6cd8-4efe-a3e9-d882f47ab57a",
       "kwargs": {
         "column": "fuel_purchase_id"
       },
@@ -51,7 +51,7 @@
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "05df9457-c362-4db6-ac06-91439fe8bad9",
+      "id": "4e1b6548-4aaa-4109-8cff-8e2bf3790d29",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -60,7 +60,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "5662942c-9e3e-49f5-986d-5aba19cfff4a",
+      "id": "c7619325-9ed6-48dc-8033-142a496011dd",
       "kwargs": {
         "column": "gold_batch_id"
       },
@@ -69,7 +69,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "a4fad17b-dadf-48b3-871f-97a8f93e00db",
+      "id": "c71408f1-a0e5-4ddc-a073-d8fbb81c04fc",
       "kwargs": {
         "column": "gold_loaded_at"
       },
@@ -78,7 +78,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "e2b01686-06d6-400d-8672-4bfcc2b5c0ab",
+      "id": "b0c32694-7315-4f08-a1b7-59fe303400c7",
       "kwargs": {
         "column": "gold_updated_at"
       },
@@ -87,7 +87,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "486a9f45-cd55-4c20-8b67-9aaa97ab97b4",
+      "id": "4804a246-c8b5-4b28-9cba-92db725d2197",
       "kwargs": {
         "column": "gallons",
         "min_value": 0.0
@@ -97,7 +97,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "9d40159f-cab7-4e54-9e9b-d738fb87c8a6",
+      "id": "e0f3f82f-33ee-4966-af20-41cca3b19fab",
       "kwargs": {
         "column": "price_per_gallon",
         "min_value": 0.0
@@ -107,7 +107,7 @@
       "type": "expect_column_values_to_be_between"
     },
     {
-      "id": "17f42162-5fed-4fbc-9e6d-becd9f63a272",
+      "id": "9c89f0a7-f076-4219-b067-58aa895707b5",
       "kwargs": {
         "column": "total_cost",
         "min_value": 0.0

@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "1eb447c0-755e-4157-a8a8-3d7ca3114b10",
+      "name": "fact_safety_incidents"
+    },
+    "batch_definition": {
+      "id": "511d82aa-d698-42bc-87aa-cc3665905ba6",
+      "name": "fact_safety_incidents_full"
+    },
+    "datasource": {
+      "id": "7898b202-9185-4592-b381-bb7c6920a8e4",
+      "name": "lakehouse_postgres"
+    }
+  },
+  "id": "9e63b2ea-73e5-4ac4-afe0-b86904e356f1",
+  "name": "gold_fact_safety_incidents",
+  "suite": {
+    "id": "286ae18c-fe8b-4ed0-87b8-168dcf06de56",
+    "name": "gold.fact_safety_incidents"
+  }
+}

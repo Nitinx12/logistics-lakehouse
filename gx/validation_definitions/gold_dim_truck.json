@@ -1,0 +1,22 @@
+{
+  "data": {
+    "asset": {
+      "id": "0102b146-8cf6-4275-9924-c57f52045b81",
+      "name": "dim_truck"
+    },
+    "batch_definition": {
+      "id": "712e15ef-af4e-4ae5-868c-cf483f7771e0",
+      "name": "dim_truck_full"
+    },
+    "datasource": {
+      "id": "7898b202-9185-4592-b381-bb7c6920a8e4",
+      "name": "lakehouse_postgres"
+    }
+  },
+  "id": "2745e2c5-328a-43ee-9525-f34ddc82c038",
+  "name": "gold_dim_truck",
+  "suite": {
+    "id": "f8084f3e-604a-4b94-a097-8d4220e99819",
+    "name": "gold.dim_truck"
+  }
+}

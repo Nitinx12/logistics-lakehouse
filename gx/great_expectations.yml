@@ -87,131 +87,131 @@ fluent_datasources:
     assets:
       dim_date:
         type: table
-        id: 403f9c95-e08a-4702-97f8-9034b9c3e1ba
+        id: 1a05d22a-b1eb-43dc-8538-62eba2c3d20f
         batch_metadata: {}
         batch_definitions:
           dim_date_full:
-            id: e2dbfef5-aa54-45ac-8ef9-bf4001773d92
+            id: 237a19d9-223e-4e60-b7e3-e5502e01e34d
             partitioner:
         table_name: dim_date
         schema_name: gold
       dim_customer:
         type: table
-        id: fb59162a-143f-4e07-ae0a-7d4154a663e9
+        id: 6192a198-b3d8-46f2-a03b-ba61630b6af3
         batch_metadata: {}
         batch_definitions:
           dim_customer_full:
-            id: 62cad1ef-59fa-4846-b2ef-cca194eb3887
+            id: b77d1a23-d4f3-49b2-bba2-d4799dd0d955
             partitioner:
         table_name: dim_customer
         schema_name: gold
       dim_driver:
         type: table
-        id: d0033001-914d-4683-b27c-b5683b38eaa9
+        id: 7eb9794c-d4db-4260-a073-5357adc0348f
         batch_metadata: {}
         batch_definitions:
           dim_driver_full:
-            id: 2f12f43d-8d31-4a50-98ba-8d869d6d91fa
+            id: 2c3e530c-892d-4293-a7e5-d79ca2436d9c
             partitioner:
         table_name: dim_driver
         schema_name: gold
       dim_facility:
         type: table
-        id: 255e30ad-5a54-4655-b6c2-7e2ce6fc84ed
+        id: bef58f2b-0af3-45e2-bd2d-3aa7170847a3
         batch_metadata: {}
         batch_definitions:
           dim_facility_full:
-            id: 24c47f75-c0a0-4234-bb5a-51eef3d3e413
+            id: b127ba91-e47c-40f9-ac1e-426653d0d729
             partitioner:
         table_name: dim_facility
         schema_name: gold
       dim_route:
         type: table
-        id: b8b25bf4-574c-45cc-982c-a20ad4521d37
+        id: d7cfa0c5-cf68-4c8d-9802-adfec7a6bf91
         batch_metadata: {}
         batch_definitions:
           dim_route_full:
-            id: ed7c9b4a-19b4-42fa-92d1-1f29aad4c449
+            id: 6c493c10-c7a1-469a-b9da-1140ecd6fd94
             partitioner:
         table_name: dim_route
         schema_name: gold
       dim_trailer:
         type: table
-        id: 55f6fcb7-f658-490c-95db-135407311f16
+        id: 909bdfb4-38a3-4e6f-b18a-a4352334289a
         batch_metadata: {}
         batch_definitions:
           dim_trailer_full:
-            id: 0c91e6cd-c2ff-4221-a405-f86d455e7f05
+            id: c8b2228b-fe17-4b15-be31-8dd4c9331164
             partitioner:
         table_name: dim_trailer
         schema_name: gold
       dim_truck:
         type: table
-        id: 0db9175e-86f3-4e6b-bf57-8311216ced80
+        id: 0102b146-8cf6-4275-9924-c57f52045b81
         batch_metadata: {}
         batch_definitions:
           dim_truck_full:
-            id: 963c484e-3be1-49d0-84b9-4939b2cba779
+            id: 712e15ef-af4e-4ae5-868c-cf483f7771e0
             partitioner:
         table_name: dim_truck
         schema_name: gold
       fact_loads:
         type: table
-        id: d6c54042-4f43-48f6-8a25-15a7b1f458cc
+        id: 8edc7ee5-25d5-489b-a4b6-66b6244290fc
         batch_metadata: {}
         batch_definitions:
           fact_loads_full:
-            id: b510262a-d475-4bf3-86d7-5c05c21fb929
+            id: a6771a8a-8932-4f21-91d0-2c04e1593673
             partitioner:
         table_name: fact_loads
         schema_name: gold
       fact_trips:
         type: table
-        id: 8579b12a-899c-48b2-bf5d-6c3bc1b6a7ef
+        id: c8d3e162-4f54-4d8b-8763-e9a53a6f16e7
         batch_metadata: {}
         batch_definitions:
           fact_trips_full:
-            id: 893cf1af-f9f6-48a9-b681-3e76f6819d42
+            id: 47df9756-e63e-437b-b46d-1974846d61fe
             partitioner:
         table_name: fact_trips
         schema_name: gold
       fact_fuel_purchases:
         type: table
-        id: 6f51a665-8175-41ae-b17f-7d328f62c1db
+        id: 998c389a-8c7e-45a0-9708-feb7796bb9a5
         batch_metadata: {}
         batch_definitions:
           fact_fuel_purchases_full:
-            id: f0a4cde7-caba-420c-8eb5-a9a76c14cb7e
+            id: c5966301-78df-4a8c-9917-62514b728208
             partitioner:
         table_name: fact_fuel_purchases
         schema_name: gold
       fact_delivery_events:
         type: table
-        id: f3f494d0-5fe6-4852-b3cd-a158f4aff04a
+        id: e0e81535-4447-467e-9445-f0bdd39ec6f4
         batch_metadata: {}
         batch_definitions:
           fact_delivery_events_full:
-            id: 7a6f9d3c-6bbb-447f-8c7c-b78d1cb3eb1d
+            id: ee04378f-26bd-4068-ad95-7db0b4a559ce
             partitioner:
         table_name: fact_delivery_events
         schema_name: gold
       fact_maintenance:
         type: table
-        id: f0b28e46-d131-4e8d-be13-e5079895db3d
+        id: d0f7aba8-507a-4ded-bd8f-43efe38b133e
         batch_metadata: {}
         batch_definitions:
           fact_maintenance_full:
-            id: ff250b47-6447-4e45-b1e4-790e95d1ecac
+            id: 215501c1-b7cd-4b17-829f-33d3922a3178
             partitioner:
         table_name: fact_maintenance
         schema_name: gold
       fact_safety_incidents:
         type: table
-        id: e2f6a265-40c9-423f-820b-e24a98250208
+        id: 1eb447c0-755e-4157-a8a8-3d7ca3114b10
         batch_metadata: {}
         batch_definitions:
           fact_safety_incidents_full:
-            id: 019308c3-e009-43c2-811f-fa0b99ec8ec1
+            id: 511d82aa-d698-42bc-87aa-cc3665905ba6
             partitioner:
         table_name: fact_safety_incidents
         schema_name: gold

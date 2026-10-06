@@ -1,11 +1,11 @@
 {
   "data": {
     "asset": {
-      "id": "2954646e-938c-4f2c-b12c-9f4f203bde39",
+      "id": "0c8f09fa-1866-4dff-9be0-2073957e3241",
       "name": "safety_incidents"
     },
     "batch_definition": {
-      "id": "0aaa4617-75cc-45ec-9746-1ac451f3d909",
+      "id": "16a36a53-b589-4952-b8fd-d07f9c5c53ca",
       "name": "safety_incidents_full"
     },
     "datasource": {
