@@ -34,9 +34,8 @@ test: lint
 eda:
 	uv run scripts/run_notebooks.py
 
-migrate:
-	@echo "versioned migrations land in M1 (sql/migrations + Flyway)"
-	@exit 1
+migrate: ## Apply pending sql/scripts once each, tracked in ops.schema_migrations
+	uv run scripts/run_migrate.py
 
 run-batch:
 	@echo "daily DAG trigger lands in M5 (airflow dags trigger lh_daily_batch)"
