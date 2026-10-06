@@ -1,0 +1,158 @@
+{
+  "expectations": [
+    {
+      "id": "62d2a14f-84e1-4025-bd4f-18b28bd73ad7",
+      "kwargs": {
+        "min_value": 85410
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "aa6a45a5-e6e8-4499-a361-067e67c39964",
+      "kwargs": {
+        "other_table_name": "fact_loads"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_equal_other_table"
+    },
+    {
+      "id": "dda2b916-55f5-46de-a332-0dc72f79623e",
+      "kwargs": {
+        "column_list": [
+          "trip_id",
+          "load_id",
+          "driver_sk",
+          "truck_sk",
+          "trailer_sk",
+          "dispatch_date_key",
+          "actual_distance_miles",
+          "actual_duration_hours",
+          "fuel_gallons_used",
+          "average_mpg",
+          "idle_time_hours",
+          "trip_status",
+          "loaded_at",
+          "gold_batch_id",
+          "gold_loaded_at",
+          "gold_updated_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "53434c33-d541-42fc-b6a1-23cbcc029015",
+      "kwargs": {
+        "column": "trip_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "a7858b8c-16a8-4ae3-a1ae-8956ddc1a1bb",
+      "kwargs": {
+        "column": "trip_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "650c5d55-0155-4116-8045-d4a3f8688ecc",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "993678da-fb12-44d5-bc16-7e8445e54a6c",
+      "kwargs": {
+        "column": "gold_batch_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "2d5434bd-1830-4457-9214-fed6840ee3cd",
+      "kwargs": {
+        "column": "gold_loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "38822406-7129-4e02-96d2-92c4a3192f4b",
+      "kwargs": {
+        "column": "gold_updated_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "98aa22db-5b5f-46df-8591-bd0c3b56f0a5",
+      "kwargs": {
+        "column": "actual_distance_miles",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "3cd1c758-708e-496c-a1f8-35021bb0c3d4",
+      "kwargs": {
+        "column": "actual_duration_hours",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "55f54ec3-4ac6-40b9-b709-2929aa29ba27",
+      "kwargs": {
+        "column": "fuel_gallons_used",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "b40a7b42-52ce-4574-89ed-6444adf2f0ab",
+      "kwargs": {
+        "column": "average_mpg",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "85a10e38-2a14-4d00-96da-1f632f82f3e9",
+      "kwargs": {
+        "column": "idle_time_hours",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    }
+  ],
+  "id": "5c871e50-cabe-4988-94d9-6cf72ff48d3e",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "gold.fact_trips",
+  "notes": null
+}

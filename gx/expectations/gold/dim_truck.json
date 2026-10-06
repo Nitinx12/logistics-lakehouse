@@ -1,0 +1,108 @@
+{
+  "expectations": [
+    {
+      "id": "75da87c2-d350-4da1-8a01-786752eec9e5",
+      "kwargs": {
+        "min_value": 121
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "5dd6791d-92f4-4ba0-8d7a-fd23116d23e6",
+      "kwargs": {
+        "column_list": [
+          "truck_sk",
+          "truck_id",
+          "unit_number",
+          "make",
+          "model_year",
+          "vin",
+          "acquisition_date",
+          "acquisition_mileage",
+          "fuel_type",
+          "tank_capacity_gallons",
+          "status",
+          "home_terminal",
+          "loaded_at",
+          "gold_batch_id",
+          "gold_loaded_at",
+          "gold_updated_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "a13cf0b5-ee49-4343-966c-38891fbdc146",
+      "kwargs": {
+        "column": "truck_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "b8b079b2-59b0-4eb1-86a0-4921e399ff11",
+      "kwargs": {
+        "column": "truck_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "71996623-cf2a-4916-b8e2-4857b30ae1e6",
+      "kwargs": {
+        "column": "truck_sk"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "1936b32f-5cd1-4465-8879-6d99184e6c66",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "3fa12f1c-9c54-4ff0-9349-8131899345ad",
+      "kwargs": {
+        "column": "gold_batch_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "2dcbb5d8-c421-4d10-b625-e8ccd4ddac13",
+      "kwargs": {
+        "column": "gold_loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "3c10680c-c3ef-48ff-9436-df9e64b62cb8",
+      "kwargs": {
+        "column": "gold_updated_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    }
+  ],
+  "id": "f8084f3e-604a-4b94-a097-8d4220e99819",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "gold.dim_truck",
+  "notes": null
+}

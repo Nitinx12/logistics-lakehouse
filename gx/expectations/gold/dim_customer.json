@@ -1,0 +1,105 @@
+{
+  "expectations": [
+    {
+      "id": "d4809d9d-3f1b-4ecc-a92c-1aaeb83d76f5",
+      "kwargs": {
+        "min_value": 201
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "18ee7e79-0bfe-4ab7-af41-c57b1e8bb346",
+      "kwargs": {
+        "column_list": [
+          "customer_sk",
+          "customer_id",
+          "customer_name",
+          "customer_type",
+          "credit_terms_days",
+          "primary_freight_type",
+          "account_status",
+          "contract_start_date",
+          "annual_revenue_potential",
+          "loaded_at",
+          "gold_batch_id",
+          "gold_loaded_at",
+          "gold_updated_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "7abdcf59-15f0-4188-b0be-1b5d62d6a521",
+      "kwargs": {
+        "column": "customer_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "7b0864fb-8068-4f22-b07b-da926c008ae3",
+      "kwargs": {
+        "column": "customer_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "feea63f5-392a-40ee-9107-bd6a48e66f9c",
+      "kwargs": {
+        "column": "customer_sk"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "aeb266eb-f449-4a7b-a9c0-eeaf22845a9c",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "632479b8-aa4f-445d-a83e-a410c6b85dd6",
+      "kwargs": {
+        "column": "gold_batch_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "93931283-ec6c-4423-9e72-6013f9a31f4a",
+      "kwargs": {
+        "column": "gold_loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "566269c5-09ea-4141-871b-f2e84e19708e",
+      "kwargs": {
+        "column": "gold_updated_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    }
+  ],
+  "id": "ee716524-7423-4f62-b044-b23558c87534",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "gold.dim_customer",
+  "notes": null
+}

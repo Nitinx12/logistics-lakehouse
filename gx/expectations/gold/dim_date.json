@@ -1,0 +1,68 @@
+{
+  "expectations": [
+    {
+      "id": "abc7935a-cff4-4bab-8e24-fb0387cb074a",
+      "kwargs": {
+        "min_value": 7671
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "3e3a7d7f-ddf9-4910-88fc-de320b3cc6be",
+      "kwargs": {
+        "column_list": [
+          "date_key",
+          "full_date",
+          "year_number",
+          "quarter_number",
+          "month_number",
+          "month_name",
+          "day_number",
+          "day_of_week",
+          "day_name",
+          "is_weekend",
+          "gold_batch_id",
+          "gold_loaded_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "71722847-1e26-4c72-a020-5a81494acbb3",
+      "kwargs": {
+        "column": "date_key"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "75a40564-9d95-4be8-8b2b-23ff21333a03",
+      "kwargs": {
+        "column": "date_key"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "7ef96a53-0b1f-47a1-a2ef-7a92f6abaca9",
+      "kwargs": {
+        "column": "gold_batch_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    }
+  ],
+  "id": "06f891c0-939f-4712-8d8b-fcf68bc0a723",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "gold.dim_date",
+  "notes": null
+}

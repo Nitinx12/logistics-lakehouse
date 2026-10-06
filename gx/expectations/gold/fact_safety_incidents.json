@@ -1,0 +1,142 @@
+{
+  "expectations": [
+    {
+      "id": "22e584e2-098f-44ba-b45b-566aaf142424",
+      "kwargs": {
+        "min_value": 170
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "1015d02e-adde-431b-9fe9-a31e2557d340",
+      "kwargs": {
+        "column_list": [
+          "incident_id",
+          "trip_id",
+          "truck_sk",
+          "driver_sk",
+          "incident_date_key",
+          "incident_type",
+          "location_city",
+          "location_state",
+          "at_fault_flag",
+          "injury_flag",
+          "vehicle_damage_cost",
+          "cargo_damage_cost",
+          "claim_amount",
+          "preventable_flag",
+          "description",
+          "loaded_at",
+          "gold_batch_id",
+          "gold_loaded_at",
+          "gold_updated_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "129a94ba-89bf-43dc-b4f3-c071ef1c74e5",
+      "kwargs": {
+        "column": "incident_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "af9095d6-b29a-4f63-b9de-fa06561385ef",
+      "kwargs": {
+        "column": "incident_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "89b10b3f-86d2-4f49-9fe2-1ae30a9d2e9f",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "2743ceab-5cec-4e54-9742-e167196f8b20",
+      "kwargs": {
+        "column": "gold_batch_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "24a6b682-4cfb-4cff-b63c-cf79e6bd0104",
+      "kwargs": {
+        "column": "gold_loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "36555634-90ba-4948-93ea-a13e397a06d9",
+      "kwargs": {
+        "column": "gold_updated_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "08620ab4-4a31-4cf4-8144-f2054ee401ce",
+      "kwargs": {
+        "column": "vehicle_damage_cost",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "33197ee4-edae-4d86-af5d-0059178cc2a2",
+      "kwargs": {
+        "column": "cargo_damage_cost",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "fa11a75b-81a1-4d5b-b51b-5fe25b4dd8b2",
+      "kwargs": {
+        "column": "claim_amount",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "1265c7af-aa12-4835-ac74-34e08c0db800",
+      "kwargs": {
+        "column": "location_state",
+        "regex": "^[A-Z]{2}$"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_match_regex"
+    }
+  ],
+  "id": "286ae18c-fe8b-4ed0-87b8-168dcf06de56",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "gold.fact_safety_incidents",
+  "notes": null
+}

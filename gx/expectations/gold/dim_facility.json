@@ -1,0 +1,116 @@
+{
+  "expectations": [
+    {
+      "id": "24e42d47-1f74-4181-8c17-ebe8ef3f8834",
+      "kwargs": {
+        "min_value": 51
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "271cf381-8b0a-4d62-9127-c9e250e0a09a",
+      "kwargs": {
+        "column_list": [
+          "facility_sk",
+          "facility_id",
+          "facility_name",
+          "facility_type",
+          "city",
+          "state",
+          "latitude",
+          "longitude",
+          "dock_doors",
+          "operating_hours",
+          "loaded_at",
+          "gold_batch_id",
+          "gold_loaded_at",
+          "gold_updated_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "6d5b0304-8067-46d0-be55-351dc01a352f",
+      "kwargs": {
+        "column": "facility_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "0b8f1a07-daf5-4db8-a17b-d8bde12f68aa",
+      "kwargs": {
+        "column": "facility_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "00d7b97d-a09b-4bf5-866f-5b4ba0699d38",
+      "kwargs": {
+        "column": "facility_sk"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "4b26714f-f4de-4941-8acc-a2a44f85341f",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "dfb3d035-7dd6-412e-8b2f-f9d8602d708b",
+      "kwargs": {
+        "column": "gold_batch_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "58e63246-e97a-48f6-8897-f7670a129e96",
+      "kwargs": {
+        "column": "gold_loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "dd0db668-2914-4724-bf62-e1f3c520af3c",
+      "kwargs": {
+        "column": "gold_updated_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "db23e2ce-e4db-4024-b889-f2cc105e347b",
+      "kwargs": {
+        "column": "state",
+        "regex": "^[A-Z]{2}$"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_match_regex"
+    }
+  ],
+  "id": "ed2b9f10-f1bc-4534-857d-9b71efd34b2f",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "gold.dim_facility",
+  "notes": null
+}

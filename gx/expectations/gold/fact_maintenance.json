@@ -1,0 +1,159 @@
+{
+  "expectations": [
+    {
+      "id": "c09b0c67-3e22-420a-a2ed-ac3e18190060",
+      "kwargs": {
+        "min_value": 2920
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "8b1b522e-08c5-4c54-9a63-ff5cca5a4055",
+      "kwargs": {
+        "column_list": [
+          "maintenance_id",
+          "truck_sk",
+          "maintenance_date_key",
+          "maintenance_type",
+          "service_description",
+          "facility_location",
+          "odometer_reading",
+          "labor_hours",
+          "labor_cost",
+          "parts_cost",
+          "total_cost",
+          "downtime_hours",
+          "loaded_at",
+          "gold_batch_id",
+          "gold_loaded_at",
+          "gold_updated_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "eda2c237-1d36-4a73-8519-b4360e404fa1",
+      "kwargs": {
+        "column": "maintenance_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "7bba65d0-34d7-4917-a5c3-bea536bc6d4d",
+      "kwargs": {
+        "column": "maintenance_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "1627190b-bc78-4c51-80ad-ad14bf26d6ee",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "e414adf4-60a3-4966-91c0-3fb839cd996a",
+      "kwargs": {
+        "column": "gold_batch_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "24a6a38e-a416-4851-b85d-644b9fe328b0",
+      "kwargs": {
+        "column": "gold_loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "6e3c0245-3dfd-4190-a857-ae3dcaeec774",
+      "kwargs": {
+        "column": "gold_updated_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "29796aa3-9281-408e-aa55-26ed8f79c5e4",
+      "kwargs": {
+        "column": "odometer_reading",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "5cda50a6-38fc-459b-abea-dd60ba138f5d",
+      "kwargs": {
+        "column": "labor_hours",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "7fedb173-ab7f-4f50-8246-c962326e429a",
+      "kwargs": {
+        "column": "labor_cost",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "ac941052-0564-415b-b03b-71b0ca38ac1d",
+      "kwargs": {
+        "column": "parts_cost",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "aa935e64-ccee-4dd6-9ee7-df88aec5092a",
+      "kwargs": {
+        "column": "total_cost",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "a7e393ca-cb82-4398-97e4-3dd1897735a5",
+      "kwargs": {
+        "column": "downtime_hours",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    }
+  ],
+  "id": "a2e27632-97e4-4b0b-8460-f7c59c592dad",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "gold.fact_maintenance",
+  "notes": null
+}
