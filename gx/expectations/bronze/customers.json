@@ -1,32 +1,27 @@
 {
   "expectations": [
     {
-      "id": "cddab6ac-29a0-49b1-af5e-25dd47320db8",
+      "id": "d5a3348e-2712-4fa2-8cee-ec4b55753ebc",
       "kwargs": {
-        "min_value": 2920
+        "min_value": 200
       },
       "meta": {},
       "severity": "critical",
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "d8e2ac96-4975-4c1a-9153-4bd0fd8d5bbf",
+      "id": "0cfc0f80-0bbb-49d7-b9bd-e71fd6b7a8b5",
       "kwargs": {
         "column_list": [
-          "downtime_hours",
-          "facility_location",
-          "labor_cost",
-          "labor_hours",
+          "customer_id",
+          "customer_name",
+          "customer_type",
+          "credit_terms_days",
+          "primary_freight_type",
+          "account_status",
+          "contract_start_date",
+          "annual_revenue_potential",
           "loaded_at",
-          "maintenance_date",
-          "maintenance_id",
-          "maintenance_type",
-          "odometer_reading",
-          "parts_cost",
-          "service_description",
-          "total_cost",
-          "truck_id",
-          "id",
           "_loaded_at"
         ]
       },
@@ -35,25 +30,25 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "97065d77-9188-40ff-87aa-80473e01fe16",
+      "id": "d1f712bd-974f-4302-bb52-afd26a4fb165",
       "kwargs": {
-        "column": "maintenance_id"
+        "column": "customer_id"
       },
       "meta": {},
       "severity": "critical",
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "5320bdfb-739a-4982-a019-f02340bf10d1",
+      "id": "65934fa9-63ed-48d1-b8ff-7d417216b36c",
       "kwargs": {
-        "column": "maintenance_id"
+        "column": "customer_id"
       },
       "meta": {},
       "severity": "critical",
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "f1dc20c5-ab8e-4833-8388-955b68e94c8d",
+      "id": "c6e54ddf-5c73-41fb-9229-e3dbe1e4c26d",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -62,7 +57,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "a31044e8-e514-46ef-9d8d-4852a8587ff4",
+      "id": "05da5e57-10ea-437e-ad36-ad8f9cbafc2a",
       "kwargs": {
         "column": "loaded_at",
         "regex": "^\\d{4}-\\d{2}-\\d{2}"
@@ -72,10 +67,10 @@
       "type": "expect_column_values_to_match_regex"
     }
   ],
-  "id": "3dd63011-2c5a-4361-9d4d-fbc1ba96ebeb",
+  "id": "0f2f0d6e-d85c-467b-9f4b-bb903e2a9da5",
   "meta": {
     "great_expectations_version": "1.23.2"
   },
-  "name": "bronze.maintenance_records",
+  "name": "bronze.customers",
   "notes": null
 }

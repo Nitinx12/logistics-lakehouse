@@ -5,6 +5,42 @@
   "result_format": "SUMMARY",
   "validation_definitions": [
     {
+      "id": "02f32342-c755-41e0-9c18-195bb7567e99",
+      "name": "bronze_customers"
+    },
+    {
+      "id": "8722edfc-d25d-42e3-a27f-653672b45173",
+      "name": "bronze_drivers"
+    },
+    {
+      "id": "d44b6f4b-53c8-4277-9ceb-1db6be23f911",
+      "name": "bronze_facilities"
+    },
+    {
+      "id": "3f38a8db-5f58-4ae7-946e-9db99689df43",
+      "name": "bronze_fuel_purchases"
+    },
+    {
+      "id": "eeabb290-8113-44c4-8781-31c30750cdcd",
+      "name": "bronze_loads"
+    },
+    {
+      "id": "f9d519a9-0664-46b8-b0aa-804a8278b09a",
+      "name": "bronze_routes"
+    },
+    {
+      "id": "28e182ad-1e33-4415-aa1b-634f5a00f911",
+      "name": "bronze_trailers"
+    },
+    {
+      "id": "db10c177-dce6-44dd-84a2-e1c2d14b1980",
+      "name": "bronze_trips"
+    },
+    {
+      "id": "5a74596b-dbe4-4020-8ea9-76dc2b54c393",
+      "name": "bronze_trucks"
+    },
+    {
       "id": "598ed91e-dba7-435f-91da-309c3307eeba",
       "name": "bronze_delivery_events"
     },

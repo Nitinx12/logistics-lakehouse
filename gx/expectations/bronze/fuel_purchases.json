@@ -1,32 +1,30 @@
 {
   "expectations": [
     {
-      "id": "cddab6ac-29a0-49b1-af5e-25dd47320db8",
+      "id": "8da7f41f-d68a-47e4-8ac7-bc242dece050",
       "kwargs": {
-        "min_value": 2920
+        "min_value": 196442
       },
       "meta": {},
       "severity": "critical",
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "d8e2ac96-4975-4c1a-9153-4bd0fd8d5bbf",
+      "id": "2025bb53-2473-4f72-a6f8-e20955fdba8c",
       "kwargs": {
         "column_list": [
-          "downtime_hours",
-          "facility_location",
-          "labor_cost",
-          "labor_hours",
-          "loaded_at",
-          "maintenance_date",
-          "maintenance_id",
-          "maintenance_type",
-          "odometer_reading",
-          "parts_cost",
-          "service_description",
-          "total_cost",
+          "fuel_purchase_id",
+          "trip_id",
           "truck_id",
-          "id",
+          "driver_id",
+          "purchase_date",
+          "location_city",
+          "location_state",
+          "gallons",
+          "price_per_gallon",
+          "total_cost",
+          "fuel_card_number",
+          "loaded_at",
           "_loaded_at"
         ]
       },
@@ -35,25 +33,25 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "97065d77-9188-40ff-87aa-80473e01fe16",
+      "id": "07d8b375-c866-4dc1-8ceb-859cb3a77c5f",
       "kwargs": {
-        "column": "maintenance_id"
+        "column": "fuel_purchase_id"
       },
       "meta": {},
       "severity": "critical",
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "5320bdfb-739a-4982-a019-f02340bf10d1",
+      "id": "ca166013-cde1-4e39-9899-bee6205a161a",
       "kwargs": {
-        "column": "maintenance_id"
+        "column": "fuel_purchase_id"
       },
       "meta": {},
       "severity": "critical",
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "f1dc20c5-ab8e-4833-8388-955b68e94c8d",
+      "id": "f70a1ac4-d910-458e-9618-01fabd732cd4",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -62,7 +60,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "a31044e8-e514-46ef-9d8d-4852a8587ff4",
+      "id": "39f6d319-86f0-4835-8d53-f43829ec34c5",
       "kwargs": {
         "column": "loaded_at",
         "regex": "^\\d{4}-\\d{2}-\\d{2}"
@@ -72,10 +70,10 @@
       "type": "expect_column_values_to_match_regex"
     }
   ],
-  "id": "3dd63011-2c5a-4361-9d4d-fbc1ba96ebeb",
+  "id": "e864bcb8-60ed-41e7-83cf-7e22d5a64da3",
   "meta": {
     "great_expectations_version": "1.23.2"
   },
-  "name": "bronze.maintenance_records",
+  "name": "bronze.fuel_purchases",
   "notes": null
 }

@@ -1,32 +1,28 @@
 {
   "expectations": [
     {
-      "id": "cddab6ac-29a0-49b1-af5e-25dd47320db8",
+      "id": "f4b06cff-542e-41c0-afca-a807f52da844",
       "kwargs": {
-        "min_value": 2920
+        "min_value": 180
       },
       "meta": {},
       "severity": "critical",
       "type": "expect_table_row_count_to_be_between"
     },
     {
-      "id": "d8e2ac96-4975-4c1a-9153-4bd0fd8d5bbf",
+      "id": "ebdcf967-9beb-46ce-977d-0bd52224f045",
       "kwargs": {
         "column_list": [
-          "downtime_hours",
-          "facility_location",
-          "labor_cost",
-          "labor_hours",
+          "trailer_id",
+          "trailer_number",
+          "trailer_type",
+          "length_feet",
+          "model_year",
+          "vin",
+          "acquisition_date",
+          "status",
+          "current_location",
           "loaded_at",
-          "maintenance_date",
-          "maintenance_id",
-          "maintenance_type",
-          "odometer_reading",
-          "parts_cost",
-          "service_description",
-          "total_cost",
-          "truck_id",
-          "id",
           "_loaded_at"
         ]
       },
@@ -35,25 +31,25 @@
       "type": "expect_table_columns_to_match_ordered_list"
     },
     {
-      "id": "97065d77-9188-40ff-87aa-80473e01fe16",
+      "id": "26bfbdd8-f025-46b6-ba68-7ea41b709bf5",
       "kwargs": {
-        "column": "maintenance_id"
+        "column": "trailer_id"
       },
       "meta": {},
       "severity": "critical",
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "5320bdfb-739a-4982-a019-f02340bf10d1",
+      "id": "ecc923d0-a470-4690-93b7-22d2424ac79f",
       "kwargs": {
-        "column": "maintenance_id"
+        "column": "trailer_id"
       },
       "meta": {},
       "severity": "critical",
       "type": "expect_column_values_to_be_unique"
     },
     {
-      "id": "f1dc20c5-ab8e-4833-8388-955b68e94c8d",
+      "id": "ab65ba3e-f35b-4ec9-875a-278d2f1cfc24",
       "kwargs": {
         "column": "loaded_at"
       },
@@ -62,7 +58,7 @@
       "type": "expect_column_values_to_not_be_null"
     },
     {
-      "id": "a31044e8-e514-46ef-9d8d-4852a8587ff4",
+      "id": "8ca2497c-a0ae-471e-97b4-afa01392b8e8",
       "kwargs": {
         "column": "loaded_at",
         "regex": "^\\d{4}-\\d{2}-\\d{2}"
@@ -72,10 +68,10 @@
       "type": "expect_column_values_to_match_regex"
     }
   ],
-  "id": "3dd63011-2c5a-4361-9d4d-fbc1ba96ebeb",
+  "id": "8a430d70-9ed1-4bb9-bc3c-f9faa640a046",
   "meta": {
     "great_expectations_version": "1.23.2"
   },
-  "name": "bronze.maintenance_records",
+  "name": "bronze.trailers",
   "notes": null
 }
