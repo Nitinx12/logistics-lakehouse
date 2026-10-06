@@ -8,7 +8,11 @@ if str(REPO_ROOT) not in sys.path:
 
 from psycopg import Connection
 
-from src.utils.connection import close_connection, get_postgres_connection
+from src.utils.connection import (
+    close_connection,
+    get_postgres_admin_connection,
+    get_postgres_connection,
+)
 from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -60,11 +64,19 @@ def record_applied(connection: Connection, filename: str) -> None:
         )
 
 
+def open_migrate_connection() -> Connection:
+    try:
+        return get_postgres_admin_connection()
+    except ConnectionError as exc:
+        logger.info("admin unavailable, migrating as app role: %s", exc)
+        return get_postgres_connection()
+
+
 def main() -> int:
     scripts = list_scripts()
     if not scripts:
         raise FileNotFoundError(f"no migration scripts in {SCRIPTS_DIR}")
-    connection = get_postgres_connection()
+    connection = open_migrate_connection()
     try:
         connection.autocommit = True
         ensure_registry(connection)
