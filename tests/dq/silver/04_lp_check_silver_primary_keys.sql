@@ -1,4 +1,4 @@
--- Checks bronze business keys have no nulls and no duplicates.
+-- Checks silver business keys have no nulls and no duplicates.
 DO $$
 DECLARE
     tbl RECORD;
@@ -9,15 +9,15 @@ DECLARE
     fail_msg TEXT := '';
 BEGIN
     RAISE NOTICE '========================================';
-    RAISE NOTICE 'Checking Bronze Primary Keys';
+    RAISE NOTICE 'Checking Silver Primary Keys';
     RAISE NOTICE '========================================';
 
     FOR tbl IN
         SELECT table_name
         FROM information_schema.tables
-        WHERE table_schema = 'bronze'
+        WHERE table_schema = 'silver'
             AND table_type = 'BASE TABLE'
-            AND table_name NOT IN ('etl_logs', 'etl_watermarks')
+            AND table_name NOT IN ('etl_logs')
         ORDER BY table_name
     LOOP
         key_col := CASE tbl.table_name
@@ -42,14 +42,14 @@ BEGIN
         END IF;
 
         EXECUTE format(
-            'SELECT COUNT(*) FROM bronze.%I WHERE %I IS NULL',
+            'SELECT COUNT(*) FROM silver.%I WHERE %I IS NULL',
             tbl.table_name,
             key_col
         )
         INTO null_count;
 
         EXECUTE format(
-            'SELECT COUNT(*) FROM (SELECT %I FROM bronze.%I GROUP BY %I HAVING COUNT(*) > 1) AS dupes',
+            'SELECT COUNT(*) FROM (SELECT %I FROM silver.%I GROUP BY %I HAVING COUNT(*) > 1) AS dupes',
             key_col,
             tbl.table_name,
             key_col
@@ -77,8 +77,8 @@ BEGIN
     RAISE NOTICE '========================================';
 
     IF any_failed THEN
-        RAISE EXCEPTION 'Bronze primary key validation FAILED: %', fail_msg;
+        RAISE EXCEPTION 'Silver primary key validation FAILED: %', fail_msg;
     ELSE
-        RAISE NOTICE 'All Bronze business keys are unique and not null.';
+        RAISE NOTICE 'All Silver business keys are unique and not null.';
     END IF;
 END $$;
