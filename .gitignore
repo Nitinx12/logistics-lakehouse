@@ -152,3 +152,4 @@ gx/uncommitted/
 # Notebooks
 # ==========================
 notebooks/plots/
+notebooks/stats_*.json
