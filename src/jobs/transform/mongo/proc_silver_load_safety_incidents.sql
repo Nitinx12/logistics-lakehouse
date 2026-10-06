@@ -163,7 +163,7 @@ BEGIN
                 END AS incident_date,
                 TRIM(incident_type) AS incident_type,
                 TRIM(location_city) AS location_city,
-                INITCAP(TRIM(location_state)) AS location_state,
+                UPPER(TRIM(location_state)) AS location_state,
                 CASE
                     WHEN LOWER(at_fault_flag) IN ('true', 't', 'yes', 'y', '1') THEN TRUE
                     WHEN LOWER(at_fault_flag) IN ('false', 'f', 'no', 'n', '0') THEN FALSE
