@@ -1,0 +1,101 @@
+{
+  "expectations": [
+    {
+      "id": "e882aefc-ea2e-42a6-b1e0-0454cdd6db88",
+      "kwargs": {
+        "min_value": 170820
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "3382553b-7d91-4755-b6fe-a390f8274196",
+      "kwargs": {
+        "column_list": [
+          "event_id",
+          "load_id",
+          "trip_id",
+          "event_type",
+          "facility_id",
+          "scheduled_datetime",
+          "actual_datetime",
+          "delay_minutes",
+          "detention_minutes",
+          "on_time_flag",
+          "location_city",
+          "location_state",
+          "loaded_at",
+          "silver_batch_id",
+          "silver_loaded_at",
+          "silver_updated_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "3ec31cfc-917e-4834-98f1-30261fb44234",
+      "kwargs": {
+        "column": "event_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "84a492d7-a2a0-4f0b-8f3a-7590abad5be6",
+      "kwargs": {
+        "column": "event_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "0ba1bf59-f34e-4723-a780-5aab0b337e17",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "a5b1abef-f5d5-4f33-8d3c-5cbcc25311d7",
+      "kwargs": {
+        "column": "silver_batch_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "7cd35796-d4da-4bed-b9cc-2144f9bb2cee",
+      "kwargs": {
+        "column": "detention_minutes",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "b2b0fbf5-cced-4971-a90e-7078e8f9a5d2",
+      "kwargs": {
+        "column": "location_state",
+        "regex": "^[A-Z]{2}$"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_match_regex"
+    }
+  ],
+  "id": "8b87a956-4ab9-4eb4-a0ba-e3548bb62b6c",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "silver.delivery_events",
+  "notes": null
+}

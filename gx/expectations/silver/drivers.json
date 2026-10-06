@@ -1,0 +1,91 @@
+{
+  "expectations": [
+    {
+      "id": "058c8f6d-3a1a-40b8-9c90-7536cd06a203",
+      "kwargs": {
+        "min_value": 150
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "62f2b520-7ad6-4ed5-9175-1129d1ce64ff",
+      "kwargs": {
+        "column_list": [
+          "driver_id",
+          "first_name",
+          "last_name",
+          "hire_date",
+          "termination_date",
+          "license_number",
+          "license_state",
+          "date_of_birth",
+          "home_terminal",
+          "employment_status",
+          "cdl_class",
+          "years_experience",
+          "loaded_at",
+          "silver_batch_id",
+          "silver_loaded_at",
+          "silver_updated_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "bbec0767-77d8-4212-b587-9ab80a2863a3",
+      "kwargs": {
+        "column": "driver_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "49f9956b-54c3-4773-9f16-0bfd93fc7212",
+      "kwargs": {
+        "column": "driver_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "23647de2-129c-4203-b655-22ebcd452c9f",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "c7694dd5-cdfd-4ee5-90fc-61ae2851fff0",
+      "kwargs": {
+        "column": "silver_batch_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "84ed3625-1fa6-48ae-9f92-dcfc9c7a49dd",
+      "kwargs": {
+        "column": "years_experience",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    }
+  ],
+  "id": "b6c5d0d9-8599-41b4-93db-b507a41d7654",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "silver.drivers",
+  "notes": null
+}

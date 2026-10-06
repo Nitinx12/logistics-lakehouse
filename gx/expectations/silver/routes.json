@@ -1,0 +1,138 @@
+{
+  "expectations": [
+    {
+      "id": "366379c0-9743-4db3-a4a3-e436f9e1d32c",
+      "kwargs": {
+        "min_value": 58
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "95f238a0-e7d2-4181-a27f-bfb3d3a28b9f",
+      "kwargs": {
+        "column_list": [
+          "route_id",
+          "origin_city",
+          "origin_state",
+          "destination_city",
+          "destination_state",
+          "typical_distance_miles",
+          "base_rate_per_mile",
+          "fuel_surcharge_rate",
+          "typical_transit_days",
+          "loaded_at",
+          "silver_batch_id",
+          "silver_loaded_at",
+          "silver_updated_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "7e5d089c-d8b3-4e64-a51c-eec94a6e7b35",
+      "kwargs": {
+        "column": "route_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "35851c9d-7fef-4703-a245-b30b034de671",
+      "kwargs": {
+        "column": "route_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "9b301c42-46b3-4e83-a231-d2cf456a6c67",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "55291ed3-15ac-46db-b97a-092e6bcb3d29",
+      "kwargs": {
+        "column": "silver_batch_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "f97603aa-9225-4cb7-a356-e728527d394e",
+      "kwargs": {
+        "column": "typical_distance_miles",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "102d2a0e-5def-40ed-a7f6-09935087a49e",
+      "kwargs": {
+        "column": "base_rate_per_mile",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "0fee3057-ba2d-47c9-9197-3fa1e4a08526",
+      "kwargs": {
+        "column": "fuel_surcharge_rate",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "259f88c4-c80c-4e30-baee-8c3cba484cf8",
+      "kwargs": {
+        "column": "typical_transit_days",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "cc8a17c2-1881-48c8-ba84-f8f2de5118f6",
+      "kwargs": {
+        "column": "origin_state",
+        "regex": "^[A-Z]{2}$"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_match_regex"
+    },
+    {
+      "id": "3bbae906-7d88-4fa0-a313-bcd0d5e0cc35",
+      "kwargs": {
+        "column": "destination_state",
+        "regex": "^[A-Z]{2}$"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_match_regex"
+    }
+  ],
+  "id": "aba8136a-7cf9-40bf-9f08-1a85dfd1058d",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "silver.routes",
+  "notes": null
+}

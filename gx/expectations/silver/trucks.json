@@ -1,0 +1,134 @@
+{
+  "expectations": [
+    {
+      "id": "272d4f1d-e486-4e39-bc43-c4b74d3832e1",
+      "kwargs": {
+        "min_value": 120
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "bceb2960-745c-446a-a7b5-f7237d926d3e",
+      "kwargs": {
+        "column_list": [
+          "truck_id",
+          "unit_number",
+          "make",
+          "model_year",
+          "vin",
+          "acquisition_date",
+          "acquisition_mileage",
+          "fuel_type",
+          "tank_capacity_gallons",
+          "status",
+          "home_terminal",
+          "loaded_at",
+          "silver_batch_id",
+          "silver_loaded_at",
+          "silver_updated_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "a477ab52-93bb-4791-8a5d-2bf5a1c8812d",
+      "kwargs": {
+        "column": "truck_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "a43e54e6-572d-4d49-822e-0152929b8611",
+      "kwargs": {
+        "column": "truck_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "16b7d7b6-e54b-417e-afcb-11d318bc3d92",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "10eec20d-3f4b-48b9-bd31-db2951183820",
+      "kwargs": {
+        "column": "silver_batch_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "a1019134-9ff6-455c-a809-1fb150a552ea",
+      "kwargs": {
+        "column": "unit_number",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "be34395e-89b5-4236-adcf-2173ffe1b776",
+      "kwargs": {
+        "column": "model_year",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "f88f1c5e-b7d7-420a-a49e-5e00ecd45c07",
+      "kwargs": {
+        "column": "acquisition_mileage",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "219e1e47-1801-4355-909e-2fdc31abc812",
+      "kwargs": {
+        "column": "tank_capacity_gallons",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "044840a5-8e5c-4dfd-9213-1cbc2a13a2aa",
+      "kwargs": {
+        "column": "status",
+        "value_set": [
+          "ACTIVE",
+          "MAINTENANCE",
+          "INACTIVE"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_in_set"
+    }
+  ],
+  "id": "0dcf8833-6de3-432c-bbf7-1681343fcf39",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "silver.trucks",
+  "notes": null
+}

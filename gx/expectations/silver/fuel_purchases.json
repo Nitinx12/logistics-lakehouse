@@ -1,0 +1,120 @@
+{
+  "expectations": [
+    {
+      "id": "b7bcb724-9afb-472d-bf76-9d4b0c005062",
+      "kwargs": {
+        "min_value": 196442
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_row_count_to_be_between"
+    },
+    {
+      "id": "884561d0-6725-4e3d-90ba-656ffbf9bfb5",
+      "kwargs": {
+        "column_list": [
+          "fuel_purchase_id",
+          "trip_id",
+          "truck_id",
+          "driver_id",
+          "purchase_date",
+          "location_city",
+          "location_state",
+          "gallons",
+          "price_per_gallon",
+          "total_cost",
+          "fuel_card_number",
+          "loaded_at",
+          "silver_batch_id",
+          "silver_loaded_at",
+          "silver_updated_at"
+        ]
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_table_columns_to_match_ordered_list"
+    },
+    {
+      "id": "8cd44258-46f6-4863-8a23-3ae93c57d20a",
+      "kwargs": {
+        "column": "fuel_purchase_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "85eb07ed-09ae-489d-85da-04012f419e9f",
+      "kwargs": {
+        "column": "fuel_purchase_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_unique"
+    },
+    {
+      "id": "a350408e-2dcf-4250-9b97-3bb4d677fb43",
+      "kwargs": {
+        "column": "loaded_at"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "226f6a91-fb94-4a46-a13f-154168c8c5a6",
+      "kwargs": {
+        "column": "silver_batch_id"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_not_be_null"
+    },
+    {
+      "id": "8d495023-5256-4e26-879e-c1b816853dba",
+      "kwargs": {
+        "column": "gallons",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "9c72ce3d-d40e-4a3e-bd35-f17bfdc3a1a2",
+      "kwargs": {
+        "column": "price_per_gallon",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "60f5da72-116c-49a0-81ca-7b4200176e2f",
+      "kwargs": {
+        "column": "total_cost",
+        "min_value": 0.0
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_be_between"
+    },
+    {
+      "id": "04888e9d-61d6-4af7-9d62-8a4fe16b7487",
+      "kwargs": {
+        "column": "location_state",
+        "regex": "^[A-Z]{2}$"
+      },
+      "meta": {},
+      "severity": "critical",
+      "type": "expect_column_values_to_match_regex"
+    }
+  ],
+  "id": "05c21a54-a57c-47dd-b8da-a54e024f0ecd",
+  "meta": {
+    "great_expectations_version": "1.23.2"
+  },
+  "name": "silver.fuel_purchases",
+  "notes": null
+}

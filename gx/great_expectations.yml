@@ -85,36 +85,126 @@ fluent_datasources:
     type: postgres
     id: 7898b202-9185-4592-b381-bb7c6920a8e4
     assets:
+      customers:
+        type: table
+        id: 656a95c2-48ac-4e46-a197-b61fadcabd94
+        batch_metadata: {}
+        batch_definitions:
+          customers_full:
+            id: adff2d53-d38e-42e9-bed0-7ea96a401192
+            partitioner:
+        table_name: customers
+        schema_name: silver
+      drivers:
+        type: table
+        id: c0d2a486-c407-470e-983b-a859374b8cea
+        batch_metadata: {}
+        batch_definitions:
+          drivers_full:
+            id: 28422424-ed0c-4f44-b689-4af0761d13b6
+            partitioner:
+        table_name: drivers
+        schema_name: silver
+      facilities:
+        type: table
+        id: 01ea38af-8925-4e88-bade-2db54368469e
+        batch_metadata: {}
+        batch_definitions:
+          facilities_full:
+            id: 6a20c43a-0145-4aa7-a476-e259e7067444
+            partitioner:
+        table_name: facilities
+        schema_name: silver
+      fuel_purchases:
+        type: table
+        id: 1c422e11-04bc-4096-b739-c98e81240683
+        batch_metadata: {}
+        batch_definitions:
+          fuel_purchases_full:
+            id: ad0d8d32-792c-4857-8db8-1952ea55594a
+            partitioner:
+        table_name: fuel_purchases
+        schema_name: silver
+      loads:
+        type: table
+        id: 30b89a27-5744-48fc-87d3-51a31cb472ff
+        batch_metadata: {}
+        batch_definitions:
+          loads_full:
+            id: 44cd4699-7524-439c-aa03-2fc7587a7dc6
+            partitioner:
+        table_name: loads
+        schema_name: silver
+      routes:
+        type: table
+        id: ee883d34-50f9-4130-808d-ad5edf38ae2f
+        batch_metadata: {}
+        batch_definitions:
+          routes_full:
+            id: 139c855f-d72b-41cb-a1f5-744ff2766e02
+            partitioner:
+        table_name: routes
+        schema_name: silver
+      trailers:
+        type: table
+        id: 312fab74-2690-4bf3-943a-b97224345bec
+        batch_metadata: {}
+        batch_definitions:
+          trailers_full:
+            id: c9368bb8-5a95-47bc-8322-ab99613f48c5
+            partitioner:
+        table_name: trailers
+        schema_name: silver
+      trips:
+        type: table
+        id: 764491e0-15d9-46c2-ac09-73857be225e3
+        batch_metadata: {}
+        batch_definitions:
+          trips_full:
+            id: b65a1687-7fc1-4411-bb42-f7c4dcffb83a
+            partitioner:
+        table_name: trips
+        schema_name: silver
+      trucks:
+        type: table
+        id: 8a32b7da-7fa8-479d-9e41-e2f51ae7a70a
+        batch_metadata: {}
+        batch_definitions:
+          trucks_full:
+            id: 97626c89-bd02-4196-a18d-367f10d7c8f6
+            partitioner:
+        table_name: trucks
+        schema_name: silver
       delivery_events:
         type: table
-        id: baea3d2a-0a59-46cf-a761-c910b3db5e11
+        id: 5ad6ccd0-6100-4399-8004-5f88b5a9e777
         batch_metadata: {}
         batch_definitions:
           delivery_events_full:
-            id: be81e79c-052b-419d-9be9-9fbba6ff1edb
+            id: a9354485-13e0-4ac0-8037-02c97d189587
             partitioner:
         table_name: delivery_events
-        schema_name: bronze
+        schema_name: silver
       maintenance_records:
         type: table
-        id: ec3ed4eb-60d3-45ac-9173-d8df5695560d
+        id: 60a5657b-9243-4384-a175-588df5f90933
         batch_metadata: {}
         batch_definitions:
           maintenance_records_full:
-            id: 2ae7d25c-b18f-4d65-a2c5-80911215061f
+            id: e501debc-09b7-465f-8b84-41aa11fb27a2
             partitioner:
         table_name: maintenance_records
-        schema_name: bronze
+        schema_name: silver
       safety_incidents:
         type: table
-        id: cc12ab3b-ce8a-48fa-9845-1c1e49406600
+        id: a9bffdc1-55ce-4889-818c-9d0376657144
         batch_metadata: {}
         batch_definitions:
           safety_incidents_full:
-            id: 2dba49b1-0bf1-4d8e-8379-18dc5870b251
+            id: 160fa059-d3dc-4792-9e97-71702791bcb0
             partitioner:
         table_name: safety_incidents
-        schema_name: bronze
+        schema_name: silver
     connection_string: 
       postgresql+psycopg://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
 analytics_enabled:
