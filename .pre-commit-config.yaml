@@ -1,0 +1,35 @@
+# Blocks bad commits locally before CI sees them.
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: detect-private-key
+      - id: check-added-large-files
+        args: [--maxkb=500]
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.11.0
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+  - repo: https://github.com/zricethezav/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks
+  - repo: local
+    hooks:
+      - id: sqlfluff-lint
+        name: sqlfluff lint sql/
+        entry: uv run sqlfluff lint --dialect postgres sql/
+        language: system
+        files: ^sql/
+        pass_filenames: false
+      - id: compileall
+        name: python compileall
+        entry: uv run python -m compileall -q src scripts streaming airflow tests
+        language: system
+        pass_filenames: false

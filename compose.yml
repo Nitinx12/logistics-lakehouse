@@ -55,6 +55,7 @@ services:
     profiles: [core]
     environment:
       DATABASE_URL: "postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}"
+      AUTH_TYPE: ${PGBOUNCER_AUTH_TYPE:-scram-sha-256}
       POOL_MODE: ${PGBOUNCER_POOL_MODE}
       MAX_CLIENT_CONN: ${PGBOUNCER_MAX_CLIENT_CONN}
       DEFAULT_POOL_SIZE: ${PGBOUNCER_DEFAULT_POOL_SIZE}
@@ -74,7 +75,7 @@ services:
     volumes:
       - redis-broker:/data
     healthcheck:
-      test: ["CMD-SHELL", "test \"$$(redis-cli -a \"$${REDIS_BROKER_PASSWORD}\" ping 2>/dev/null)\" = PONG"]
+      test: ["CMD-SHELL", "test \"$$(redis-cli -a \"${REDIS_BROKER_PASSWORD:?REDIS_BROKER_PASSWORD missing in .env}\" ping 2>/dev/null)\" = PONG"]
       interval: 10s
       retries: 5
     restart: unless-stopped
@@ -102,6 +103,13 @@ services:
     image: apache/airflow:2.11.2-python3.12
     profiles: [core]
     <<: *common-env
+    environment:
+      LAKEHOUSE_REPO: /app
+      AIRFLOW__CORE__DAGS_FOLDER: /app/airflow/dags
+    volumes:
+      - ./airflow:/app/airflow:ro
+      - ./src:/app/src:ro
+      - ./scripts:/app/scripts:ro
     command: webserver
     ports:
       - "8080:8080"
@@ -118,6 +126,13 @@ services:
     image: apache/airflow:2.11.2-python3.12
     profiles: [core]
     <<: *common-env
+    environment:
+      LAKEHOUSE_REPO: /app
+      AIRFLOW__CORE__DAGS_FOLDER: /app/airflow/dags
+    volumes:
+      - ./airflow:/app/airflow:ro
+      - ./src:/app/src:ro
+      - ./scripts:/app/scripts:ro
     command: scheduler
     depends_on:
       airflow-init:
@@ -169,6 +184,9 @@ services:
     image: redis:7-alpine
     profiles: [stream]
     command: ["redis-server", "--requirepass", "${REDIS_CACHE_PASSWORD:?REDIS_CACHE_PASSWORD missing in .env}"]
+    ports:
+      # published so the local redis sink reaches the cache from the host
+      - "127.0.0.1:6379:6379"
     volumes:
       - redis-cache:/data
     restart: unless-stopped
