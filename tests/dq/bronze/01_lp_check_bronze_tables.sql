@@ -24,7 +24,7 @@ BEGIN
         FROM information_schema.tables
         WHERE table_schema = 'bronze'
           AND table_type = 'BASE TABLE'
-          AND table_name NOT IN ('etl_logs','etl_watermarks')
+          AND table_name NOT IN ('etl_logs','etl_watermarks','delivery_events_stream')
         ORDER BY table_name
     LOOP
 

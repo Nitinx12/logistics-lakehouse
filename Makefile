@@ -29,7 +29,7 @@ lint:
 	uv run python -m compileall -q src scripts
 
 test: lint
-	@echo "pytest suites land with the first DAGs and procedures (M2/M5)"
+	uv run pytest tests/unit tests/smoke -q
 
 eda:
 	uv run scripts/run_notebooks.py
@@ -38,12 +38,10 @@ migrate: ## Apply pending sql/scripts once each, tracked in ops.schema_migration
 	uv run scripts/run_migrate.py
 
 run-batch:
-	@echo "daily DAG trigger lands in M5 (airflow dags trigger lh_daily_batch)"
-	@exit 1
+	$(COMPOSE) exec airflow-scheduler airflow dags trigger lh_daily_batch
 
 dq:
-	@echo "DQ suites land in M3 (catalog + GX)"
-	@exit 1
+	uv run scripts/run_gx_bronze.py && uv run scripts/run_gx_silver.py && uv run scripts/run_gx_gold.py && uv run scripts/run_dq_checks.py
 
 report:
 	@echo "LaTeX report build lands in M6"
