@@ -45,3 +45,7 @@ Status: **done** — modes above confirmed (only change vs §6.2 proposal: none)
 - [x] Business keys and fact grains (§23 Q2) — keys above; grains hold (1 row per event/purchase/load/trip)
 - [x] `loaded_at` reliability verdict (§23 Q3) — present, not monotonic; refresh per batch
 - [x] Volumes + 10x projection for capacity plan (§23 Q4) — largest table 196k rows → 10x ≈ 2M rows, single-host Postgres handles it
+- [x] Step 3 incremental decision 2026-10-06 — small tables full load by
+  owner choice, large tables on business dates once live, silver guard on
+  `_ingested_at` and batch order; live extract confirmed `no watermark
+  column, using full reload`; full text in `docs/adr/0001-incremental-strategy.md

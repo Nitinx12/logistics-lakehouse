@@ -1118,7 +1118,7 @@ Pin all versions in `uv.lock` and image tags.
 | 12 | CeleryExecutor | Horizontal scale of workers, matches Redis use | More components than LocalExecutor |
 | 13 | Data-driven DQ catalog + dynamic DO block | Tests added by insert, central results | Dynamic SQL needs careful quoting |
 | 14 | Gold views as the consumer contract | Stable interface, least privilege | One more layer to maintain |
-| 15 | Flyway migrations | Reproducible schema, CI-verified | Discipline: never edit merged migrations |
+| 15 | Runner based migrations via `scripts/run_migrate.py` | One applier for local and CI, registry skips applied files | No Flyway features such as checksums; scripts own their transactions |
 | 16 | Docker Compose now, Kubernetes-ready later | Fits a single-host portfolio deploy | No auto-scaling or multi-node HA yet |
 | 17 | Date-partitioned facts and bronze | Cheap loads and retention | Partition management job needed |
 
