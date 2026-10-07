@@ -194,6 +194,7 @@ services:
       KAFKA_HEAP_OPTS: "-Xmx512M -Xms512M"
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_UNCLEAN_LEADER_ELECTION_ENABLE: "false"
       KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
       KAFKA_LISTENERS: PLAINTEXT://:29092,CONTROLLER://:29093,PLAINTEXT_HOST://:9092
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
@@ -234,8 +235,93 @@ services:
     restart: unless-stopped
 
   # ------------------------------------------------------------------
-  # serve + obs profiles land in M6/M7 (need streamlit app, prometheus
-  # rules, alertmanager config, grafana provisioning first).
+  # obs profile (ARCHITECTURE.md §13; trimmed M7: metrics, dashboards, mail)
+  # ------------------------------------------------------------------
+  prometheus:
+    image: prom/prometheus:v2.55.1
+    profiles: [obs]
+    mem_limit: 256m
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=30d
+    volumes:
+      - ./monitoring/prometheus:/etc/prometheus:ro
+      - promdata:/prometheus
+    ports:
+      - "${PROMETHEUS_PORT:-9090}:9090"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      retries: 3
+    restart: unless-stopped
+
+  postgres-exporter:
+    image: prometheuscommunity/postgres-exporter:v0.20.1
+    profiles: [obs]
+    mem_limit: 128m
+    environment:
+      DATA_SOURCE_NAME: "postgresql://${PG_DQ_USER}:${PG_DQ_PASSWORD}@postgres:5432/${POSTGRES_DB}?sslmode=disable"
+      PG_EXPORTER_EXTEND_QUERY_PATH: /queries/queries.yml
+    volumes:
+      - ./monitoring/postgres-exporter:/queries:ro
+    ports:
+      - "${POSTGRES_EXPORTER_PORT:-9187}:9187"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:9187/metrics"]
+      interval: 30s
+      retries: 3
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:11.5.2
+    profiles: [obs]
+    mem_limit: 256m
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:?GRAFANA_ADMIN_PASSWORD missing in .env}
+      GF_SMTP_ENABLED: "true"
+      GF_SMTP_HOST: smtp.gmail.com:587
+      GF_SMTP_USER: ${AIRFLOW__SMTP__SMTP_USER:?AIRFLOW__SMTP__SMTP_USER missing in .env}
+      GF_SMTP_PASSWORD: ${AIRFLOW__SMTP__SMTP_PASSWORD:?AIRFLOW__SMTP__SMTP_PASSWORD missing in .env}
+      GF_SMTP_FROM_ADDRESS: ${AIRFLOW__SMTP__SMTP_MAIL_FROM:?AIRFLOW__SMTP__SMTP_MAIL_FROM missing in .env}
+      ALERT_RECEIVER: ${ALERTMANAGER_RECEIVER_EMAIL:?ALERTMANAGER_RECEIVER_EMAIL missing in .env}
+    volumes:
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards:ro
+      - grafana-data:/var/lib/grafana
+    ports:
+      - "${GRAFANA_PORT:-3000}:3000"
+    depends_on:
+      - prometheus
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q -O /dev/null http://localhost:3000/api/health"]
+      interval: 30s
+      retries: 3
+    restart: unless-stopped
+
+  alertmanager:
+    image: prom/alertmanager:v0.27.0
+    profiles: [obs]
+    mem_limit: 64m
+    entrypoint: ["/bin/sh", "/etc/alertmanager/entrypoint.sh"]
+    environment:
+      ALERTMANAGER_SMTP_FROM: ${ALERTMANAGER_SMTP_FROM:?ALERTMANAGER_SMTP_FROM missing in .env}
+      ALERTMANAGER_SMTP_AUTH_USERNAME: ${ALERTMANAGER_SMTP_AUTH_USERNAME:?ALERTMANAGER_SMTP_AUTH_USERNAME missing in .env}
+      ALERTMANAGER_SMTP_AUTH_PASSWORD: ${ALERTMANAGER_SMTP_AUTH_PASSWORD:?ALERTMANAGER_SMTP_AUTH_PASSWORD missing in .env}
+      ALERTMANAGER_RECEIVER_EMAIL: ${ALERTMANAGER_RECEIVER_EMAIL:?ALERTMANAGER_RECEIVER_EMAIL missing in .env}
+    volumes:
+      - ./monitoring/alertmanager:/etc/alertmanager:ro
+    ports:
+      - "${ALERTMANAGER_PORT:-9093}:9093"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:9093/-/healthy"]
+      interval: 30s
+      retries: 3
+    restart: unless-stopped
+
+  # ------------------------------------------------------------------
+  # serve profile lands in M6 (needs the streamlit app first).
   # ------------------------------------------------------------------
 
 volumes:
@@ -244,3 +330,5 @@ volumes:
   redis-broker:
   redis-cache:
   kafka-data:
+  promdata:
+  grafana-data:

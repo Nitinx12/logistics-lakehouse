@@ -1,0 +1,37 @@
+# Alertmanager routing for lakehouse alerts (ARCHITECTURE.md §13.3, §13.5).
+# Gmail values render from the environment at boot by entrypoint.sh.
+# Never put secrets in this file.
+global:
+  smtp_smarthost: smtp.gmail.com:587
+  smtp_from: ${ALERTMANAGER_SMTP_FROM}
+  smtp_auth_username: ${ALERTMANAGER_SMTP_AUTH_USERNAME}
+  smtp_auth_password: ${ALERTMANAGER_SMTP_AUTH_PASSWORD}
+  smtp_require_tls: true
+
+route:
+  receiver: lakehouse-critical
+  group_by:
+    - alertname
+    - severity
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+  routes:
+    - receiver: lakehouse-warning
+      matchers:
+        - severity = "warn"
+      group_wait: 1h
+      group_interval: 1h
+      repeat_interval: 24h
+
+receivers:
+  - name: lakehouse-critical
+    email_configs:
+      - to: ${ALERTMANAGER_RECEIVER_EMAIL}
+        headers:
+          subject: "PAGE {{ .GroupLabels.alertname }} ({{ .Status }})"
+  - name: lakehouse-warning
+    email_configs:
+      - to: ${ALERTMANAGER_RECEIVER_EMAIL}
+        headers:
+          subject: "WARN {{ .GroupLabels.alertname }} ({{ .Status }})"

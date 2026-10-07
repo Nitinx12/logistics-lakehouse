@@ -1,0 +1,13 @@
+# Grafana mail contact point, delivered through Gmail (ARCHITECTURE.md §13.5).
+# Delivery needs GF_SMTP_* in compose, using the same App Password as Airflow.
+apiVersion: 1
+
+contactPoints:
+  - orgId: 1
+    name: lakehouse-mail
+    receivers:
+      - uid: lakehouse-mail
+        type: email
+        settings:
+          addresses: $ALERT_RECEIVER
+          subject: "{{ .Status | toUpper }} {{ .GroupLabels.SortedPairs.Values | join \" \" }}"

@@ -1,0 +1,82 @@
+# Custom warehouse queries for postgres-exporter (ARCHITECTURE.md §13.1).
+# The exporter runs as dq_runner, which holds SELECT on these ops tables.
+lh_pipeline_run:
+  query: >-
+    SELECT run_id, stage,
+      CASE WHEN status = 'SUCCESS' THEN 1 ELSE 0 END AS status,
+      COALESCE(duration_s, 0) AS duration_s,
+      COALESCE(rows_in, 0) AS rows_in,
+      COALESCE(rows_out, 0) AS rows_out,
+      COALESCE(rows_rejected, 0) AS rows_rejected
+    FROM ops.pipeline_run_log
+    WHERE started_at > NOW() - INTERVAL '7 days'
+  metrics:
+    - run_id:
+        usage: LABEL
+        description: Pipeline run identifier
+    - stage:
+        usage: LABEL
+        description: Pipeline stage name
+    - status:
+        usage: GAUGE
+        description: 1 when the stage succeeded, 0 otherwise
+    - duration_s:
+        usage: GAUGE
+        description: Stage duration in seconds
+    - rows_in:
+        usage: GAUGE
+        description: Rows read by the stage
+    - rows_out:
+        usage: GAUGE
+        description: Rows written by the stage
+    - rows_rejected:
+        usage: GAUGE
+        description: Rows rejected by the stage
+
+lh_layer_rows:
+  query: >-
+    SELECT run_id, layer, table_name, rows_n
+    FROM ops.layer_snapshot
+    WHERE recorded_at > NOW() - INTERVAL '7 days'
+  metrics:
+    - run_id:
+        usage: LABEL
+        description: Pipeline run identifier
+    - layer:
+        usage: LABEL
+        description: Warehouse layer
+    - table_name:
+        usage: LABEL
+        description: Table name
+    - rows_n:
+        usage: GAUGE
+        description: Row count recorded for the run
+
+lh_freshness:
+  query: >-
+    SELECT layer, table_name,
+      CASE WHEN is_fresh THEN 1 ELSE 0 END AS is_fresh
+    FROM ops.freshness
+  metrics:
+    - layer:
+        usage: LABEL
+        description: Warehouse layer
+    - table_name:
+        usage: LABEL
+        description: Table name
+    - is_fresh:
+        usage: GAUGE
+        description: 1 when the table is inside the freshness SLO, 0 otherwise
+
+lh_slo_status:
+  query: >-
+    SELECT sli,
+      CASE WHEN is_met THEN 1 ELSE 0 END AS is_met
+    FROM ops.slo_status
+  metrics:
+    - sli:
+        usage: LABEL
+        description: Service level indicator name
+    - is_met:
+        usage: GAUGE
+        description: 1 when the SLO target is met, 0 otherwise
