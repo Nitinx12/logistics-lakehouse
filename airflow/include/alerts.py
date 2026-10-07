@@ -80,4 +80,5 @@ def build_default_args(retries: int) -> dict[str, Any]:
         "email_on_retry": False,
         "on_failure_callback": log_task_failure,
         "sla_miss_callback": sla_miss_callback,
+        "append_env": True,
     }

@@ -29,6 +29,7 @@ def test_default_args_enable_mail_only_with_recipients(monkeypatch) -> None:
     assert args["email_on_retry"] is False
     assert args["retries"] == 1
     assert callable(args["on_failure_callback"])
+    assert args["append_env"] is True
 
 
 def test_default_args_disable_mail_without_recipients(monkeypatch) -> None:
