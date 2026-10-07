@@ -1,0 +1,24 @@
+-- Lets etl_writer advance audit table sequences created by migrations.
+BEGIN;
+
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA bronze TO etl_writer;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA silver TO etl_writer;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA gold TO etl_writer;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA ops TO etl_writer;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA dq TO etl_writer;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA source TO etl_writer;
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA analytics TO etl_writer;
+GRANT SELECT ON ALL SEQUENCES IN SCHEMA bronze TO dq_runner;
+GRANT SELECT ON ALL SEQUENCES IN SCHEMA silver TO dq_runner;
+GRANT SELECT ON ALL SEQUENCES IN SCHEMA gold TO dq_runner;
+GRANT SELECT ON ALL SEQUENCES IN SCHEMA ops TO dq_runner;
+GRANT SELECT ON ALL SEQUENCES IN SCHEMA dq TO dq_runner;
+GRANT SELECT ON ALL SEQUENCES IN SCHEMA source TO dq_runner;
+GRANT SELECT ON ALL SEQUENCES IN SCHEMA analytics TO dq_runner;
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA bronze, silver, gold, ops, dq, source, analytics
+    GRANT USAGE, SELECT ON SEQUENCES TO etl_writer;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA bronze, silver, gold, ops, dq, source, analytics
+    GRANT SELECT ON SEQUENCES TO dq_runner, analyst_ro, dashboard_ro;
+
+COMMIT;
