@@ -1,4 +1,5 @@
 # Consumes delivery events and emits trip status plus alerts (ARCHITECTURE.md §8.5).
+import json
 import os
 import sys
 from datetime import UTC, datetime, timedelta
@@ -35,6 +36,45 @@ def consumer_config(group: str) -> dict[str, Any]:
     }
 
 
+def checkpoint_path() -> Path:
+    return (
+        Path(env("FLINK_CHECKPOINT_DIR", "/tmp/lakehouse-flink")) / "trip_status.json"
+    )
+
+
+def save_checkpoint(
+    path: Path, last_seen: dict[str, datetime], current_max: datetime | None
+) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    state = {trip_id: seen.isoformat() for trip_id, seen in last_seen.items()}
+    if current_max is not None:
+        state["__max__"] = current_max.isoformat()
+    tmp = path.with_suffix(".tmp")
+    tmp.write_text(json.dumps(state), encoding="utf-8")
+    os.replace(tmp, path)
+
+
+def load_checkpoint(path: Path) -> tuple[dict[str, datetime], datetime | None]:
+    try:
+        state = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}, None
+    current_max: datetime | None = None
+    raw_max = state.pop("__max__", None)
+    if raw_max:
+        try:
+            current_max = parse_iso(str(raw_max))
+        except ValueError:
+            current_max = None
+    last_seen: dict[str, datetime] = {}
+    for trip_id, raw_ts in state.items():
+        try:
+            last_seen[str(trip_id)] = parse_iso(str(raw_ts))
+        except ValueError:
+            continue
+    return last_seen, current_max
+
+
 def float_env(name: str, default: float) -> float:
     try:
         return float(os.getenv(name, str(default)))
@@ -68,8 +108,8 @@ def run() -> int:
     )
     consumer = Consumer(consumer_config(env("FLINK_GROUP", "lh-flink")))
     consumer.subscribe([events])
-    last_seen: dict[str, datetime] = {}
-    current_max: datetime | None = None
+    checkpoint = checkpoint_path()
+    last_seen, current_max = load_checkpoint(checkpoint)
     swept_at = datetime.now(UTC)
     try:
         while True:
@@ -126,8 +166,10 @@ def run() -> int:
             if (datetime.now(UTC) - swept_at).total_seconds() > 60:
                 for stuck in stuck_alerts(last_seen, datetime.now(UTC), stuck_minutes):
                     emit(producer, alerts_topic, stuck["trip_id"], stuck)
+                save_checkpoint(checkpoint, last_seen, current_max)
                 swept_at = datetime.now(UTC)
     except KeyboardInterrupt:
+        save_checkpoint(checkpoint, last_seen, current_max)
         return 0
     finally:
         producer.flush(10)

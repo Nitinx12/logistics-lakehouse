@@ -19,6 +19,35 @@ REQUIRED_EVENT_FIELDS = (
 
 DLQ_HEADERS = ("error_reason", "original_topic", "original_offset", "failed_at")
 
+_EVENT_SCHEMA: dict[str, Any] | None = None
+_SCHEMA_LOADED = False
+
+
+def _event_schema() -> dict[str, Any] | None:
+    global _EVENT_SCHEMA, _SCHEMA_LOADED
+    if not _SCHEMA_LOADED:
+        _SCHEMA_LOADED = True
+        try:
+            _EVENT_SCHEMA = load_schema("delivery_event.v1.json")
+        except (OSError, ValueError):
+            _EVENT_SCHEMA = None
+    return _EVENT_SCHEMA
+
+
+def _schema_violation(message: dict[str, Any]) -> str:
+    schema = _event_schema()
+    if schema is None:
+        return ""
+    try:
+        import jsonschema
+    except ImportError:
+        return ""
+    try:
+        jsonschema.validate(message, schema)
+    except jsonschema.ValidationError as exc:
+        return f"schema violation {exc.message}"
+    return ""
+
 
 def utc_now_iso() -> str:
     return datetime.now(UTC).isoformat().replace("+00:00", "Z")
@@ -62,7 +91,7 @@ def validate_event(message: dict[str, Any]) -> str:
             parse_iso(str(message[field]))
         except ValueError:
             return f"bad timestamp {field}"
-    return ""
+    return _schema_violation(message)
 
 
 def encode(message: dict[str, Any]) -> bytes:

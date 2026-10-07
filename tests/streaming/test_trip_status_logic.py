@@ -16,6 +16,10 @@ from streaming.flink.logic import (  # noqa: E402
     stuck_alerts,
     to_status,
 )
+from streaming.flink.trip_status_job import (  # noqa: E402
+    load_checkpoint,
+    save_checkpoint,
+)
 from streaming.message import parse_iso  # noqa: E402
 
 
@@ -73,3 +77,19 @@ def test_watermark_never_moves_backwards() -> None:
     low = parse_iso("2024-05-01T10:00:00Z")
     assert advance_watermark(high, low) == high
     assert advance_watermark(None, low) == low
+
+
+def test_checkpoint_round_trip(tmp_path) -> None:
+    path = tmp_path / "trip_status.json"
+    seen = {"T1": datetime(2024, 5, 1, 10, 0, tzinfo=UTC)}
+    save_checkpoint(path, seen, parse_iso("2024-05-01T10:05:00Z"))
+    loaded, current_max = load_checkpoint(path)
+    assert loaded == seen
+    assert current_max == parse_iso("2024-05-01T10:05:00Z")
+
+
+def test_checkpoint_missing_or_corrupt_starts_empty(tmp_path) -> None:
+    assert load_checkpoint(tmp_path / "absent.json") == ({}, None)
+    broken = tmp_path / "broken.json"
+    broken.write_text("{nope", encoding="utf-8")
+    assert load_checkpoint(broken) == ({}, None)
