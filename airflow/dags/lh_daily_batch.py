@@ -4,7 +4,6 @@ import sys
 from datetime import UTC, datetime
 
 from airflow.operators.bash import BashOperator
-from airflow.operators.python import PythonOperator
 
 from airflow import DAG
 
@@ -17,37 +16,6 @@ from include.common import (
     task_env,
 )
 from include.datasets import BATCH_GOLD
-from include.ops import (
-    advance_watermarks,
-    check_reconcile,
-    read_watermarks,
-    update_freshness,
-)
-
-
-def preflight() -> None:
-    from include.ops import check_preflight
-
-    check_preflight("postgres", "mongo")
-
-
-def read_watermark_task() -> str:
-    return read_watermarks()
-
-
-def reconcile_task() -> None:
-    check_reconcile()
-
-
-def freshness_task() -> None:
-    update_freshness()
-
-
-def advance_watermark_task() -> None:
-    from src.utils.tracking import resolve_run_id
-
-    advance_watermarks(resolve_run_id())
-
 
 with DAG(
     dag_id="lh_daily_batch",
@@ -59,9 +27,17 @@ with DAG(
     default_args=build_default_args(retries=1),
     tags=["lakehouse", "batch"],
 ) as dag:
-    check = PythonOperator(task_id="preflight", python_callable=preflight)
-    watermarks = PythonOperator(
-        task_id="read_watermarks", python_callable=read_watermark_task
+    check = BashOperator(
+        task_id="preflight",
+        bash_command=script_command(
+            "scripts/run_ops.py preflight --systems postgres mongo"
+        ),
+        env=task_env(),
+    )
+    watermarks = BashOperator(
+        task_id="read_watermarks",
+        bash_command=script_command("scripts/run_ops.py read-watermarks"),
+        env=task_env(),
     )
     extract_mongo = BashOperator(
         task_id="extract_mongo",
@@ -120,10 +96,20 @@ with DAG(
         pool="dq",
         retries=0,
     )
-    reconcile = PythonOperator(task_id="reconcile", python_callable=reconcile_task)
-    freshness = PythonOperator(task_id="freshness", python_callable=freshness_task)
-    advance = PythonOperator(
-        task_id="advance_watermarks", python_callable=advance_watermark_task
+    reconcile = BashOperator(
+        task_id="reconcile",
+        bash_command=script_command("scripts/run_ops.py reconcile"),
+        env=task_env(),
+    )
+    freshness = BashOperator(
+        task_id="freshness",
+        bash_command=script_command("scripts/run_ops.py freshness"),
+        env=task_env(),
+    )
+    advance = BashOperator(
+        task_id="advance_watermarks",
+        bash_command=script_command("scripts/run_ops.py advance"),
+        env=task_env(),
     )
     snapshot = BashOperator(
         task_id="snapshot",

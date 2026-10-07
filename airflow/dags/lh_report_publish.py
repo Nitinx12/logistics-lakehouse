@@ -5,7 +5,6 @@ from datetime import UTC, datetime
 
 from airflow.models.param import Param
 from airflow.operators.bash import BashOperator
-from airflow.operators.python import PythonOperator
 
 from airflow import DAG
 
@@ -19,13 +18,6 @@ from include.common import (
 )
 from include.datasets import BATCH_GOLD
 
-
-def preflight() -> None:
-    from include.ops import check_preflight
-
-    check_preflight("postgres")
-
-
 with DAG(
     dag_id="lh_report_publish",
     description="Gold gate then report publish after batch",
@@ -37,7 +29,11 @@ with DAG(
     default_args=build_default_args(retries=1),
     tags=["lakehouse", "report"],
 ) as dag:
-    check = PythonOperator(task_id="preflight", python_callable=preflight)
+    check = BashOperator(
+        task_id="preflight",
+        bash_command=script_command("scripts/run_ops.py preflight --systems postgres"),
+        env=task_env(),
+    )
     verify = BashOperator(
         task_id="verify_gold",
         bash_command=script_command("scripts/run_gx_gold.py"),

@@ -5,7 +5,6 @@ from datetime import UTC, datetime
 
 from airflow.models.param import Param
 from airflow.operators.bash import BashOperator
-from airflow.operators.python import PythonOperator
 
 from airflow import DAG
 
@@ -24,12 +23,6 @@ def task_env() -> dict[str, str]:
     }
 
 
-def preflight() -> None:
-    from include.ops import check_preflight
-
-    check_preflight("postgres", "mongo")
-
-
 with DAG(
     dag_id="lh_stream_replay",
     description="Manual replay of delivery events for a date range",
@@ -44,7 +37,13 @@ with DAG(
     default_args=build_default_args(retries=1),
     tags=["lakehouse", "streaming"],
 ) as dag:
-    check = PythonOperator(task_id="preflight", python_callable=preflight)
+    check = BashOperator(
+        task_id="preflight",
+        bash_command=script_command(
+            "scripts/run_ops.py preflight --systems postgres mongo"
+        ),
+        env=task_env(),
+    )
     replay = BashOperator(
         task_id="replay",
         bash_command=script_command("scripts/run_replay.py"),

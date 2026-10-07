@@ -4,26 +4,13 @@ import sys
 from datetime import UTC, datetime
 
 from airflow.operators.bash import BashOperator
-from airflow.operators.python import PythonOperator
 
 from airflow import DAG
 
 sys.path.insert(0, os.path.join(os.getenv("LAKEHOUSE_REPO", "/app"), "airflow"))
 
 from include.alerts import build_default_args
-from include.common import snapshot_command, task_env
-from include.ops import check_reconcile
-
-
-def preflight() -> None:
-    from include.ops import check_preflight
-
-    check_preflight("postgres")
-
-
-def reconcile_task() -> None:
-    check_reconcile()
-
+from include.common import script_command, snapshot_command, task_env
 
 with DAG(
     dag_id="lh_stream_reconcile",
@@ -35,8 +22,16 @@ with DAG(
     default_args=build_default_args(retries=0),
     tags=["lakehouse", "streaming"],
 ) as dag:
-    check = PythonOperator(task_id="preflight", python_callable=preflight)
-    reconcile = PythonOperator(task_id="reconcile", python_callable=reconcile_task)
+    check = BashOperator(
+        task_id="preflight",
+        bash_command=script_command("scripts/run_ops.py preflight --systems postgres"),
+        env=task_env(),
+    )
+    reconcile = BashOperator(
+        task_id="reconcile",
+        bash_command=script_command("scripts/run_ops.py reconcile"),
+        env=task_env(),
+    )
     snapshot = BashOperator(
         task_id="snapshot",
         bash_command=snapshot_command(),
