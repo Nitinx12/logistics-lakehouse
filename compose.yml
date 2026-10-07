@@ -141,7 +141,9 @@ services:
     image: lakehouse-airflow:2.11.2
     build: *airflow-build
     profiles: [core]
-    mem_limit: 512m
+    # Raised from the 512m budget: LocalExecutor runs Spark extracts inside
+    # this container, and 512m OOM-killed it mid run on 2026-10-07.
+    mem_limit: 2g
     <<: *common-env
     environment:
       LAKEHOUSE_REPO: /app
