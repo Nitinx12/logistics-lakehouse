@@ -984,7 +984,7 @@ lakehouse/
 ├── README.md
 ├── AGENTS.md
 ├── Makefile                    # verbs only: up, down, migrate, test, dq, report
-├── compose.yml                 # profiles: core, stream (serve and obs planned)
+├── compose.yml                 # profiles: core, stream, obs (serve planned)
 ├── .env.example
 ├── pyproject.toml              # uv managed
 ├── uv.lock
@@ -1066,7 +1066,7 @@ lakehouse/
 | `dashboard/` Streamlit app | §5 serving, M6 |
 | `report/` LaTeX sources | §5 serving, M6 |
 | `docs/data_dictionary.md`, `docs/runbook.md`, `docs/capacity.md`, `docs/adr/` | §14.2, §13, §16, §21 |
-| `compose.yml` profiles `serve`, `obs` | §15.2, M6, M7 |
+| `compose.yml` profile `serve` | §15.2, M6 |
 | `tests/sql/`, `tests/load/` | §18 |
 
 ---

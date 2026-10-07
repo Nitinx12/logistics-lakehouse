@@ -116,6 +116,11 @@ desktop.ini
 .python-version
 
 # ==========================
+# Streamlit (secrets are local only, like .env)
+# ==========================
+dashboard/.streamlit/secrets.toml
+
+# ==========================
 # Airflow
 # ==========================
 airflow.db
