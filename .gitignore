@@ -1,42 +1,163 @@
-# =======================================
-# Raw Data
-# =======================================
-data/
-
-# Generated EDA outputs (rebuilt with uv run scripts/run_notebooks.py)
-notebooks/plots/
-notebooks/stats_*.json
-
-# Secrets - never commit (.env.example stays tracked as the template)
-.env
-.env.local
-.env.*.local
-
+# ==========================
 # Python
-.venv/
+# ==========================
 __pycache__/
 *.py[cod]
-*.egg-info/
-dist/
-build/
-
-# Tools / test caches
+*$py.class
+*.so
 .pytest_cache/
-.ruff_cache/
 .mypy_cache/
-.gx/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+.pyre/
 
-# Great Expectations: commit suites, ignore runs (industry standard)
-gx/uncommitted/
-**/.ge_store_backend_id
+# ==========================
+# Virtual Environments
+# ==========================
+.venv/
+venv/
+env/
+ENV/
+.venv_old
 
-# Logs (LOG_DIR=logs)
-logs/
+# ==========================
+# Environment Variables
+# ==========================
+.env
+.env.*
+!.env.example
 
-# Editors / OS
+# ==========================
+# IDE / Editors
+# ==========================
 .vscode/
 .idea/
+*.code-workspace
+
+# ==========================
+# Jupyter Notebook
+# ==========================
+.ipynb_checkpoints/
+
+# ==========================
+# Logs
+# ==========================
+logs/
+*.log
+
+# ==========================
+# Temporary Files
+# ==========================
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# ==========================
+# Build / Distribution
+# ==========================
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# ==========================
+# Database Files
+# ==========================
+*.db
+*.sqlite
+*.sqlite3
+*.duckdb
+
+# ==========================
+# ETL Outputs
+# ==========================
+output/
+exports/
+artifacts/
+
+# Generated datasets
+processed_data/
+cleaned_data/
+intermediate/
+
+# ==========================
+# Data Files (Optional)
+# Uncomment if data is too large
+# ==========================
+data/
+data/raw/
+data/processed/
+*.csv
+*.parquet
+# *.json kept tracked: contracts are JSON, GX generated JSON is ignored below
+*.xlsx
+
+# ==========================
+# OS Files
+# ==========================
 .DS_Store
 Thumbs.db
+desktop.ini
 
-# Keep uv.lock TRACKED (reproducible deps per ARCHITECTURE.md)
+# ==========================
+# Testing
+# ==========================
+.pytest_cache/
+.tox/
+.nox/
+
+# ==========================
+# uv
+# ==========================
+.python-version
+
+# ==========================
+# Streamlit (secrets are local only, like .env)
+# ==========================
+dashboard/.streamlit/secrets.toml
+
+# ==========================
+# Airflow
+# ==========================
+airflow.db
+airflow-webserver.pid
+logs/
+dags/__pycache__/
+
+# ==========================
+# dbt
+# ==========================
+target/
+dbt_packages/
+logs/
+
+# ==========================
+# Terraform (if used)
+# ==========================
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# ==========================
+# Docker
+# ==========================
+*.pid
+
+# ==========================
+# Great Expectations
+# ==========================
+# Suites and validation definitions are regenerated on every gate run
+# by scripts/run_gx_*.py, so committed copies only produce UUID churn.
+gx/uncommitted/
+gx/expectations/
+gx/validation_definitions/
+**/.ge_store_backend_id
+# =========================
+# Notebooks
+# ==========================
+notebooks/plots/
+notebooks/stats_*.json

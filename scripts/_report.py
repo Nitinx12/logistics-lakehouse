@@ -54,11 +54,7 @@ def render_report(
     job_name: str,
     name_column: str = "Collection",
 ) -> bool:
-    failed_results = [
-        result
-        for result in results
-        if result.get("status") == "FAILED"
-    ]
+    failed_results = [result for result in results if result.get("status") == "FAILED"]
     validation_failures = [
         result for result in results if result.get("validation") == "FAIL"
     ]

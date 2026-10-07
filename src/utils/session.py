@@ -23,7 +23,9 @@ def _spark_log_level() -> str:
 
 
 # returns a configured spark session, reusing the active one when present
-def get_spark_session(app_name: str = "lakehouse", with_delta: bool = True) -> SparkSession:
+def get_spark_session(
+    app_name: str = "lakehouse", with_delta: bool = True
+) -> SparkSession:
     active = SparkSession.getActiveSession()
     if active is not None:
         return active
@@ -41,9 +43,7 @@ def get_spark_session(app_name: str = "lakehouse", with_delta: bool = True) -> S
     )
     builder = builder.config(
         "spark.sql.session.timeZone", os.getenv("BUSINESS_TIMEZONE", "Asia/Kolkata")
-    ).config(
-        "spark.sql.shuffle.partitions", partitions
-    )
+    ).config("spark.sql.shuffle.partitions", partitions)
     if with_delta:
         builder = builder.config(
             "spark.sql.extensions", "io.delta.sql.DeltaSparkSessionExtension"

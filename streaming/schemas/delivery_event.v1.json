@@ -1,0 +1,28 @@
+{
+  "$comment": "Envelope for lh.delivery_events.v1 (ARCHITECTURE.md §8.4).",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://lakehouse.local/schemas/delivery_event.v1.json",
+  "title": "delivery_event",
+  "type": "object",
+  "required": [
+    "event_id",
+    "trip_id",
+    "event_type",
+    "event_ts",
+    "payload",
+    "schema_version",
+    "source",
+    "produced_at"
+  ],
+  "properties": {
+    "event_id": {"type": "string", "minLength": 1},
+    "trip_id": {"type": "string", "minLength": 1},
+    "event_type": {"type": "string", "minLength": 1},
+    "event_ts": {"type": "string", "format": "date-time"},
+    "payload": {"type": "object"},
+    "schema_version": {"type": "integer", "const": 1},
+    "source": {"type": "string", "minLength": 1},
+    "produced_at": {"type": "string", "format": "date-time"}
+  },
+  "additionalProperties": false
+}

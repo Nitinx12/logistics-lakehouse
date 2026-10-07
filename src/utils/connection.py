@@ -47,6 +47,36 @@ def get_postgres_connection() -> PostgresConnection:
     return connection
 
 
+# builds the admin postgres DSN from environment for DDL work
+def get_postgres_admin_dsn() -> str:
+    host = os.getenv("POSTGRES_HOST", "localhost")
+    port = os.getenv("POSTGRES_PORT", "5432")
+    dbname = os.getenv("POSTGRES_DB", "")
+    user = os.getenv("POSTGRES_SUPERUSER", "postgres")
+    password = os.getenv("POSTGRES_SUPERUSER_PASSWORD", "")
+    if not dbname or not password:
+        raise ConnectionError("POSTGRES_DB and POSTGRES_SUPERUSER_PASSWORD must be set")
+    return make_conninfo(
+        host=host,
+        port=port,
+        dbname=dbname,
+        user=user,
+        password=password,
+    )
+
+
+# opens a new admin postgres connection for DDL work
+def get_postgres_admin_connection() -> PostgresConnection:
+    dsn = get_postgres_admin_dsn()
+    connection = psycopg.connect(dsn, autocommit=False)
+    logger.info(
+        "postgres admin connected host=%s db=%s",
+        os.getenv("POSTGRES_HOST", "localhost"),
+        os.getenv("POSTGRES_DB", ""),
+    )
+    return connection
+
+
 # builds the mongo url from environment (.env names it MongoDB_URI)
 def get_mongo_url() -> str:
     for key in ("MongoDB_URI", "MONGO_URL"):
@@ -72,9 +102,7 @@ def get_mongo_client() -> MongoClient:
 
 # resolves the mongo database name from environment
 def get_mongo_db_name() -> str:
-    return (
-        os.getenv("MONGO_DB_NAME") or os.getenv("MONGO_DB") or "fleet_operations"
-    )
+    return os.getenv("MONGO_DB_NAME") or os.getenv("MONGO_DB") or "fleet_operations"
 
 
 # returns the configured mongo database
@@ -89,7 +117,9 @@ def get_databricks_connection() -> DatabricksConnection:
     # the connector wants a bare hostname, tolerate a full https:// url
     host = host.replace("https://", "").replace("http://", "").rstrip("/")
     token = (os.getenv("DATABRICKS_TOKEN") or "").strip()
-    http_path = (os.getenv("DATABRICKS_PATH") or os.getenv("DATABRICKS_HTTP_PATH") or "").strip()
+    http_path = (
+        os.getenv("DATABRICKS_PATH") or os.getenv("DATABRICKS_HTTP_PATH") or ""
+    ).strip()
     catalog = (os.getenv("DATABRICKS_CATALOG") or "").strip()
     schema = (os.getenv("DATABRICKS_SCHEMA") or "").strip()
     if not host or not token or not http_path:

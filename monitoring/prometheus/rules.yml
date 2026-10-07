@@ -1,0 +1,42 @@
+# Alert rules for the lakehouse pipeline (ARCHITECTURE.md §13.3).
+# Metrics come from monitoring/postgres-exporter/queries.yml.
+# Severity follows the DQ policy: page for critical, warn for the rest.
+groups:
+  - name: lakehouse
+    interval: 1m
+    rules:
+      - alert: PipelineStageFailed
+        expr: lh_pipeline_run_status == 0
+        for: 5m
+        labels:
+          severity: page
+        annotations:
+          summary: "Pipeline stage {{ $labels.stage }} failed on run {{ $labels.run_id }}"
+          runbook: docs/runbook.md
+
+      - alert: FreshnessBreach
+        expr: lh_freshness_is_fresh == 0
+        for: 15m
+        labels:
+          severity: page
+        annotations:
+          summary: "Stale warehouse data: {{ $labels.layer }}.{{ $labels.table_name }}"
+          runbook: docs/runbook.md
+
+      - alert: SloBreach
+        expr: lh_slo_status_is_met == 0
+        for: 15m
+        labels:
+          severity: warn
+        annotations:
+          summary: "SLO breached: {{ $labels.sli }}"
+          runbook: docs/runbook.md
+
+      - alert: ExporterDown
+        expr: up{job="postgres-exporter"} == 0
+        for: 5m
+        labels:
+          severity: warn
+        annotations:
+          summary: "postgres-exporter is down, pipeline metrics are stale"
+          runbook: docs/runbook.md

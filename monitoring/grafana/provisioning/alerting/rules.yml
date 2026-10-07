@@ -1,0 +1,59 @@
+# Grafana managed alert mirroring the Prometheus freshness rule.
+apiVersion: 1
+
+groups:
+  - orgId: 1
+    name: lakehouse
+    folder: Lakehouse
+    interval: 1m
+    rules:
+      - uid: freshness-breach
+        title: Warehouse data stale
+        condition: C
+        for: 15m
+        annotations:
+          summary: Warehouse holds stale tables
+          runbook: docs/runbook.md
+        labels:
+          severity: page
+        data:
+          - refId: A
+            datasourceUid: prometheus
+            relativeTimeRange:
+              from: 600
+              to: 0
+            model:
+              datasource:
+                type: prometheus
+                uid: prometheus
+              expr: min by (layer, table_name) (lh_freshness_is_fresh)
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: A
+          - refId: C
+            datasourceUid: __expr__
+            relativeTimeRange:
+              from: 600
+              to: 0
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 1
+                    type: lt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A
+              intervalMs: 1000
+              maxDataPoints: 43200
+              refId: C
+              type: threshold

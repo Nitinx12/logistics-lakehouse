@@ -1,5 +1,4 @@
 # .dockerignore — keep build contexts small; secrets never enter images.
-# (No Dockerfiles yet; this applies the moment the first one lands.)
 
 .env
 .env.local
@@ -11,6 +10,7 @@ __pycache__/
 
 .git/
 .gitignore
+gx/uncommitted/
 
 data/
 notebooks/plots/

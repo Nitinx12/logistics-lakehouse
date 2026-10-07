@@ -201,7 +201,9 @@ def read_contract_key(table: str) -> str | None:
     path = PROJECT_ROOT / "contracts" / "databricks" / f"{table}.yaml"
     if not path.exists():
         return None
-    match = re.search(r"key:\s*\[([A-Za-z_][A-Za-z0-9_]*)\]", path.read_text(encoding="utf-8"))
+    match = re.search(
+        r"key:\s*\[([A-Za-z_][A-Za-z0-9_]*)\]", path.read_text(encoding="utf-8")
+    )
     return match.group(1) if match else None
 
 
@@ -457,9 +459,7 @@ def describe_table(catalog: str, schema: str, table: str) -> list[str]:
 
 
 # picks the watermark column: an override wins, else first candidate present
-def detect_incremental_column(
-    columns: list[str], override: str | None
-) -> str | None:
+def detect_incremental_column(columns: list[str], override: str | None) -> str | None:
     if override:
         return override if override in columns else None
     for candidate in INCREMENTAL_COLUMN_CANDIDATES:
@@ -649,7 +649,7 @@ def write_chunk_upsert(
                 "ON COMMIT DROP"
             )
             with cur.copy(
-                f'COPY "{table}__stg" ({names}) FROM STDIN WITH (FORMAT csv, NULL \'{COPY_NULL}\')'
+                f"COPY \"{table}__stg\" ({names}) FROM STDIN WITH (FORMAT csv, NULL '{COPY_NULL}')"
             ) as copy:
                 while True:
                     chunk = buffer.read(65536)
@@ -753,9 +753,7 @@ def run_table(
         watermark_to,
         run_id,
     )
-    bronze_id = insert_bronze_log_start(
-        job_name, table, watermark_from, watermark_to
-    )
+    bronze_id = insert_bronze_log_start(job_name, table, watermark_from, watermark_to)
     result = {
         "name": table,
         "mode": mode,
@@ -787,7 +785,15 @@ def run_table(
             if result["validation"] == "PASS":
                 result["status"] = "SKIPPED (no new/changed rows)"
                 update_log_finish(
-                    log_id, "SUCCESS", 0, 0, 0, None, 0, 0, "PASS",
+                    log_id,
+                    "SUCCESS",
+                    0,
+                    0,
+                    0,
+                    None,
+                    0,
+                    0,
+                    "PASS",
                     result["validation_detail"],
                 )
                 update_bronze_log_finish(bronze_id, "SUCCESS", 0, 0)
@@ -795,8 +801,15 @@ def run_table(
                 result["status"] = "VALIDATION FAILED"
                 result["error"] = result["validation_detail"]
                 update_log_finish(
-                    log_id, "VALIDATION FAILED", 0, 0, 0,
-                    result["validation_detail"], 0, 0, "FAIL",
+                    log_id,
+                    "VALIDATION FAILED",
+                    0,
+                    0,
+                    0,
+                    result["validation_detail"],
+                    0,
+                    0,
+                    "FAIL",
                     result["validation_detail"],
                 )
                 update_bronze_log_finish(
@@ -814,9 +827,16 @@ def run_table(
             while True:
                 try:
                     header, rows = fetch_chunk(
-                        catalog, schema, table, columns, watermark_column,
-                        start, end, first_chunk=(index == 0),
-                        last_chunk=(index == last_index), arraysize=arraysize,
+                        catalog,
+                        schema,
+                        table,
+                        columns,
+                        watermark_column,
+                        start,
+                        end,
+                        first_chunk=(index == 0),
+                        last_chunk=(index == last_index),
+                        arraysize=arraysize,
                     )
                     extracted = len(rows)
                     inserted = updated = 0
@@ -824,7 +844,10 @@ def run_table(
                         ensure_target_table(target_schema, table, header)
                         ready = ensure_merge_key(target_schema, table, merge_key)
                         inserted, updated = write_chunk_upsert(
-                            header, rows, target_schema, table,
+                            header,
+                            rows,
+                            target_schema,
+                            table,
                             merge_key if ready else None,
                         )
                     result["extracted"] += extracted
@@ -833,7 +856,9 @@ def run_table(
                     result["updated"] += updated
                     logger.info(
                         "chunk done table=%s chunk=%d rows=%d",
-                        table, index, inserted + updated,
+                        table,
+                        index,
+                        inserted + updated,
                     )
                     break
                 except Exception as exc:
@@ -842,7 +867,11 @@ def run_table(
                         raise
                     logger.warning(
                         "retrying table=%s chunk=%d attempt=%d/%d after %ds",
-                        table, index, attempt, max_retries, retry_delay,
+                        table,
+                        index,
+                        attempt,
+                        max_retries,
+                        retry_delay,
                     )
                     time.sleep(retry_delay)
         if dry_run:
@@ -859,26 +888,42 @@ def run_table(
         )
         if result["validation"] == "PASS":
             update_log_finish(
-                log_id, "SUCCESS", result["extracted"],
-                result["inserted"] + result["updated"], result["chunks"], None,
-                result["inserted"], result["updated"], "PASS",
+                log_id,
+                "SUCCESS",
+                result["extracted"],
+                result["inserted"] + result["updated"],
+                result["chunks"],
+                None,
+                result["inserted"],
+                result["updated"],
+                "PASS",
                 result["validation_detail"],
             )
             update_bronze_log_finish(
-                bronze_id, "SUCCESS", result["extracted"],
+                bronze_id,
+                "SUCCESS",
+                result["extracted"],
                 result["inserted"] + result["updated"],
             )
         else:
             result["status"] = "VALIDATION FAILED"
             result["error"] = result["validation_detail"]
             update_log_finish(
-                log_id, "VALIDATION FAILED", result["extracted"],
-                result["inserted"] + result["updated"], result["chunks"],
-                result["validation_detail"], result["inserted"],
-                result["updated"], "FAIL", result["validation_detail"],
+                log_id,
+                "VALIDATION FAILED",
+                result["extracted"],
+                result["inserted"] + result["updated"],
+                result["chunks"],
+                result["validation_detail"],
+                result["inserted"],
+                result["updated"],
+                "FAIL",
+                result["validation_detail"],
             )
             update_bronze_log_finish(
-                bronze_id, "FAILED", result["extracted"],
+                bronze_id,
+                "FAILED",
+                result["extracted"],
                 result["inserted"] + result["updated"],
                 result["validation_detail"],
             )
@@ -887,14 +932,23 @@ def run_table(
         result["status"] = "FAILED"
         result["error"] = short_error(exc)
         update_log_finish(
-            log_id, "FAILED", result["extracted"],
-            result["inserted"] + result["updated"], result["chunks"],
-            traceback.format_exc(), result["inserted"], result["updated"],
-            "FAIL", result["error"],
+            log_id,
+            "FAILED",
+            result["extracted"],
+            result["inserted"] + result["updated"],
+            result["chunks"],
+            traceback.format_exc(),
+            result["inserted"],
+            result["updated"],
+            "FAIL",
+            result["error"],
         )
         update_bronze_log_finish(
-            bronze_id, "FAILED", result["extracted"],
-            result["inserted"] + result["updated"], result["error"],
+            bronze_id,
+            "FAILED",
+            result["extracted"],
+            result["inserted"] + result["updated"],
+            result["error"],
         )
         raise
     finally:

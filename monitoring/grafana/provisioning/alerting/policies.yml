@@ -1,0 +1,20 @@
+# Grafana notification routing: page at once, batch warnings (ARCHITECTURE.md §13.5).
+apiVersion: 1
+
+policies:
+  - orgId: 1
+    receiver: lakehouse-mail
+    group_by:
+      - alertname
+      - severity
+    group_wait: 30s
+    group_interval: 5m
+    routes:
+      - receiver: lakehouse-mail
+        object_matchers:
+          - - severity
+            - "="
+            - warn
+        group_wait: 1h
+        group_interval: 1h
+        repeat_interval: 24h

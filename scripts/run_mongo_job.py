@@ -54,7 +54,9 @@ def print_summary(job_name: str, elapsed: float, code: int) -> None:
     total_in = sum(row[2] or 0 for row in rows)
     total_out = sum(row[3] or 0 for row in rows)
     failed = sum(1 for row in rows if row[1] == "FAILED")
-    table = Table(title=f"mongo extract done: exit={code} elapsed={elapsed:.1f}s failed={failed}")
+    table = Table(
+        title=f"mongo extract done: exit={code} elapsed={elapsed:.1f}s failed={failed}"
+    )
     table.add_column("collection")
     table.add_column("status")
     table.add_column("extracted", justify="right")
@@ -62,8 +64,14 @@ def print_summary(job_name: str, elapsed: float, code: int) -> None:
     table.add_column("watermark_to")
     table.add_column("secs", justify="right")
     for name, status, extracted, loaded, watermark, seconds in rows:
-        table.add_row(name, status, f"{extracted:,}", f"{loaded:,}",
-                      str(watermark), f"{seconds or 0:.1f}")
+        table.add_row(
+            name,
+            status,
+            f"{extracted:,}",
+            f"{loaded:,}",
+            str(watermark),
+            f"{seconds or 0:.1f}",
+        )
     table.add_row("total", "", f"{total_in:,}", f"{total_out:,}", "", "")
     Console().print(table)
 
