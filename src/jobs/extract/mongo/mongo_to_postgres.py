@@ -175,8 +175,12 @@ def build_spark(app_name: str) -> SparkSession:
 
 # returns the mongo read uri with fast-fail timeouts
 def mongo_read_uri() -> str:
-    base = os.getenv("MONGO_URL", "").strip() or (
-        f"mongodb://{os.getenv('MONGO_HOST', 'localhost')}:{os.getenv('MONGO_PORT', '27017')}"
+    base = (
+        os.getenv("MongoDB_URI", "").strip()
+        or os.getenv("MONGO_URL", "").strip()
+        or (
+            f"mongodb://{os.getenv('MONGO_HOST', 'localhost')}:{os.getenv('MONGO_PORT', '27017')}"
+        )
     )
     if "serverSelectionTimeoutMS" not in base:
         opts = "serverSelectionTimeoutMS=5000&connectTimeoutMS=10000"
