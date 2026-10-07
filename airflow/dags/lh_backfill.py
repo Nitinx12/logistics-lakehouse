@@ -1,7 +1,7 @@
 # Reruns the full batch sequence under one operator supplied batch id.
 import os
 import sys
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 
 from airflow.models.param import Param
 from airflow.operators.bash import BashOperator
@@ -31,14 +31,6 @@ def preflight() -> None:
     check_preflight("postgres", "mongo")
 
 
-def batch_sla() -> timedelta:
-    try:
-        minutes = float(os.getenv("SLO_BATCH_DURATION_P95_MIN", "30")) * 2
-    except ValueError:
-        minutes = 60.0
-    return timedelta(minutes=minutes)
-
-
 def read_watermark_task() -> str:
     return read_watermarks()
 
@@ -62,7 +54,6 @@ with DAG(
     start_date=datetime(2026, 1, 1, tzinfo=UTC),
     catchup=False,
     max_active_runs=1,
-    sla=batch_sla(),
     params={
         "batch_id": Param(default="manual_backfill", type="string"),
         "tables": Param(

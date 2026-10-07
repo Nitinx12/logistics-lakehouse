@@ -48,6 +48,8 @@ def _retention_days() -> int:
 
 
 def check_preflight(*systems: str) -> None:
+    from pathlib import Path
+
     from src.utils.connection import get_mongo_client, get_postgres_connection
     from src.utils.tracking import track_stage
 
@@ -76,7 +78,7 @@ def check_preflight(*systems: str) -> None:
                 raise ConnectionError(
                     "DATABRICKS_HOST, DATABRICKS_TOKEN and DATABRICKS_PATH must be set"
                 )
-        free_gb = shutil.disk_usage(os.getenv("LAKEHOUSE_REPO", "/app")).free / (
+        free_gb = shutil.disk_usage(Path(__file__).resolve().parents[2]).free / (
             1024**3
         )
         metrics["detail"] = {

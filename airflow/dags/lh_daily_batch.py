@@ -1,7 +1,7 @@
 # Runs bronze then silver then gold with quality gates (ARCHITECTURE.md §9.2).
 import os
 import sys
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 
 from airflow.operators.bash import BashOperator
 from airflow.operators.python import PythonOperator
@@ -31,14 +31,6 @@ def preflight() -> None:
     check_preflight("postgres", "mongo")
 
 
-def batch_sla() -> timedelta:
-    try:
-        minutes = float(os.getenv("SLO_BATCH_DURATION_P95_MIN", "30")) * 2
-    except ValueError:
-        minutes = 60.0
-    return timedelta(minutes=minutes)
-
-
 def read_watermark_task() -> str:
     return read_watermarks()
 
@@ -64,10 +56,8 @@ with DAG(
     start_date=datetime(2026, 1, 1, tzinfo=UTC),
     catchup=False,
     max_active_runs=1,
-    sla=batch_sla(),
     default_args=build_default_args(retries=1),
     tags=["lakehouse", "batch"],
-    outlets=[BATCH_GOLD],
 ) as dag:
     check = PythonOperator(task_id="preflight", python_callable=preflight)
     watermarks = PythonOperator(
@@ -139,6 +129,7 @@ with DAG(
         task_id="snapshot",
         bash_command=snapshot_command(),
         env=task_env(),
+        outlets=[BATCH_GOLD],
     )
     check >> watermarks >> [extract_mongo, extract_databricks] >> bronze_gate
     bronze_gate >> [silver_mongo, silver_databricks] >> silver_gate

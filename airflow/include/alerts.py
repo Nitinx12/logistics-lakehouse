@@ -4,6 +4,14 @@ from datetime import timedelta
 from typing import Any
 
 
+def sla_deadline() -> timedelta:
+    try:
+        minutes = float(os.getenv("SLO_BATCH_DURATION_P95_MIN", "30")) * 2
+    except ValueError:
+        minutes = 60.0
+    return timedelta(minutes=minutes)
+
+
 def get_alert_emails() -> list[str]:
     return [
         address.strip()
@@ -66,6 +74,7 @@ def build_default_args(retries: int) -> dict[str, Any]:
         "retries": retries,
         "retry_delay": timedelta(minutes=5),
         "retry_exponential_backoff": True,
+        "sla": sla_deadline(),
         "email": emails,
         "email_on_failure": bool(emails) and not digest_enabled(),
         "email_on_retry": False,
