@@ -11,26 +11,13 @@ from airflow import DAG
 
 sys.path.insert(0, os.path.join(os.getenv("LAKEHOUSE_REPO", "/app"), "airflow"))
 
-from include.alerts import build_default_args  # noqa: E402
-
-
-def repo_dir() -> str:
-    return os.getenv("LAKEHOUSE_REPO", "/app")
-
-
-def task_env() -> dict[str, str]:
-    return {"LAKEHOUSE_REPO": repo_dir(), "WAREHOUSE_RUN_ID": "{{ run_id }}"}
-
-
-def script_command(script: str) -> str:
-    return f'cd "$LAKEHOUSE_REPO" && uv run {script}'
-
-
-def snapshot_command() -> str:
-    return (
-        'cd "$LAKEHOUSE_REPO" && uv run python -c '
-        '"from src.utils.tracking import record_snapshot; record_snapshot()"'
-    )
+from include.alerts import build_default_args
+from include.common import (
+    script_command,
+    snapshot_command,
+    task_env,
+)
+from include.datasets import BATCH_GOLD
 
 
 def preflight() -> None:
@@ -42,7 +29,7 @@ def preflight() -> None:
 with DAG(
     dag_id="lh_report_publish",
     description="Gold gate then report publish after batch",
-    schedule=None,
+    schedule=[BATCH_GOLD],
     start_date=datetime(2026, 1, 1, tzinfo=UTC),
     catchup=False,
     max_active_runs=1,
@@ -55,6 +42,7 @@ with DAG(
         task_id="verify_gold",
         bash_command=script_command("scripts/run_gx_gold.py"),
         env=task_env(),
+        pool="dq",
         retries=0,
     )
     snapshot = BashOperator(

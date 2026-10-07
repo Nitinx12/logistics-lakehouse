@@ -123,11 +123,27 @@ def test_commands_call_repo_entry_points_only() -> None:
 
 
 def test_snapshot_records_layer_counts() -> None:
-    assert "src.utils.tracking import record_snapshot" in _text()
+    assert "snapshot_command()" in _text()
+    common = Path(
+        Path(__file__).resolve().parents[2] / "airflow" / "include" / "common.py"
+    ).read_text(encoding="utf-8")
+    assert "src.utils.tracking import record_snapshot" in common
 
 
 def test_batch_id_param_flows_into_loads() -> None:
     assert _text().count("--batch-id {{ params.batch_id }}") == 3
+
+
+def test_tables_param_flows_into_extracts() -> None:
+    assert '"tables"' in _text()
+    assert "--collections {{ params.tables }}" in _text()
+    assert "--tables {{ params.tables }}" in _text()
+
+
+def test_arch_pools_guard_concurrency() -> None:
+    assert _text().count('pool="spark_extract"') == 2
+    assert _text().count('pool="pg_transform"') == 3
+    assert _text().count('pool="dq"') == 3
 
 
 def test_layers_run_in_order_behind_gates() -> None:

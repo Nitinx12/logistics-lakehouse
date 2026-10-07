@@ -35,9 +35,9 @@ def test_dag_file_exists() -> None:
     assert DAG_FILE.is_file()
 
 
-def test_dag_is_manual_only() -> None:
+def test_dag_runs_after_batch_dataset() -> None:
     assert 'dag_id="lh_report_publish"' in _text()
-    assert "schedule=None" in _text()
+    assert "schedule=[BATCH_GOLD]" in " ".join(_text().split())
     assert "catchup=False" in _text()
     assert "max_active_runs=1" in _text()
 

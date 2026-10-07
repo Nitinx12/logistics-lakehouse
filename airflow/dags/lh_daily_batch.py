@@ -10,32 +10,19 @@ from airflow import DAG
 
 sys.path.insert(0, os.path.join(os.getenv("LAKEHOUSE_REPO", "/app"), "airflow"))
 
-from include.alerts import build_default_args  # noqa: E402
-from include.ops import (  # noqa: E402
+from include.alerts import build_default_args
+from include.common import (
+    script_command,
+    snapshot_command,
+    task_env,
+)
+from include.datasets import BATCH_GOLD
+from include.ops import (
     advance_watermarks,
     check_reconcile,
     read_watermarks,
     update_freshness,
 )
-
-
-def repo_dir() -> str:
-    return os.getenv("LAKEHOUSE_REPO", "/app")
-
-
-def task_env() -> dict[str, str]:
-    return {"LAKEHOUSE_REPO": repo_dir(), "WAREHOUSE_RUN_ID": "{{ run_id }}"}
-
-
-def script_command(script: str) -> str:
-    return f'cd "$LAKEHOUSE_REPO" && uv run {script}'
-
-
-def snapshot_command() -> str:
-    return (
-        'cd "$LAKEHOUSE_REPO" && uv run python -c '
-        '"from src.utils.tracking import record_snapshot; record_snapshot()"'
-    )
 
 
 def preflight() -> None:
@@ -72,6 +59,7 @@ with DAG(
     max_active_runs=1,
     default_args=build_default_args(retries=1),
     tags=["lakehouse", "batch"],
+    outlets=[BATCH_GOLD],
 ) as dag:
     check = PythonOperator(task_id="preflight", python_callable=preflight)
     watermarks = PythonOperator(
@@ -81,18 +69,21 @@ with DAG(
         task_id="extract_mongo",
         bash_command=script_command("scripts/run_mongo_job.py"),
         env=task_env(),
+        pool="spark_extract",
         retries=3,
     )
     extract_databricks = BashOperator(
         task_id="extract_databricks",
         bash_command=script_command("scripts/run_databricks_job.py"),
         env=task_env(),
+        pool="spark_extract",
         retries=3,
     )
     bronze_gate = BashOperator(
         task_id="bronze_gate",
         bash_command=script_command("scripts/run_gx_bronze.py"),
         env=task_env(),
+        pool="dq",
         retries=0,
     )
     silver_mongo = BashOperator(
@@ -101,6 +92,7 @@ with DAG(
             "scripts/run_silver_mongo.py --batch-id {{ run_id }}"
         ),
         env=task_env(),
+        pool="pg_transform",
     )
     silver_databricks = BashOperator(
         task_id="silver_databricks",
@@ -108,22 +100,26 @@ with DAG(
             "scripts/run_silver_databricks.py --batch-id {{ run_id }}"
         ),
         env=task_env(),
+        pool="pg_transform",
     )
     silver_gate = BashOperator(
         task_id="silver_gate",
         bash_command=script_command("scripts/run_gx_silver.py"),
         env=task_env(),
+        pool="dq",
         retries=0,
     )
     gold_load = BashOperator(
         task_id="gold_load",
         bash_command=script_command("scripts/run_gold_all.py --batch-id {{ run_id }}"),
         env=task_env(),
+        pool="pg_transform",
     )
     gold_gate = BashOperator(
         task_id="gold_gate",
         bash_command=script_command("scripts/run_gx_gold.py"),
         env=task_env(),
+        pool="dq",
         retries=0,
     )
     reconcile = PythonOperator(task_id="reconcile", python_callable=reconcile_task)

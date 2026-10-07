@@ -10,23 +10,9 @@ from airflow import DAG
 
 sys.path.insert(0, os.path.join(os.getenv("LAKEHOUSE_REPO", "/app"), "airflow"))
 
-from include.alerts import build_default_args  # noqa: E402
-from include.ops import check_reconcile  # noqa: E402
-
-
-def repo_dir() -> str:
-    return os.getenv("LAKEHOUSE_REPO", "/app")
-
-
-def task_env() -> dict[str, str]:
-    return {"LAKEHOUSE_REPO": repo_dir(), "WAREHOUSE_RUN_ID": "{{ run_id }}"}
-
-
-def snapshot_command() -> str:
-    return (
-        'cd "$LAKEHOUSE_REPO" && uv run python -c '
-        '"from src.utils.tracking import record_snapshot; record_snapshot()"'
-    )
+from include.alerts import build_default_args
+from include.common import snapshot_command, task_env
+from include.ops import check_reconcile
 
 
 def preflight() -> None:

@@ -98,6 +98,9 @@ services:
           --password "$${_AIRFLOW_WWW_USER_PASSWORD:?www user password missing in .env}" \
           --email "$${AIRFLOW__SMTP__SMTP_MAIL_FROM}" \
           --firstname lakehouse --lastname admin
+        airflow pools set spark_extract 2 "Partitioned Spark extracts, one at a time per host"
+        airflow pools set pg_transform 2 "Set based warehouse transforms"
+        airflow pools set dq 2 "Quality gates"
 
   airflow-webserver:
     image: apache/airflow:2.11.2-python3.12
@@ -129,6 +132,7 @@ services:
     environment:
       LAKEHOUSE_REPO: /app
       AIRFLOW__CORE__DAGS_FOLDER: /app/airflow/dags
+      PYTHONPATH: /app:/app/.venv/lib/python3.12/site-packages
     volumes:
       - ./airflow:/app/airflow:ro
       - ./src:/app/src:ro

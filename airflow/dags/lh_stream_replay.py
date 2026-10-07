@@ -11,11 +11,8 @@ from airflow import DAG
 
 sys.path.insert(0, os.path.join(os.getenv("LAKEHOUSE_REPO", "/app"), "airflow"))
 
-from include.alerts import build_default_args  # noqa: E402
-
-
-def repo_dir() -> str:
-    return os.getenv("LAKEHOUSE_REPO", "/app")
+from include.alerts import build_default_args
+from include.common import repo_dir, script_command
 
 
 def task_env() -> dict[str, str]:
@@ -25,10 +22,6 @@ def task_env() -> dict[str, str]:
         "REPLAY_START_DATE": "{{ params.start_date }}",
         "REPLAY_END_DATE": "{{ params.end_date }}",
     }
-
-
-def script_command(script: str) -> str:
-    return f'cd "$LAKEHOUSE_REPO" && uv run {script}'
 
 
 def preflight() -> None:

@@ -120,12 +120,20 @@ def test_commands_call_repo_entry_points_only() -> None:
 
 
 def test_snapshot_records_layer_counts() -> None:
-    assert "src.utils.tracking import record_snapshot" in _text()
+    assert "snapshot_command()" in _text()
+    common = Path(
+        Path(__file__).resolve().parents[2] / "airflow" / "include" / "common.py"
+    ).read_text(encoding="utf-8")
+    assert "src.utils.tracking import record_snapshot" in common
 
 
 def test_run_id_flows_into_every_task() -> None:
-    assert _compacted().count("{{ run_id }}") >= 4
+    assert _compacted().count("{{ run_id }}") >= 3
     assert _text().count("--batch-id {{ run_id }}") == 3
+    common = Path(
+        Path(__file__).resolve().parents[2] / "airflow" / "include" / "common.py"
+    ).read_text(encoding="utf-8")
+    assert "{{ run_id }}" in common
 
 
 def test_layers_run_in_order_behind_gates() -> None:
@@ -158,6 +166,20 @@ def test_failure_alerts_come_from_environment() -> None:
     assert "on_failure_callback" in alerts
     assert "email_on_failure" in alerts
     assert re.search(r"[\w.+-]+@[\w-]+\.[\w.]+", _text()) is None
+
+
+def test_arch_pools_guard_concurrency() -> None:
+    assert _text().count('pool="spark_extract"') == 2
+    assert _text().count('pool="pg_transform"') == 3
+    assert _text().count('pool="dq"') == 3
+
+
+def test_batch_completion_publishes_dataset() -> None:
+    assert "outlets=[BATCH_GOLD]" in _compacted()
+    datasets = Path(
+        Path(__file__).resolve().parents[2] / "airflow" / "include" / "datasets.py"
+    ).read_text(encoding="utf-8")
+    assert 'BATCH_GOLD = Dataset("lakehouse://gold/batch")' in datasets
 
 
 def test_dagbag_loads_when_airflow_available() -> None:

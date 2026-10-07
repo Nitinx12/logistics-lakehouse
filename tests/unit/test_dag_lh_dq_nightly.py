@@ -60,8 +60,8 @@ def test_dag_id_is_lh_dq_nightly() -> None:
     assert 'dag_id="lh_dq_nightly"' in _text()
 
 
-def test_schedule_is_daily_without_catchup() -> None:
-    assert 'schedule="@daily"' in _text()
+def test_schedule_follows_batch_dataset() -> None:
+    assert "schedule=[BATCH_GOLD]" in _compacted()
     assert "catchup=False" in _text()
     assert "max_active_runs=1" in _text()
 
@@ -91,11 +91,23 @@ def test_commands_call_repo_entry_points_only() -> None:
 
 
 def test_snapshot_records_layer_counts() -> None:
-    assert "src.utils.tracking import record_snapshot" in _text()
+    assert "snapshot_command()" in _text()
+    common = Path(
+        Path(__file__).resolve().parents[2] / "airflow" / "include" / "common.py"
+    ).read_text(encoding="utf-8")
+    assert "src.utils.tracking import record_snapshot" in common
 
 
 def test_run_id_flows_into_every_task() -> None:
-    assert _compacted().count("{{ run_id }}") >= 1
+    assert _text().count("env=task_env()") == 4
+    common = Path(
+        Path(__file__).resolve().parents[2] / "airflow" / "include" / "common.py"
+    ).read_text(encoding="utf-8")
+    assert "{{ run_id }}" in common
+
+
+def test_arch_pools_guard_concurrency() -> None:
+    assert _text().count('pool="dq"') == 3
 
 
 def test_checks_run_in_layer_order() -> None:
