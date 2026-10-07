@@ -93,7 +93,7 @@ data/raw/
 data/processed/
 *.csv
 *.parquet
-# *.json kept tracked: GX suites and contracts are JSON
+# *.json kept tracked: contracts are JSON, GX generated JSON is ignored below
 *.xlsx
 
 # ==========================
@@ -145,9 +145,12 @@ logs/
 # ==========================
 # Great Expectations
 # ==========================
+# Suites and validation definitions are regenerated on every gate run
+# by scripts/run_gx_*.py, so committed copies only produce UUID churn.
 gx/uncommitted/
+gx/expectations/
+gx/validation_definitions/
 **/.ge_store_backend_id
-
 # =========================
 # Notebooks
 # ==========================
