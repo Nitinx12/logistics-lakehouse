@@ -11,7 +11,7 @@ def task_env() -> dict[str, str]:
 
 
 def script_command(script: str) -> str:
-    return f'cd "$LAKEHOUSE_REPO" && uv run {script}'
+    return f'cd "$LAKEHOUSE_REPO" && uv run --frozen {script}'
 
 
 def snapshot_command() -> str:
