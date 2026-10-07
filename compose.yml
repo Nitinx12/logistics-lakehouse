@@ -146,7 +146,7 @@ services:
     environment:
       LAKEHOUSE_REPO: /app
       AIRFLOW__CORE__DAGS_FOLDER: /app/airflow/dags
-      PYTHONPATH: /app:/app/.venv/lib/python3.12/site-packages
+      PYTHONPATH: /app
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
       MongoDB_URI: mongodb://host.docker.internal:27017/fleet_operations
