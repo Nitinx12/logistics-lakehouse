@@ -21,9 +21,9 @@ from include.datasets import BATCH_GOLD
 
 
 def preflight() -> None:
-    from src.utils.connection import get_postgres_dsn
+    from include.ops import check_preflight
 
-    get_postgres_dsn()
+    check_preflight("postgres")
 
 
 with DAG(

@@ -1,7 +1,7 @@
 # Reruns the full batch sequence under one operator supplied batch id.
 import os
 import sys
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 
 from airflow.models.param import Param
 from airflow.operators.bash import BashOperator
@@ -26,10 +26,17 @@ from include.ops import (
 
 
 def preflight() -> None:
-    from src.utils.connection import get_mongo_url, get_postgres_dsn
+    from include.ops import check_preflight
 
-    get_postgres_dsn()
-    get_mongo_url()
+    check_preflight("postgres", "mongo")
+
+
+def batch_sla() -> timedelta:
+    try:
+        minutes = float(os.getenv("SLO_BATCH_DURATION_P95_MIN", "30")) * 2
+    except ValueError:
+        minutes = 60.0
+    return timedelta(minutes=minutes)
 
 
 def read_watermark_task() -> str:
@@ -55,12 +62,28 @@ with DAG(
     start_date=datetime(2026, 1, 1, tzinfo=UTC),
     catchup=False,
     max_active_runs=1,
+    sla=batch_sla(),
     params={
         "batch_id": Param(default="manual_backfill", type="string"),
         "tables": Param(
             default="",
             type="string",
             description="Comma separated tables, empty means all",
+        ),
+        "start_date": Param(
+            default="",
+            type="string",
+            description="Backfill window start, empty means no lower bound",
+        ),
+        "end_date": Param(
+            default="",
+            type="string",
+            description="Backfill window end, empty means no upper bound",
+        ),
+        "full_load": Param(
+            default=False,
+            type="boolean",
+            description="Ignore watermarks and reload the window",
         ),
     },
     default_args=build_default_args(retries=1),
@@ -74,6 +97,7 @@ with DAG(
         task_id="extract_mongo",
         bash_command=script_command(
             "scripts/run_mongo_job.py --collections {{ params.tables }}"
+            "{% if params.full_load %} --full-load{% endif %}"
         ),
         env=task_env(),
         pool="spark_extract",
@@ -83,6 +107,7 @@ with DAG(
         task_id="extract_databricks",
         bash_command=script_command(
             "scripts/run_databricks_job.py --tables {{ params.tables }}"
+            "{% if params.full_load %} --full-load{% endif %}"
         ),
         env=task_env(),
         pool="spark_extract",

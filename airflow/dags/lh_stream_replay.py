@@ -25,10 +25,9 @@ def task_env() -> dict[str, str]:
 
 
 def preflight() -> None:
-    from src.utils.connection import get_mongo_url, get_postgres_dsn
+    from include.ops import check_preflight
 
-    get_postgres_dsn()
-    get_mongo_url()
+    check_preflight("postgres", "mongo")
 
 
 with DAG(

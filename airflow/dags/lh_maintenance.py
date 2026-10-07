@@ -12,16 +12,18 @@ sys.path.insert(0, os.path.join(os.getenv("LAKEHOUSE_REPO", "/app"), "airflow"))
 
 from include.alerts import build_default_args
 from include.common import snapshot_command, task_env
-from include.ops import run_analyze
 
 
 def preflight() -> None:
-    from src.utils.connection import get_postgres_dsn
+    from include.ops import check_preflight
 
-    get_postgres_dsn()
+    check_preflight("postgres")
 
 
 def analyze_task() -> None:
+    from include.ops import run_analyze, run_retention
+
+    run_retention()
     run_analyze()
 
 
