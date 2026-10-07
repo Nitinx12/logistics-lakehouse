@@ -126,13 +126,19 @@ services:
     restart: unless-stopped
 
   airflow-scheduler:
-    image: apache/airflow:2.11.2-python3.12
+    image: lakehouse-airflow:2.11.2
+    build:
+      context: .
+      dockerfile: airflow/Dockerfile.airflow
     profiles: [core]
     <<: *common-env
     environment:
       LAKEHOUSE_REPO: /app
       AIRFLOW__CORE__DAGS_FOLDER: /app/airflow/dags
       PYTHONPATH: /app:/app/.venv/lib/python3.12/site-packages
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      MongoDB_URI: mongodb://host.docker.internal:27017/fleet_operations
     volumes:
       - ./airflow:/app/airflow:ro
       - ./src:/app/src:ro
