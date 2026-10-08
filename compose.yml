@@ -152,6 +152,14 @@ services:
       POSTGRES_HOST: postgres
       POSTGRES_PORT: 5432
       MongoDB_URI: mongodb://host.docker.internal:27017/fleet_operations
+      # Scheduler shares this 2g container with the Spark driver (LocalExecutor),
+      # so bound Spark below the host sized .env values (ARCHITECTURE.md §15.2).
+      SPARK_MASTER: local[2]
+      SPARK_DRIVER_MEMORY: 1g
+      SPARK_EXECUTOR_MEMORY: 1g
+      SPARK_SQL_SHUFFLE_PARTITIONS: 8
+      SPARK_NETWORK_TIMEOUT: 300s
+      SPARK_EXECUTOR_HEARTBEAT: 30s
     volumes:
       - ./airflow:/app/airflow:ro
       - ./src:/app/src:ro
@@ -215,7 +223,7 @@ services:
     volumes:
       - kafka-data:/var/lib/kafka/data
     healthcheck:
-      test: ["CMD-SHELL", "kafka-broker-api-versions.sh --bootstrap-server localhost:9092"]
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092"]
       interval: 30s
       retries: 5
     restart: unless-stopped
