@@ -35,7 +35,7 @@ eda:
 	uv run scripts/run_notebooks.py
 
 migrate: ## Apply pending sql/scripts once each, tracked in ops.schema_migrations
-	uv run scripts/run_migrate.py
+	uv run scripts/run_migrate.py && uv run scripts/run_procedures.py
 
 run-batch:
 	$(COMPOSE) exec airflow-scheduler airflow dags trigger lh_daily_batch
