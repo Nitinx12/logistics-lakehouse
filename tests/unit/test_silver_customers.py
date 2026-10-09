@@ -23,7 +23,7 @@ def _silver_cursor() -> object:
 
     try:
         connection = get_postgres_connection()
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001
         pytest.skip(f"postgres unreachable: {exc}")
     return connection
 

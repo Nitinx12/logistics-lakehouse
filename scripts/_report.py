@@ -1,13 +1,13 @@
 import re
 import sys
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 # repo root on sys.path so `src` imports work from any working directory
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from src.utils.connection import close_connection, get_postgres_connection  # noqa: E402
-from src.utils.logger import get_logger  # noqa: E402
+from src.utils.connection import close_connection, get_postgres_connection
+from src.utils.logger import get_logger
 
 logger = get_logger(__name__)
 
@@ -99,7 +99,7 @@ def write_etl_logs(results: list[dict], job_name: str) -> int:
     rows = [result for result in results if result.get("status") in VALID_STATUSES]
     if not rows:
         return 0
-    now = datetime.now(timezone.utc)
+    now = datetime.now(UTC)
     payload = [
         (
             result.get("job_name", job_name),

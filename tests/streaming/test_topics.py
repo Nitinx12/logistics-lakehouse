@@ -6,7 +6,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from streaming.topics import topic_definitions  # noqa: E402
+from streaming.topics import topic_definitions
 
 
 def test_four_versioned_topics_exist() -> None:

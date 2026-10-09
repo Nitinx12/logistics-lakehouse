@@ -6,7 +6,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from streaming.message import (  # noqa: E402
+from streaming.message import (
     build_event,
     decode,
     dlq_headers,

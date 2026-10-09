@@ -8,13 +8,13 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from confluent_kafka import Consumer, Message  # noqa: E402
+from confluent_kafka import Consumer, Message
 
-from src.utils.connection import close_connection, get_postgres_connection  # noqa: E402
-from src.utils.logger import get_logger  # noqa: E402
-from streaming.flink.trip_status_job import consumer_config  # noqa: E402
-from streaming.message import decode, validate_event  # noqa: E402
-from streaming.topics import env  # noqa: E402
+from src.utils.connection import close_connection, get_postgres_connection
+from src.utils.logger import get_logger
+from streaming.flink.trip_status_job import consumer_config
+from streaming.message import decode, validate_event
+from streaming.topics import env
 
 logger = get_logger(__name__)
 

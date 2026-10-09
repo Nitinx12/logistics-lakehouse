@@ -69,7 +69,7 @@ def main() -> int:
         try:
             future.result(timeout=30)
             logger.info("topic created name=%s", name)
-        except Exception as exc:  # noqa: BLE001
+        except Exception as exc:
             if "ALREADY_EXISTS" not in str(exc):
                 raise
     return 0

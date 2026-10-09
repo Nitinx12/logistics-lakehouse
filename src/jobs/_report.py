@@ -4,8 +4,8 @@ from pathlib import Path
 # shared console reporter lives in scripts/, bridge old result keys to it
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "scripts"))
 
-from _report import render_report as _base_render  # noqa: E402
-from _report import short_error  # noqa: E402,F401
+from _report import render_report as _base_render
+from _report import short_error  # noqa: F401
 
 
 # adapts legacy job result dicts to the shared reporter keys

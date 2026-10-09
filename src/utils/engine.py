@@ -60,7 +60,7 @@ def read_databricks(query: str) -> pd.DataFrame:
             try:
                 # arrow is fastest but needs the pyarrow package
                 frame = cursor.fetchall_arrow().to_pandas()
-            except Exception:
+            except Exception:  # noqa: BLE001
                 columns = (
                     [desc[0] for desc in cursor.description]
                     if cursor.description

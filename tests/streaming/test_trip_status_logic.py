@@ -7,7 +7,7 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from streaming.flink.logic import (  # noqa: E402
+from streaming.flink.logic import (
     advance_watermark,
     delay_alert,
     delay_minutes,
@@ -16,11 +16,11 @@ from streaming.flink.logic import (  # noqa: E402
     stuck_alerts,
     to_status,
 )
-from streaming.flink.trip_status_job import (  # noqa: E402
+from streaming.flink.trip_status_job import (
     load_checkpoint,
     save_checkpoint,
 )
-from streaming.message import parse_iso  # noqa: E402
+from streaming.message import parse_iso
 
 
 def _message(flag: str = "False") -> dict:

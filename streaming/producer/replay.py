@@ -10,11 +10,11 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from confluent_kafka import Producer  # noqa: E402
+from confluent_kafka import Producer
 
-from src.utils.connection import close_connection, get_mongo_database  # noqa: E402
-from src.utils.logger import get_logger  # noqa: E402
-from streaming.message import (  # noqa: E402
+from src.utils.connection import close_connection, get_mongo_database
+from src.utils.logger import get_logger
+from streaming.message import (
     build_event,
     dlq_headers,
     encode,
@@ -22,7 +22,7 @@ from streaming.message import (  # noqa: E402
     utc_now_iso,
     validate_event,
 )
-from streaming.topics import env  # noqa: E402
+from streaming.topics import env
 
 logger = get_logger(__name__)
 
@@ -104,11 +104,11 @@ def replay(rate_limit: int = 0) -> int:
                 value=encode(message),
                 headers=[("schema_version", b"1"), ("source", b"replay-producer")],
                 on_delivery=(
-                    lambda error, _msg, eid=message["event_id"]: logger.warning(
-                        "delivery failed event=%s error=%s", eid, error
+                    lambda error, _msg, eid=message["event_id"]: (
+                        logger.warning("delivery failed event=%s error=%s", eid, error)
+                        if error
+                        else None
                     )
-                    if error
-                    else None
                 ),
             )
             sent += 1

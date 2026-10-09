@@ -23,7 +23,7 @@ def _silver_cursor() -> object:
 
     try:
         connection = get_postgres_connection()
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001
         pytest.skip(f"postgres unreachable: {exc}")
     return connection
 
@@ -53,9 +53,7 @@ def test_silver_driver_keys_unique_and_not_null() -> None:
     connection = _silver_cursor()
     try:
         with connection.cursor() as cur:
-            cur.execute(
-                "SELECT COUNT(*) FROM silver.drivers WHERE driver_id IS NULL"
-            )
+            cur.execute("SELECT COUNT(*) FROM silver.drivers WHERE driver_id IS NULL")
             nulls = cur.fetchone()
             cur.execute(
                 "SELECT COUNT(*) FROM (SELECT driver_id FROM silver.drivers "

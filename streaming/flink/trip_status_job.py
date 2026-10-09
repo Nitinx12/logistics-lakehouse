@@ -10,10 +10,10 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from confluent_kafka import Consumer, Producer  # noqa: E402
+from confluent_kafka import Consumer, Producer
 
-from src.utils.logger import get_logger  # noqa: E402
-from streaming.flink.logic import (  # noqa: E402
+from src.utils.logger import get_logger
+from streaming.flink.logic import (
     advance_watermark,
     delay_alert,
     is_late,
@@ -21,8 +21,14 @@ from streaming.flink.logic import (  # noqa: E402
     stuck_alerts,
     to_status,
 )
-from streaming.message import decode, dlq_headers, encode, parse_iso, validate_event  # noqa: E402
-from streaming.topics import env  # noqa: E402
+from streaming.message import (
+    decode,
+    dlq_headers,
+    encode,
+    parse_iso,
+    validate_event,
+)
+from streaming.topics import env
 
 logger = get_logger(__name__)
 

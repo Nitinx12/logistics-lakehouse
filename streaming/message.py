@@ -54,7 +54,7 @@ def utc_now_iso() -> str:
 
 
 def parse_iso(value: str) -> datetime:
-    return datetime.fromisoformat(value.replace("Z", "+00:00"))
+    return datetime.fromisoformat(value)
 
 
 def build_event(
@@ -101,7 +101,7 @@ def encode(message: dict[str, Any]) -> bytes:
 def decode(raw: bytes) -> dict[str, Any]:
     loaded = json.loads(raw.decode("utf-8"))
     if not isinstance(loaded, dict):
-        raise ValueError("message must be a JSON object")
+        raise ValueError("message must be a JSON object")  # noqa: TRY004
     return loaded
 
 

@@ -1,0 +1,7 @@
+# Encodes AGENTS.md SQL standards for sqlfluff.
+# ignore_paths grandfathers frozen merged migrations, which must never be
+# edited. Every new migration is still linted and must pass before merging.
+[sqlfluff]
+dialect = postgres
+max_line_length = 100
+ignore_paths = sql/scripts/00_init_schema.sql,sql/scripts/01_bronze_etl_logs.sql,sql/scripts/02_ops_run_log.sql,sql/scripts/03_silver_etl_logs.sql,sql/scripts/04_gold_etl_logs.sql,sql/scripts/06_roles_grants.sql,sql/scripts/09_analytics_views.sql,sql/scripts/10_stakeholder_views.sql,sql/scripts/11_safety_maintenance_views.sql,sql/scripts/12_driver_truck_monthly.sql,sql/scripts/13_source_etl_logs.sql,sql/scripts/15_audit_sequence_grants.sql

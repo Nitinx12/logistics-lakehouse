@@ -6,14 +6,14 @@ REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
-from confluent_kafka import Consumer  # noqa: E402
-from redis import Redis  # noqa: E402
-from redis.exceptions import RedisError  # noqa: E402
+from confluent_kafka import Consumer
+from redis import Redis
+from redis.exceptions import RedisError
 
-from src.utils.logger import get_logger  # noqa: E402
-from streaming.flink.trip_status_job import consumer_config  # noqa: E402
-from streaming.message import decode  # noqa: E402
-from streaming.topics import env  # noqa: E402
+from src.utils.logger import get_logger
+from streaming.flink.trip_status_job import consumer_config
+from streaming.message import decode
+from streaming.topics import env
 
 logger = get_logger(__name__)
 

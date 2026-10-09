@@ -276,7 +276,7 @@ def _get_batch_definition(datasource: Any, table: str) -> BatchDefinition:
         )
     try:
         return asset.add_batch_definition_whole_table(name=f"{table}_full")
-    except Exception:
+    except Exception:  # noqa: BLE001
         return asset.get_batch_definition(f"{table}_full")
 
 

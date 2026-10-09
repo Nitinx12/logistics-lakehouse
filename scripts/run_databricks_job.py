@@ -10,6 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from rich.console import Console
 from rich.table import Table
+
 from src.jobs.extract.databricks.databricks_to_postgres import main as run_extract
 from src.utils.connection import close_connection, get_postgres_connection
 from src.utils.tracking import track_stage
@@ -21,7 +22,7 @@ JOB_NAME = "databricks_to_postgres"
 def print_summary(job_name: str, elapsed: float, code: int) -> None:
     try:
         connection = get_postgres_connection()
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001
         print(f"summary unavailable: {exc}")
         return
     try:

@@ -76,7 +76,7 @@ def _bronze_cursor() -> object:
 
     try:
         connection = get_postgres_connection()
-    except Exception as exc:
+    except Exception as exc:  # noqa: BLE001
         pytest.skip(f"postgres unreachable: {exc}")
     return connection
 
@@ -117,7 +117,9 @@ def test_build_pipeline_first_chunk_is_open_at_start() -> None:
 def test_build_pipeline_middle_chunk_excludes_upper_bound() -> None:
     start = datetime(2024, 1, 1, tzinfo=UTC)
     end = datetime(2024, 1, 2, tzinfo=UTC)
-    pipeline = build_pipeline("loaded_at", start, end, False, last_chunk=False, kind="string")
+    pipeline = build_pipeline(
+        "loaded_at", start, end, False, last_chunk=False, kind="string"
+    )
     assert '"$gte"' in pipeline
     assert '"$lt"' in pipeline
 
@@ -168,7 +170,9 @@ def test_spark_type_to_postgres_falls_back_to_text() -> None:
 
 
 def test_is_retryable_error_marks_fatal_spark_errors() -> None:
-    assert is_retryable_error(RuntimeError("NoSuchMethodError on resolveAndBind")) is False
+    assert (
+        is_retryable_error(RuntimeError("NoSuchMethodError on resolveAndBind")) is False
+    )
     assert is_retryable_error(RuntimeError("connection reset by peer")) is True
 
 
@@ -198,7 +202,9 @@ def test_bronze_loaded_at_has_no_nulls() -> None:
     try:
         with connection.cursor() as cur:
             for table in BRONZE_TABLES:
-                cur.execute(f'SELECT COUNT(*) FROM bronze."{table}" WHERE loaded_at IS NULL')
+                cur.execute(
+                    f'SELECT COUNT(*) FROM bronze."{table}" WHERE loaded_at IS NULL'
+                )
                 row = cur.fetchone()
                 assert row is not None and row[0] == 0
     finally:
@@ -211,7 +217,9 @@ def test_bronze_business_keys_unique_and_not_null() -> None:
         with connection.cursor() as cur:
             for table in BRONZE_TABLES:
                 key = BUSINESS_KEYS[table]
-                cur.execute(f'SELECT COUNT(*) FROM bronze."{table}" WHERE "{key}" IS NULL')
+                cur.execute(
+                    f'SELECT COUNT(*) FROM bronze."{table}" WHERE "{key}" IS NULL'
+                )
                 nulls = cur.fetchone()
                 cur.execute(
                     f'SELECT COUNT(*) FROM (SELECT "{key}" FROM bronze."{table}" '
