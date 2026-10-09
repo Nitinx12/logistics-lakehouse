@@ -5,9 +5,8 @@ set -euo pipefail
 ZERO_OID="0000000000000000000000000000000000000000"
 
 needs_scan() {
-	local old="$1"
-	local new="$2"
-	[[ "$new" != "$ZERO_OID" ]]
+	local local_sha="$1"
+	[[ "$local_sha" != "$ZERO_OID" ]]
 }
 
 range_has_env_file() {
@@ -19,25 +18,25 @@ range_has_env_file() {
 range_has_secret_pattern() {
 	local old="$1"
 	local new="$2"
-	git diff -U0 "$old" "$new" -- | grep -E '^\+[^+]' | grep -Ei '(password|passwd|secret|api[_-]?key|aws_(secret|session))[A-Za-z0-9_.-]*[ \t]*[:=]' | grep -Evi 'change_me|placeholder|secrets\.|\$|[:=][ \t]*$' || true
+	git diff -U0 "$old" "$new" -- | grep -E '^\+[^+]' | grep -Ei '(password|passwd|secret|api[_-]?key|aws_(secret|session))[A-Za-z0-9_.-]*[ \t]*[:=]' | grep -Evi 'change_me|placeholder|secrets\.|\$|[:=][ \t]*$|=[ \t]*\(|=[ \t]*(0|1|true|false|yes|no)[ \t]*$' || true
 }
 
 check_ref() {
-	local old="$1"
-	local new="$2"
-	local base="$old"
-	if [[ "$old" == "$ZERO_OID" ]]; then
+	local local_sha="$1"
+	local remote_sha="$2"
+	local base="$remote_sha"
+	if [[ "$remote_sha" == "$ZERO_OID" ]]; then
 		base="$(git hash-object -t tree /dev/null)"
 	fi
 	local env_files
-	env_files="$(range_has_env_file "$base" "$new")"
+	env_files="$(range_has_env_file "$base" "$local_sha")"
 	if [[ -n "$env_files" ]]; then
 		echo "pre-push blocked: env file in outgoing commits:" >&2
 		echo "$env_files" >&2
 		return 1
 	fi
 	local hits
-	hits="$(range_has_secret_pattern "$base" "$new")"
+	hits="$(range_has_secret_pattern "$base" "$local_sha")"
 	if [[ -n "$hits" ]]; then
 		echo "pre-push blocked: possible hardcoded secret in outgoing commits:" >&2
 		echo "$hits" >&2
@@ -51,12 +50,12 @@ main() {
 		echo "pre-push blocked: grep not found" >&2
 		return 1
 	}
-	local name="" url="" old="" new=""
+	local name="" url="" local_sha="" remote_sha=""
 	local failed=0
-	while IFS=' ' read -r name url old new; do
+	while IFS=' ' read -r name url local_sha remote_sha; do
 		[[ -n "$name" ]] || continue
-		needs_scan "$old" "$new" || continue
-		check_ref "$old" "$new" || failed=1
+		needs_scan "$local_sha" || continue
+		check_ref "$local_sha" "$remote_sha" || failed=1
 	done
 	if command -v gitleaks >/dev/null 2>&1; then
 		gitleaks protect --verbose --redact || failed=1
