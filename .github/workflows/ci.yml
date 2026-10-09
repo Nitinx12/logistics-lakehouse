@@ -1,4 +1,4 @@
-# Verifies every pull request with the repo's own checks.
+# Verifies every pull request with the repo's own checks (needs CI_POSTGRES_PASSWORD in repo Actions secrets).
 name: ci
 
 on:
@@ -23,7 +23,7 @@ jobs:
         image: postgres:16-alpine
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: ${{ secrets.CI_POSTGRES_PASSWORD }}
           POSTGRES_DB: lakehouse
         ports:
           - 5432:5432
@@ -37,18 +37,18 @@ jobs:
       PGPORT: 5432
       PGDATABASE: lakehouse
       PGUSER: postgres
-      PGPASSWORD: postgres
+      PGPASSWORD: ${{ secrets.CI_POSTGRES_PASSWORD }}
       POSTGRES_HOST: localhost
       POSTGRES_PORT: 5432
       POSTGRES_DB: lakehouse
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: ${{ secrets.CI_POSTGRES_PASSWORD }}
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --frozen
       - name: Apply migrations in version order
-        run: uv run scripts/run_migrate.py
+        run: uv run python scripts/run_migrate.py
       - name: Assert layer schemas exist
         run: |
           test "$(psql -tAc "SELECT COUNT(*) FROM information_schema.schemata WHERE schema_name IN ('bronze', 'silver', 'gold', 'ops', 'dq', 'analytics')")" = 6

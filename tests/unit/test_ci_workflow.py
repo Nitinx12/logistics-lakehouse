@@ -31,3 +31,10 @@ def test_workflow_applies_migrations_on_postgres() -> None:
     assert "scripts/run_migrate.py" in _text()
     assert "ops.schema_migrations" in _text()
     assert "information_schema.schemata" in _text()
+
+
+def test_workflow_reads_passwords_from_secrets() -> None:
+    text = _text()
+    assert "secrets.CI_POSTGRES_PASSWORD" in text
+    assert ("POSTGRES_PASSWORD" + ": postgres") not in text
+    assert ("PGPASSWORD" + ": postgres") not in text
